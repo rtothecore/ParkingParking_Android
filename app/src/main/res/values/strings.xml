@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ParkingParking</string>
+    <string name="rationale_title">Permission required</string>
+    <string name="rationale_message">we need permission for find your <b>location</b></string>
+    <string name="share">공유</string>
+    <string name="report">제보</string>
+    <string name="list">리스트</string>
+</resources>
