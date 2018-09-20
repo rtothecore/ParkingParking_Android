@@ -26,7 +26,8 @@
         app:itemTextColor="@color/bottom_section_color"
         app:menu="@menu/bottom_nav_menu" />
 
-    <RelativeLayout
+    <!-- <RelativeLayout -->
+    <net.daum.mf.map.api.MapView
         android:id="@+id/map_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -30,6 +30,7 @@
         <meta-data android:name="com.kakao.sdk.AppKey" android:value="d3865fb8f2c49ac9625b8de0a67cca64"/>
 
         <activity android:name=".MapActivity"></activity>
+        <activity android:name=".MAP.DaumMapManager"></activity>
     </application>
 
 </manifest>

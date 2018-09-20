@@ -1,6 +1,5 @@
 package kr.co.ezinfotech.parkingparking;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -9,12 +8,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
-import net.daum.mf.map.api.MapView;
-
-import kr.co.ezinfotech.parkingparking.MAP.MapManager;
+import kr.co.ezinfotech.parkingparking.MAP.DaumMapManager;
 
 public class MapActivity extends AppCompatActivity {
 
@@ -43,8 +39,8 @@ public class MapActivity extends AppCompatActivity {
         InitializeBottomNav();
 
         // Daum Map API
-        MapManager mm = new MapManager(this);
-        mm.runMapProcess();
+        DaumMapManager dmm = new DaumMapManager(this);
+        dmm.runMapProcess();
     }
 
     // ToolBar에 menu.xml을 인플레이트함
