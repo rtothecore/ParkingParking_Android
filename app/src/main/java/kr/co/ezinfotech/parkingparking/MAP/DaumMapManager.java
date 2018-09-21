@@ -3,6 +3,8 @@ package kr.co.ezinfotech.parkingparking.MAP;
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import net.daum.mf.map.api.CalloutBalloonAdapter;
@@ -22,6 +24,8 @@ public class DaumMapManager extends Activity {
     private Context ctx = null;
     private MapView mMapView;
     private MapPOIItem mCustomMarker = null;
+    private PZData[] pzData = null;
+    private int selectedPZIndex = 0;
 
     private static final MapPoint DEFAULT_MARKER_POINT = MapPoint.mapPointWithGeoCoord(33.5000217, 126.5456647);
     private static final MapPoint DEFAULT_MARKER_POINT2 = MapPoint.mapPointWithGeoCoord(33.50481997, 126.5343383);
@@ -61,7 +65,11 @@ public class DaumMapManager extends Activity {
 
         @Override
         public void onMapViewSingleTapped(MapView mapView, MapPoint mapPoint) {
-
+            // Toast.makeText(ctx, "onMapViewSingleTapped", Toast.LENGTH_SHORT).show();
+            LinearLayout ll = (LinearLayout) ((Activity)ctx).findViewById(R.id.parkingBottomLL);
+            if(View.VISIBLE == ll.getVisibility()) {
+                ll.setVisibility(View.INVISIBLE);
+            }
         }
 
         @Override
@@ -93,7 +101,23 @@ public class DaumMapManager extends Activity {
     MapView.POIItemEventListener piel = new MapView.POIItemEventListener() {
         @Override
         public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
-            Toast.makeText(ctx, "Clicked " + mapPOIItem.getItemName() + " onPOIItemSelected", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(ctx, "Clicked " + mapPOIItem.getItemName() + " onPOIItemSelected", Toast.LENGTH_SHORT).show();
+            LinearLayout ll = (LinearLayout) ((Activity)ctx).findViewById(R.id.parkingBottomLL);
+
+            // 클릭한 마커를 다시 또 클릭했을 때
+            if(selectedPZIndex == mapPOIItem.getTag()) {
+                if(View.INVISIBLE == ll.getVisibility()) {
+                    ll.setVisibility(View.VISIBLE);
+                } else {
+                    ll.setVisibility(View.INVISIBLE);
+                }
+            } else {
+                TextView tvParkingName = (TextView) ((Activity)ctx).findViewById(R.id.textViewParkingName);
+                tvParkingName.setText(pzData[mapPOIItem.getTag()].name);
+
+                ll.setVisibility(View.VISIBLE);
+                selectedPZIndex = mapPOIItem.getTag();
+            }
         }
 
         @Override
@@ -136,7 +160,7 @@ public class DaumMapManager extends Activity {
     private void createCustomMarker(MapView mapView) {
         // 1. PZDataManager에서 SQLite에 접속하여 모든 주차장정보를 얻음.
         PZDataManager pzdm = new PZDataManager(null);
-        PZData[] pzData = pzdm.getAllPZData();
+        pzData = pzdm.getAllPZData();
 
         // 2. 얻은 주차장 정보를 화면에 뿌림
         for(int i = 0; i < pzData.length; i++) {

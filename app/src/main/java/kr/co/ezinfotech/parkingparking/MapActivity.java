@@ -1,5 +1,6 @@
 package kr.co.ezinfotech.parkingparking;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -61,6 +62,8 @@ public class MapActivity extends AppCompatActivity {
                 return true;
             case R.id.action_search:
                 Toast.makeText(getApplicationContext(), "검색 버튼 클릭됨", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, SearchActivity.class);
+                startActivity(intent);
                 return true;
             case R.id.action_filter:
                 Toast.makeText(getApplicationContext(), "필터 버튼 클릭됨", Toast.LENGTH_LONG).show();

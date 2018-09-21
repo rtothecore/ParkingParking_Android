@@ -27,10 +27,15 @@
         </activity>
 
         <!-- http://apis.map.daum.net/android/guide/ -->
-        <meta-data android:name="com.kakao.sdk.AppKey" android:value="d3865fb8f2c49ac9625b8de0a67cca64"/>
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="d3865fb8f2c49ac9625b8de0a67cca64" />
 
-        <activity android:name=".MapActivity"></activity>
-        <activity android:name=".MAP.DaumMapManager"></activity>
+        <activity android:name=".MapActivity" />
+        <activity android:name=".MAP.DaumMapManager" />
+        <activity android:name=".SearchActivity"
+            android:windowSoftInputMode="stateVisible"> <!--소프트 키보드 보여주기 - https://www.androidpub.com/1104990-->
+        </activity>
     </application>
 
 </manifest>

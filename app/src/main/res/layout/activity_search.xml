@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SearchActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/search_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorWhite"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <!-- https://stackoverflow.com/questions/29980561/add-edittext-to-toolbar -->
+        <!--
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/searchEditText"
+            android:background="#FFFFFF"
+            android:hint="지명, 주소 입력"/>
+        -->
+        <!-- http://gun0912.tistory.com/56 -->
+        <kr.co.ezinfotech.parkingparking.UTIL.ClearEditText
+            android:id="@+id/searchEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:hint="지명, 주소 입력"
+            />
+
+    </android.support.v7.widget.Toolbar>>
+
+</android.support.constraint.ConstraintLayout>
