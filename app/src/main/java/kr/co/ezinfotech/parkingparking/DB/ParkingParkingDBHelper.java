@@ -16,6 +16,7 @@ public class ParkingParkingDBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(ParkingZoneDBCtrct.SQL_CREATE_TBL);
         sqLiteDatabase.execSQL(FavoritesDBCtrct.SQL_CREATE_TBL);
+        sqLiteDatabase.execSQL(SearchHistoryDBCtrct.SQL_CREATE_TBL);
     }
 
     @Override

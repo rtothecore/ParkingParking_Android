@@ -17,6 +17,8 @@ public class MapActivity extends AppCompatActivity {
 
     // 툴바
     Toolbar myToolbar = null;
+    // 다음맵
+    DaumMapManager dmm = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,7 @@ public class MapActivity extends AppCompatActivity {
         InitializeBottomNav();
 
         // Daum Map API
-        DaumMapManager dmm = new DaumMapManager(this);
+        dmm = new DaumMapManager(this);
         dmm.runMapProcess();
     }
 
@@ -62,8 +64,9 @@ public class MapActivity extends AppCompatActivity {
                 return true;
             case R.id.action_search:
                 Toast.makeText(getApplicationContext(), "검색 버튼 클릭됨", Toast.LENGTH_LONG).show();
+                // https://stackoverflow.com/questions/14292398/how-to-pass-data-from-2nd-activity-to-1st-activity-when-pressed-back-android
                 Intent intent = new Intent(this, SearchActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
                 return true;
             case R.id.action_filter:
                 Toast.makeText(getApplicationContext(), "필터 버튼 클릭됨", Toast.LENGTH_LONG).show();
@@ -99,5 +102,17 @@ public class MapActivity extends AppCompatActivity {
                     return true;
                 }
             });
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                String lat = data.getStringExtra("lat");
+                String lng = data.getStringExtra("lng");
+                Toast.makeText(getApplicationContext(), "lat:" + lat + ", lng:" + lng, Toast.LENGTH_LONG).show();
+                dmm.setMapCenter(Double.valueOf(lat), Double.valueOf(lng));
+            }
+        }
     }
 }

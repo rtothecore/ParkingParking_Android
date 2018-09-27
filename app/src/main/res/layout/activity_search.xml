@@ -16,23 +16,34 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
         <!-- https://stackoverflow.com/questions/29980561/add-edittext-to-toolbar -->
-        <!--
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/searchEditText"
-            android:background="#FFFFFF"
-            android:hint="지명, 주소 입력"/>
-        -->
         <!-- http://gun0912.tistory.com/56 -->
+        <!-- http://devmingsa.tistory.com/12 -->
         <kr.co.ezinfotech.parkingparking.UTIL.ClearEditText
             android:id="@+id/searchEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
             android:hint="지명, 주소 입력"
+            android:maxLines="1"
+            android:inputType="text"
+            android:imeOptions="actionSearch"
             />
+    </android.support.v7.widget.Toolbar>
 
-    </android.support.v7.widget.Toolbar>>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="725dp"
+        android:layout_below="@+id/search_toolbar"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/search_toolbar">
+        <ListView
+            android:id="@+id/LV_searched"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:choiceMode="singleChoice"
+            android:divider="#ffcc22"
+            android:dividerHeight="1.5dp" />
+    </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>

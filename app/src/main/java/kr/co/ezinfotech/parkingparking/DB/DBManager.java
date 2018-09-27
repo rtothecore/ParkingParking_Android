@@ -24,11 +24,13 @@ public class DBManager {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.execSQL(ParkingZoneDBCtrct.SQL_DROP_TBL);
         db.execSQL(FavoritesDBCtrct.SQL_DROP_TBL);
+        db.execSQL(SearchHistoryDBCtrct.SQL_DROP_TBL);
     }
 
     public static void deleteTables() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.execSQL(ParkingZoneDBCtrct.SQL_DELETE);
         db.execSQL(FavoritesDBCtrct.SQL_DELETE);
+        db.execSQL(SearchHistoryDBCtrct.SQL_DELETE);
     }
 }

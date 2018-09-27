@@ -150,7 +150,7 @@ public class DaumMapManager extends Activity {
     // http://apis.map.daum.net/android/guide/
     // http://ariarihan.tistory.com/368
     public void runMapProcess() {
-        mMapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
+        // mMapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
 
         mMapView.setCalloutBalloonAdapter(new DaumMapManager.CustomCalloutBalloonAdapter());
         createCustomMarker(mMapView);
@@ -207,5 +207,11 @@ public class DaumMapManager extends Activity {
         float maxZoomLevel = 10;
         MapPointBounds bounds = new MapPointBounds(DEFAULT_MARKER_POINT, DEFAULT_MARKER_POINT2);
         mMapView.moveCamera(CameraUpdateFactory.newMapPointBounds(bounds, padding, minZoomLevel, maxZoomLevel));
+    }
+
+    // 중심점 변경 - http://apis.map.daum.net/android/guide/
+    public void setMapCenter(double lat, double lng) {
+        // mMapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(lat, lng), true);
+        mMapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(lat,lng), 1, true);
     }
 }
