@@ -2,6 +2,7 @@ package kr.co.ezinfotech.parkingparking.MAP;
 
 import android.app.Activity;
 import android.content.Context;
+import android.location.Location;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,6 +15,8 @@ import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapPointBounds;
 import net.daum.mf.map.api.MapView;
 
+import java.util.ArrayList;
+
 import kr.co.ezinfotech.parkingparking.DATA.PZData;
 import kr.co.ezinfotech.parkingparking.DATA.PZDataManager;
 import kr.co.ezinfotech.parkingparking.R;
@@ -24,8 +27,9 @@ public class DaumMapManager extends Activity {
     private Context ctx = null;
     private MapView mMapView;
     private MapPOIItem mCustomMarker = null;
-    private PZData[] pzData = null;
+    public ArrayList<PZData> pzData = new ArrayList<>();
     private int selectedPZIndex = 0;
+    public Location centerPoint = new Location("centerPoint");
 
     private static final MapPoint DEFAULT_MARKER_POINT = MapPoint.mapPointWithGeoCoord(33.5000217, 126.5456647);
     private static final MapPoint DEFAULT_MARKER_POINT2 = MapPoint.mapPointWithGeoCoord(33.50481997, 126.5343383);
@@ -51,11 +55,15 @@ public class DaumMapManager extends Activity {
         @Override
         public void onMapViewInitialized(MapView mapView) {
             Toast.makeText(ctx, "onMapViewInitialized", Toast.LENGTH_SHORT).show();
+            centerPoint.setLatitude(mapView.getMapCenterPoint().getMapPointGeoCoord().latitude);
+            centerPoint.setLongitude(mapView.getMapCenterPoint().getMapPointGeoCoord().longitude);
         }
 
         @Override
         public void onMapViewCenterPointMoved(MapView mapView, MapPoint mapPoint) {
-
+            // Toast.makeText(ctx, "onMapViewCenterPointMoved(" + mapView.getMapCenterPoint().getMapPointGeoCoord().latitude + "," + mapView.getMapCenterPoint().getMapPointGeoCoord().longitude + ")", Toast.LENGTH_SHORT).show();
+            centerPoint.setLatitude(mapView.getMapCenterPoint().getMapPointGeoCoord().latitude);
+            centerPoint.setLongitude(mapView.getMapCenterPoint().getMapPointGeoCoord().longitude);
         }
 
         @Override
@@ -113,7 +121,7 @@ public class DaumMapManager extends Activity {
                 }
             } else {
                 TextView tvParkingName = (TextView) ((Activity)ctx).findViewById(R.id.textViewParkingName);
-                tvParkingName.setText(pzData[mapPOIItem.getTag()].name);
+                tvParkingName.setText(pzData.get(mapPOIItem.getTag()).name);
 
                 ll.setVisibility(View.VISIBLE);
                 selectedPZIndex = mapPOIItem.getTag();
@@ -157,20 +165,28 @@ public class DaumMapManager extends Activity {
         showAll();
     }
 
+    public void runMapProcessWithParam(int division, int type, int op, int fee) {
+        mMapView.removeAllPOIItems();   // 맵 초기화
+
+        mMapView.setCalloutBalloonAdapter(new DaumMapManager.CustomCalloutBalloonAdapter());
+        createCustomMarkerWithParam(mMapView, division, type, op, fee);
+        showAll();
+    }
+
     private void createCustomMarker(MapView mapView) {
         // 1. PZDataManager에서 SQLite에 접속하여 모든 주차장정보를 얻음.
         PZDataManager pzdm = new PZDataManager(null);
         pzData = pzdm.getAllPZData();
 
         // 2. 얻은 주차장 정보를 화면에 뿌림
-        for(int i = 0; i < pzData.length; i++) {
+        for(int i = 0; i < pzData.size(); i++) {
             mCustomMarker = new MapPOIItem();
-            mCustomMarker.setItemName(pzData[i].name);
+            mCustomMarker.setItemName(pzData.get(i).name);
             mCustomMarker.setTag(i);
-            mCustomMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(pzData[i].loc.getLatitude(), pzData[i].loc.getLongitude()));
+            mCustomMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(pzData.get(i).loc.getLatitude(), pzData.get(i).loc.getLongitude()));
             mCustomMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
 
-            switch(pzData[i].park_base.fee) {
+            switch(pzData.get(i).park_base.fee) {
                 case "0" :
                     mCustomMarker.setCustomImageResourceId(R.drawable.mk_00);
                     break;
@@ -199,6 +215,49 @@ public class DaumMapManager extends Activity {
 
         mapView.selectPOIItem(mCustomMarker, true);
         // mapView.setMapCenterPoint(DEFAULT_MARKER_POINT, false);
+    }
+
+    private void createCustomMarkerWithParam(MapView mapView, int division, int type, int op, int fee) {
+        // 1. PZDataManager에서 SQLite에 접속하여 모든 주차장정보를 얻음.
+        PZDataManager pzdm = new PZDataManager(null);
+        pzData = pzdm.getPZDataWithParam(division, type, op, fee);
+
+        // 2. 얻은 주차장 정보를 화면에 뿌림
+        for(int i = 0; i < pzData.size(); i++) {
+            mCustomMarker = new MapPOIItem();
+            mCustomMarker.setItemName(pzData.get(i).name);
+            mCustomMarker.setTag(i);
+            mCustomMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(pzData.get(i).loc.getLatitude(), pzData.get(i).loc.getLongitude()));
+            mCustomMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
+
+            switch(pzData.get(i).park_base.fee) {
+                case "0" :
+                    mCustomMarker.setCustomImageResourceId(R.drawable.mk_00);
+                    break;
+                case "500" :
+                    mCustomMarker.setCustomImageResourceId(R.drawable.mk_05);
+                    break;
+                case "1000" :
+                    mCustomMarker.setCustomImageResourceId(R.drawable.mk_10);
+                    break;
+                case "1500" :
+                    mCustomMarker.setCustomImageResourceId(R.drawable.mk_15);
+                    break;
+                case "2000" :
+                    mCustomMarker.setCustomImageResourceId(R.drawable.mk_20);
+                    break;
+                default :
+                    break;
+            }
+
+            mCustomMarker.setCustomImageAutoscale(false);
+            mCustomMarker.setCustomImageAnchor(0.5f, 1.0f);
+            mCustomMarker.setShowCalloutBalloonOnTouch(false);
+
+            mapView.addPOIItem(mCustomMarker);
+        }
+
+        mapView.selectPOIItem(mCustomMarker, true);
     }
 
     private void showAll() {

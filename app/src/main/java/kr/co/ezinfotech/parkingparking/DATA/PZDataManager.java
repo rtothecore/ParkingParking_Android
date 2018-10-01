@@ -36,7 +36,7 @@ public class PZDataManager extends Activity {
     Handler mHandler = null;
 
     JSONArray result = null;
-    List<PZData> pzData = new ArrayList<>();
+    ArrayList<PZData> pzData = new ArrayList<>();
 
     public PZDataManager(Handler handlerVal) {
         mHandler = handlerVal;
@@ -328,58 +328,166 @@ public class PZDataManager extends Activity {
         Log.i("insertPZTableWithPzData", sqlInsert);
     }
 
-    public PZData[] getAllPZData() {
+    public ArrayList<PZData> getAllPZData() {
         SQLiteDatabase db = DBManager.dbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery(ParkingZoneDBCtrct.SQL_SELECT, null);
-
-        PZData[] tempPZData = new PZData[cursor.getCount()];
+        ArrayList<PZData> tempPZDatas = new ArrayList<>();
 
         if(cursor.moveToFirst()) {
             for(int i = 0; i < cursor.getCount(); i++) {
                 //Log.i("selectLatLng", "LAT:" + cursor.getString(0) + " LNG:" + cursor.getString(1) );
-                tempPZData[i] = new PZData();
-                tempPZData[i].no = cursor.getString(0);
-                tempPZData[i].name = cursor.getString(1);
-                tempPZData[i].division = cursor.getString(2);
-                tempPZData[i].type = cursor.getString(3);
-                tempPZData[i].addr_road = cursor.getString(4);
-                tempPZData[i].addr_jibun = cursor.getString(5);
-                tempPZData[i].total_p = cursor.getString(6);
-                tempPZData[i].feed = cursor.getString(7);
-                tempPZData[i].buje = cursor.getString(8);
-                tempPZData[i].op_date = cursor.getString(9);
-                tempPZData[i].w_op = new PZTermData();
-                tempPZData[i].w_op.start_date = cursor.getString(10);
-                tempPZData[i].w_op.end_date = cursor.getString(11);
-                tempPZData[i].s_op = new PZTermData();
-                tempPZData[i].s_op.start_date = cursor.getString(12);
-                tempPZData[i].s_op.end_date = cursor.getString(13);
-                tempPZData[i].h_op = new PZTermData();
-                tempPZData[i].h_op.start_date = cursor.getString(14);
-                tempPZData[i].h_op.end_date = cursor.getString(15);
-                tempPZData[i].fee_info = cursor.getString(16);
-                tempPZData[i].park_base = new PZTFData();
-                tempPZData[i].park_base.time = cursor.getString(17);
-                tempPZData[i].park_base.fee = cursor.getString(18);
-                tempPZData[i].add_term = new PZTFData();
-                tempPZData[i].add_term.time = cursor.getString(19);
-                tempPZData[i].add_term.fee = cursor.getString(20);
-                tempPZData[i].one_day_park = new PZTFData();
-                tempPZData[i].one_day_park.time = cursor.getString(21);
-                tempPZData[i].one_day_park.fee = cursor.getString(22);
-                tempPZData[i].month_fee = cursor.getString(23);
-                tempPZData[i].payment = cursor.getString(24);
-                tempPZData[i].remarks = cursor.getString(25);
-                tempPZData[i].manager = cursor.getString(26);
-                tempPZData[i].tel = cursor.getString(27);
-                tempPZData[i].loc = new Location("");
-                tempPZData[i].loc.setLatitude(Double.parseDouble(cursor.getString(28)));
-                tempPZData[i].loc.setLongitude(Double.parseDouble(cursor.getString(29)));
-                tempPZData[i].data_date = cursor.getString(30);
+                PZData tempPZData = new PZData();
+                tempPZData.no = cursor.getString(0);
+                tempPZData.name = cursor.getString(1);
+                tempPZData.division = cursor.getString(2);
+                tempPZData.type = cursor.getString(3);
+                tempPZData.addr_road = cursor.getString(4);
+                tempPZData.addr_jibun = cursor.getString(5);
+                tempPZData.total_p = cursor.getString(6);
+                tempPZData.feed = cursor.getString(7);
+                tempPZData.buje = cursor.getString(8);
+                tempPZData.op_date = cursor.getString(9);
+                tempPZData.w_op = new PZTermData();
+                tempPZData.w_op.start_date = cursor.getString(10);
+                tempPZData.w_op.end_date = cursor.getString(11);
+                tempPZData.s_op = new PZTermData();
+                tempPZData.s_op.start_date = cursor.getString(12);
+                tempPZData.s_op.end_date = cursor.getString(13);
+                tempPZData.h_op = new PZTermData();
+                tempPZData.h_op.start_date = cursor.getString(14);
+                tempPZData.h_op.end_date = cursor.getString(15);
+                tempPZData.fee_info = cursor.getString(16);
+                tempPZData.park_base = new PZTFData();
+                tempPZData.park_base.time = cursor.getString(17);
+                tempPZData.park_base.fee = cursor.getString(18);
+                tempPZData.add_term = new PZTFData();
+                tempPZData.add_term.time = cursor.getString(19);
+                tempPZData.add_term.fee = cursor.getString(20);
+                tempPZData.one_day_park = new PZTFData();
+                tempPZData.one_day_park.time = cursor.getString(21);
+                tempPZData.one_day_park.fee = cursor.getString(22);
+                tempPZData.month_fee = cursor.getString(23);
+                tempPZData.payment = cursor.getString(24);
+                tempPZData.remarks = cursor.getString(25);
+                tempPZData.manager = cursor.getString(26);
+                tempPZData.tel = cursor.getString(27);
+                tempPZData.loc = new Location("");
+                tempPZData.loc.setLatitude(Double.parseDouble(cursor.getString(28)));
+                tempPZData.loc.setLongitude(Double.parseDouble(cursor.getString(29)));
+                tempPZData.data_date = cursor.getString(30);
+                tempPZDatas.add(tempPZData);
                 cursor.moveToNext();
             }
         }
 
-        return tempPZData;
+        return tempPZDatas;
+    }
+
+    public ArrayList<PZData> getPZDataWithParam(int division, int type, int op, int fee) {
+        SQLiteDatabase db = DBManager.dbHelper.getReadableDatabase();
+
+        String query = ParkingZoneDBCtrct.SQL_SELECT;
+        if((0 != division) || (0 != type) || (0 != op) || (0 != fee)) {
+            query += " WHERE ";
+        }
+        if(0 != division) {
+            if(1 == division) {
+                query += ParkingZoneDBCtrct.COL_DIVISION + "='공영'";
+            } else if(2 == division) {
+                query += ParkingZoneDBCtrct.COL_DIVISION + "='민영'";
+            }
+        } else {
+            query += "1";
+        }
+
+        query += " AND ";
+        if(0 != type) {
+            if(1 == type) {
+                query += ParkingZoneDBCtrct.COL_TYPE + "='노상'";
+            } else if(2 == type) {
+                query += ParkingZoneDBCtrct.COL_TYPE + "='노외'";
+            }
+        } else {
+            query += "1";
+        }
+
+        query += " AND ";
+        if(0 != op) {
+            if(1 == op) {
+                query += ParkingZoneDBCtrct.COL_OP_DATE + "='평일'";
+            } else if(2 == op) {
+                query += ParkingZoneDBCtrct.COL_OP_DATE + "='평일+토요일'";
+            } else if(3 == op) {
+                query += ParkingZoneDBCtrct.COL_OP_DATE + "='평일+토요일+공휴일'";
+            } else if(4 == op) {
+                query += ParkingZoneDBCtrct.COL_OP_DATE + "='공휴일'";
+            }
+        } else {
+            query += "1";
+        }
+
+        query += " AND ";
+        if(0 != fee) {
+            if(1 == fee) {
+                query += ParkingZoneDBCtrct.COL_FEE_INFO + "='유료'";
+            } else if(2 == fee) {
+                query += ParkingZoneDBCtrct.COL_FEE_INFO + "='무료'";
+            }
+        } else {
+            query += "1";
+        }
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        ArrayList<PZData> tempPZDatas = new ArrayList<>();
+
+        if(cursor.moveToFirst()) {
+            for(int i = 0; i < cursor.getCount(); i++) {
+                //Log.i("selectLatLng", "LAT:" + cursor.getString(0) + " LNG:" + cursor.getString(1) );
+                PZData tempPZData = new PZData();
+                tempPZData.no = cursor.getString(0);
+                tempPZData.name = cursor.getString(1);
+                tempPZData.division = cursor.getString(2);
+                tempPZData.type = cursor.getString(3);
+                tempPZData.addr_road = cursor.getString(4);
+                tempPZData.addr_jibun = cursor.getString(5);
+                tempPZData.total_p = cursor.getString(6);
+                tempPZData.feed = cursor.getString(7);
+                tempPZData.buje = cursor.getString(8);
+                tempPZData.op_date = cursor.getString(9);
+                tempPZData.w_op = new PZTermData();
+                tempPZData.w_op.start_date = cursor.getString(10);
+                tempPZData.w_op.end_date = cursor.getString(11);
+                tempPZData.s_op = new PZTermData();
+                tempPZData.s_op.start_date = cursor.getString(12);
+                tempPZData.s_op.end_date = cursor.getString(13);
+                tempPZData.h_op = new PZTermData();
+                tempPZData.h_op.start_date = cursor.getString(14);
+                tempPZData.h_op.end_date = cursor.getString(15);
+                tempPZData.fee_info = cursor.getString(16);
+                tempPZData.park_base = new PZTFData();
+                tempPZData.park_base.time = cursor.getString(17);
+                tempPZData.park_base.fee = cursor.getString(18);
+                tempPZData.add_term = new PZTFData();
+                tempPZData.add_term.time = cursor.getString(19);
+                tempPZData.add_term.fee = cursor.getString(20);
+                tempPZData.one_day_park = new PZTFData();
+                tempPZData.one_day_park.time = cursor.getString(21);
+                tempPZData.one_day_park.fee = cursor.getString(22);
+                tempPZData.month_fee = cursor.getString(23);
+                tempPZData.payment = cursor.getString(24);
+                tempPZData.remarks = cursor.getString(25);
+                tempPZData.manager = cursor.getString(26);
+                tempPZData.tel = cursor.getString(27);
+                tempPZData.loc = new Location("");
+                tempPZData.loc.setLatitude(Double.parseDouble(cursor.getString(28)));
+                tempPZData.loc.setLongitude(Double.parseDouble(cursor.getString(29)));
+                tempPZData.data_date = cursor.getString(30);
+                tempPZDatas.add(tempPZData);
+                cursor.moveToNext();
+            }
+        }
+
+        return tempPZDatas;
     }
 }

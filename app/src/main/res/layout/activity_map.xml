@@ -46,6 +46,127 @@
             android:layout_height="match_parent" />
 
         <LinearLayout
+            android:id="@+id/parkingTopLL"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="top|left"
+            android:background="@drawable/border"
+            android:orientation="vertical"
+            android:divider="@drawable/divider"
+            android:showDividers="middle"
+            android:visibility="invisible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                    <RadioButton
+                        android:id="@+id/RB_publicService"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="공영" />
+
+                    <RadioButton
+                        android:id="@+id/RB_private"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="민영" />
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                    <RadioButton
+                        android:id="@+id/RB_onRoad"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="노상" />
+
+                    <RadioButton
+                        android:id="@+id/RB_outside"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="노외" />
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                    <RadioButton
+                        android:id="@+id/RB_weekday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="평일" />
+
+                    <RadioButton
+                        android:id="@+id/RB_weekdayNSaturday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="평일+토요일" />
+
+                    <RadioButton
+                        android:id="@+id/RB_weekdayNSaturDayNHoliday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="평일+토요일+공휴일" />
+
+                    <RadioButton
+                        android:id="@+id/RB_holiday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="공휴일" />
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                    <RadioButton
+                        android:id="@+id/RB_freeFee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="무료" />
+
+                    <RadioButton
+                        android:id="@+id/RB_payFee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="유료" />
+                </RadioGroup>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/parkingBottomLL"
             android:layout_width="match_parent"
             android:layout_height="200dp"
