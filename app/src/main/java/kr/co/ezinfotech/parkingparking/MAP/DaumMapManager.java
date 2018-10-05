@@ -2,6 +2,7 @@ package kr.co.ezinfotech.parkingparking.MAP;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -19,9 +20,9 @@ import java.util.ArrayList;
 
 import kr.co.ezinfotech.parkingparking.DATA.PZData;
 import kr.co.ezinfotech.parkingparking.DATA.PZDataManager;
+import kr.co.ezinfotech.parkingparking.DetailActivity;
 import kr.co.ezinfotech.parkingparking.R;
 
-// public class MapManager extends Activity implements MapView.MapViewEventListener, MapView.POIItemEventListener {
 public class DaumMapManager extends Activity {
 
     private Context ctx = null;
@@ -108,7 +109,7 @@ public class DaumMapManager extends Activity {
 
     MapView.POIItemEventListener piel = new MapView.POIItemEventListener() {
         @Override
-        public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
+        public void onPOIItemSelected(MapView mapView, final MapPOIItem mapPOIItem) {
             // Toast.makeText(ctx, "Clicked " + mapPOIItem.getItemName() + " onPOIItemSelected", Toast.LENGTH_SHORT).show();
             LinearLayout ll = (LinearLayout) ((Activity)ctx).findViewById(R.id.parkingBottomLL);
 
@@ -126,6 +127,34 @@ public class DaumMapManager extends Activity {
                 ll.setVisibility(View.VISIBLE);
                 selectedPZIndex = mapPOIItem.getTag();
             }
+
+            // 주차장 선택하여 나타난 하단정보의 주차장명을 터치하면 발생하는 이벤트 - https://stackoverflow.com/questions/15596507/how-to-set-onclick-method-with-linearlayout
+            LinearLayout parkingNameLL = (LinearLayout) ((Activity)ctx).findViewById(R.id.parkingNameLL);
+            parkingNameLL.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(ctx, "OnClickListener-" + pzData.get(mapPOIItem.getTag()).addr_road, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(ctx, DetailActivity.class);
+                    intent.putExtra("name", pzData.get(mapPOIItem.getTag()).name);
+                    intent.putExtra("addr_road", pzData.get(mapPOIItem.getTag()).addr_road);
+                    intent.putExtra("tel", pzData.get(mapPOIItem.getTag()).tel);
+                    intent.putExtra("myLat", centerPoint.getLatitude());
+                    intent.putExtra("myLng", centerPoint.getLongitude());
+                    intent.putExtra("lat", pzData.get(mapPOIItem.getTag()).loc.getLatitude());
+                    intent.putExtra("lng", pzData.get(mapPOIItem.getTag()).loc.getLongitude());
+                    intent.putExtra("park_base_time", pzData.get(mapPOIItem.getTag()).park_base.time);
+                    intent.putExtra("park_base_fee", pzData.get(mapPOIItem.getTag()).park_base.fee);
+                    intent.putExtra("add_term_time", pzData.get(mapPOIItem.getTag()).add_term.time);
+                    intent.putExtra("add_term_fee", pzData.get(mapPOIItem.getTag()).add_term.fee);
+                    intent.putExtra("w_op_start_time", pzData.get(mapPOIItem.getTag()).w_op.start_date);
+                    intent.putExtra("w_op_end_time", pzData.get(mapPOIItem.getTag()).w_op.end_date);
+                    intent.putExtra("s_op_start_time", pzData.get(mapPOIItem.getTag()).s_op.start_date);
+                    intent.putExtra("s_op_end_time", pzData.get(mapPOIItem.getTag()).s_op.end_date);
+                    intent.putExtra("h_op_start_time", pzData.get(mapPOIItem.getTag()).h_op.start_date);
+                    intent.putExtra("h_op_end_time", pzData.get(mapPOIItem.getTag()).h_op.end_date);
+                    ctx.startActivity(intent);
+                }
+            });
         }
 
         @Override

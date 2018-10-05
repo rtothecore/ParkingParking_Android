@@ -115,6 +115,7 @@ public class ListActivity extends AppCompatActivity {
             oItem.strAddress = pzData.get(i).addr_road;
             oItem.strTel = pzData.get(i).tel;
 
+            // https://developer88.tistory.com/70
             float distance = centerPoint.distanceTo(pzData.get(i).loc);
             Log.d("CENTERPOINT", "중심점 LAT:" + centerPoint.getLatitude());
             Log.d("CENTERPOINT", "중심점 LNG:" + centerPoint.getLongitude());
