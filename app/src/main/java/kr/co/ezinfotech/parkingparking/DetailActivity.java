@@ -1,37 +1,21 @@
 package kr.co.ezinfotech.parkingparking;
 
-import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Vector;
 
 import kr.co.ezinfotech.parkingparking.DATA.PZData;
 import kr.co.ezinfotech.parkingparking.DATA.PZTFData;
 import kr.co.ezinfotech.parkingparking.DATA.PZTermData;
-import kr.co.ezinfotech.parkingparking.DETAIL_TAB.DetailBasicAdapter;
-import kr.co.ezinfotech.parkingparking.DETAIL_TAB.DetailBasicData;
 import kr.co.ezinfotech.parkingparking.DETAIL_TAB.DetailCustomPagerAdapter;
-import kr.co.ezinfotech.parkingparking.DETAIL_TAB.DetailTabPagerAdapter;
-import kr.co.ezinfotech.parkingparking.LIST_TAB.DistanceOrderListAdapter;
-import kr.co.ezinfotech.parkingparking.LIST_TAB.ListItemData;
-import kr.co.ezinfotech.parkingparking.LIST_TAB.ListTabPagerAdapter;
 
 public class DetailActivity extends AppCompatActivity {
 

@@ -29,7 +29,8 @@
         <!-- http://apis.map.daum.net/android/guide/ -->
         <meta-data
             android:name="com.kakao.sdk.AppKey"
-            android:value="d3865fb8f2c49ac9625b8de0a67cca64" />
+            android:value="@string/kakao_app_key" />
+            <!-- android:value="d3865fb8f2c49ac9625b8de0a67cca64" /> -->
 
         <activity android:name=".MapActivity" />
         <activity android:name=".MAP.DaumMapManager" />
@@ -38,7 +39,17 @@
             android:windowSoftInputMode="stateVisible"> <!-- 소프트 키보드 보여주기 - https://www.androidpub.com/1104990 -->
         </activity>
         <activity android:name=".ListActivity" />
-        <activity android:name=".DetailActivity"></activity>
+        <activity android:name=".DetailActivity" />
+        <activity android:name=".POPUP.DetailTransferActivity" android:theme="@android:style/Theme.Dialog">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="@string/kakao_scheme"
+                    android:host="@string/kakaolink_host" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

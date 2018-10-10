@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".DetailActivity">
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/detail_toolbar"
@@ -17,23 +17,55 @@
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout
+        android:id="@+id/detail_bottomLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+
+        android:background="@drawable/border"
+        android:divider="@drawable/divider"
+        android:showDividers="middle"
+        >
+
+        <Button
+            android:id="@+id/buttonDetailReservation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="예약" />
+
+        <Button
+            android:id="@+id/buttonDetailPredict"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="예측" />
+
+        <Button
+            android:id="@+id/buttonDetailFavorites"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="즐겨찾기" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/detail_tabLayout"
         android:layout_width="match_parent"
         android:layout_height="725dp"
         android:layout_below="@+id/detail_toolbar"
+        android:layout_above="@+id/detail_bottomLL"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/detail_toolbar">
 
         <android.support.design.widget.TabLayout
             android:id="@+id/detail_tab"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </android.support.design.widget.TabLayout>
+            android:layout_height="wrap_content"></android.support.design.widget.TabLayout>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/detail_viewpager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
+            android:layout_height="match_parent" />
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

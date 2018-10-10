@@ -1,13 +1,17 @@
 package kr.co.ezinfotech.parkingparking.DETAIL_TAB;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import kr.co.ezinfotech.parkingparking.DATA.PZData;
+import kr.co.ezinfotech.parkingparking.POPUP.DetailTransferActivity;
 import kr.co.ezinfotech.parkingparking.R;
 
 public class DetailCustomPagerAdapter extends PagerAdapter {
@@ -31,6 +35,19 @@ public class DetailCustomPagerAdapter extends PagerAdapter {
             collection.addView(layout);
             ((TextView)layout.findViewById(R.id.textViewParkingAddr)).setText(pzData.addr_road);
             ((TextView)layout.findViewById(R.id.textViewParkingTel)).setText(pzData.tel);
+
+            // Set click event
+            LinearLayout transferLL = (LinearLayout) layout.findViewById(R.id.transferLL);
+            transferLL.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Toast.makeText(mContext, "transferLL-OnClickListener:" + pzData.name + ", " + pzData.addr_road, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(mContext, DetailTransferActivity.class);
+                    intent.putExtra("name", pzData.name);
+                    intent.putExtra("addr", pzData.addr_road);
+                    mContext.startActivity(intent);
+                }
+            });
         } else if(1 == position) {
             FeeModelObject feeModelObject = FeeModelObject.values()[0];
             LayoutInflater inflater = LayoutInflater.from(mContext);
