@@ -22,6 +22,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 import kr.co.ezinfotech.parkingparking.DB.DBManager;
+import kr.co.ezinfotech.parkingparking.NAVI.TmapManager;
 import kr.co.ezinfotech.parkingparking.UTIL.UtilManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -85,6 +86,10 @@ public class MainActivity extends AppCompatActivity {
         SplashPageProcessor spp = new SplashPageProcessor();
         spp.setHandler(mHandler);
         spp.runProcess();
+
+        // Authentificate Tmap api key
+        TmapManager.setContext(this);
+        TmapManager.authentifacateKey();
     }
 
     // http://superwony.tistory.com/12

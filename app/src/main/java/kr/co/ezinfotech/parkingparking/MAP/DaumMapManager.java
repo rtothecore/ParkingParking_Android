@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.net.Uri;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +24,7 @@ import java.util.ArrayList;
 import kr.co.ezinfotech.parkingparking.DATA.PZData;
 import kr.co.ezinfotech.parkingparking.DATA.PZDataManager;
 import kr.co.ezinfotech.parkingparking.DetailActivity;
+import kr.co.ezinfotech.parkingparking.NAVI.TmapManager;
 import kr.co.ezinfotech.parkingparking.R;
 
 public class DaumMapManager extends Activity {
@@ -65,6 +69,11 @@ public class DaumMapManager extends Activity {
             // Toast.makeText(ctx, "onMapViewCenterPointMoved(" + mapView.getMapCenterPoint().getMapPointGeoCoord().latitude + "," + mapView.getMapCenterPoint().getMapPointGeoCoord().longitude + ")", Toast.LENGTH_SHORT).show();
             centerPoint.setLatitude(mapView.getMapCenterPoint().getMapPointGeoCoord().latitude);
             centerPoint.setLongitude(mapView.getMapCenterPoint().getMapPointGeoCoord().longitude);
+
+            LinearLayout ll = (LinearLayout) ((Activity)ctx).findViewById(R.id.parkingBottomLL);
+            if(View.VISIBLE == ll.getVisibility()) {
+                ll.setVisibility(View.INVISIBLE);
+            }
         }
 
         @Override
@@ -121,11 +130,55 @@ public class DaumMapManager extends Activity {
                     ll.setVisibility(View.INVISIBLE);
                 }
             } else {
-                TextView tvParkingName = (TextView) ((Activity)ctx).findViewById(R.id.textViewParkingName);
+                TextView tvParkingName = (TextView)((Activity)ctx).findViewById(R.id.textViewParkingName);
                 tvParkingName.setText(pzData.get(mapPOIItem.getTag()).name);
+
+                TextView tvParkingFeeContent = (TextView)((Activity)ctx).findViewById(R.id.textViewParkingFeeContent);
+                tvParkingFeeContent.setText(pzData.get(mapPOIItem.getTag()).add_term.fee + "원/" + pzData.get(mapPOIItem.getTag()).add_term.time + "분");
+
+                TextView tvOpTimeContent = (TextView)((Activity)ctx).findViewById(R.id.textViewParkingOpTimeContent);
+                tvOpTimeContent.setText(pzData.get(mapPOIItem.getTag()).w_op.start_date + " ~ " + pzData.get(mapPOIItem.getTag()).w_op.end_date);
 
                 ll.setVisibility(View.VISIBLE);
                 selectedPZIndex = mapPOIItem.getTag();
+
+                // 전화, 내비, 예약, 예측 버튼 클릭 리스너 - http://jizard.tistory.com/9
+                ((Activity)ctx).findViewById(R.id.buttonTel).setOnClickListener(
+                    new Button.OnClickListener() {
+                        public void onClick(View v) {
+                            if(!(pzData.get(mapPOIItem.getTag()).tel).equals("null")) {
+                                String tel = "tel:" + pzData.get(mapPOIItem.getTag()).tel;
+                                ctx.startActivity(new Intent("android.intent.action.DIAL", Uri.parse(tel)));
+                            } else {
+                                Toast.makeText(ctx, "등록된 전화번호가 없습니다", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                );
+
+                ((Activity)ctx).findViewById(R.id.buttonNavi).setOnClickListener(
+                    new Button.OnClickListener() {
+                        public void onClick(View v) {
+                            TmapManager.showRoute(pzData.get(mapPOIItem.getTag()).name, (float)pzData.get(mapPOIItem.getTag()).loc.getLatitude(), (float)pzData.get(mapPOIItem.getTag()).loc.getLongitude());
+                        }
+                    }
+                );
+
+                ((Activity)ctx).findViewById(R.id.buttonReservation).setOnClickListener(
+                    new Button.OnClickListener() {
+                        public void onClick(View v) {
+                            Toast.makeText(ctx, "mBtnReservationClickListener", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                );
+
+                ((Activity)ctx).findViewById(R.id.buttonPredict).setOnClickListener(
+                    new Button.OnClickListener() {
+                        public void onClick(View v) {
+                            Toast.makeText(ctx, "mBtnPredictClickListener", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                );
             }
 
             // 주차장 선택하여 나타난 하단정보의 주차장명을 터치하면 발생하는 이벤트 - https://stackoverflow.com/questions/15596507/how-to-set-onclick-method-with-linearlayout
@@ -215,9 +268,15 @@ public class DaumMapManager extends Activity {
             mCustomMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(pzData.get(i).loc.getLatitude(), pzData.get(i).loc.getLongitude()));
             mCustomMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
 
-            switch(pzData.get(i).park_base.fee) {
+            switch(pzData.get(i).add_term.fee) {
                 case "0" :
                     mCustomMarker.setCustomImageResourceId(R.drawable.mk_00);
+                    break;
+                case "250" :
+                    mCustomMarker.setCustomImageResourceId(R.drawable.mk_025);
+                    break;
+                case "300" :
+                    mCustomMarker.setCustomImageResourceId(R.drawable.mk_03);
                     break;
                 case "500" :
                     mCustomMarker.setCustomImageResourceId(R.drawable.mk_05);
@@ -259,9 +318,15 @@ public class DaumMapManager extends Activity {
             mCustomMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(pzData.get(i).loc.getLatitude(), pzData.get(i).loc.getLongitude()));
             mCustomMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
 
-            switch(pzData.get(i).park_base.fee) {
+            switch(pzData.get(i).add_term.fee) {
                 case "0" :
                     mCustomMarker.setCustomImageResourceId(R.drawable.mk_00);
+                    break;
+                case "250" :
+                    mCustomMarker.setCustomImageResourceId(R.drawable.mk_025);
+                    break;
+                case "300" :
+                    mCustomMarker.setCustomImageResourceId(R.drawable.mk_03);
                     break;
                 case "500" :
                     mCustomMarker.setCustomImageResourceId(R.drawable.mk_05);

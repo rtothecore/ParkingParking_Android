@@ -24,6 +24,7 @@ import java.util.List;
 
 import kr.co.ezinfotech.parkingparking.DB.DBManager;
 import kr.co.ezinfotech.parkingparking.DB.ParkingZoneDBCtrct;
+import kr.co.ezinfotech.parkingparking.NAVI.TmapManager;
 import kr.co.ezinfotech.parkingparking.UTIL.UtilManager;
 
 /**
@@ -387,9 +388,13 @@ public class PZDataManager extends Activity {
         SQLiteDatabase db = DBManager.dbHelper.getReadableDatabase();
 
         String query = ParkingZoneDBCtrct.SQL_SELECT;
+        /*
         if((0 != division) || (0 != type) || (0 != op) || (0 != fee)) {
             query += " WHERE ";
         }
+        */
+        query += " WHERE ";
+
         if(0 != division) {
             if(1 == division) {
                 query += ParkingZoneDBCtrct.COL_DIVISION + "='공영'";

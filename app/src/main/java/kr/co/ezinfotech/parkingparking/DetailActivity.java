@@ -105,4 +105,16 @@ public class DetailActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    public void btnDetailReserv(View v) {
+        Toast.makeText(getApplicationContext(), "예약 터치됨", Toast.LENGTH_SHORT).show();
+    }
+
+    public void btnDetailPredict(View v) {
+        Toast.makeText(getApplicationContext(), "예측 터치됨", Toast.LENGTH_SHORT).show();
+    }
+
+    public void btnDetailFavorites(View v) {
+        Toast.makeText(getApplicationContext(), "즐겨찾기 터치됨", Toast.LENGTH_SHORT).show();
+    }
 }

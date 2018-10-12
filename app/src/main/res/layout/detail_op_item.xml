@@ -7,138 +7,264 @@
     <LinearLayout
         android:id="@+id/detailOpLL"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="300dp"
         android:layout_gravity="top|left"
-        android:background="@drawable/border"
-        android:orientation="vertical"
-        android:divider="@drawable/divider"
-        android:showDividers="middle">
+        android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/detailOpWSHLL"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginLeft="40px"
+            android:layout_marginBottom="5px"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvOpPayLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="유료 운영시간"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvOpPayModLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="400px"
+                android:text="수정요청"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/detailOpPayLL"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:orientation="vertical"
-            android:gravity="center_vertical">
+            android:layout_height="75dp"
+            android:layout_margin="10px"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:stretchColumns="*">
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="4dp">
+
+                    <TextView
+                        android:id="@+id/tvTblWopLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:background="#E7E1EF"
+                        android:gravity="center"
+                        android:text="평일"
+                        android:textSize="15sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/tvTblWopTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:background="#E7E1EF"
+                        android:gravity="center"
+                        android:text="12:00 ~ 22:00"
+                        android:textSize="15sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="4dp">
+
+                    <TextView
+                        android:id="@+id/tvTblSopLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:background="#E7E1EF"
+                        android:gravity="center"
+                        android:text="토요일"
+                        android:textSize="15sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/tvTblSopTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:background="#E7E1EF"
+                        android:gravity="center"
+                        android:text="12:00 ~ 22:00"
+                        android:textSize="15sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvTblHopLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:background="#E7E1EF"
+                        android:gravity="center"
+                        android:text="공휴일"
+                        android:textSize="15sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/tvTblHopTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:background="#E7E1EF"
+                        android:gravity="center"
+                        android:text="12:00 ~ 22:00"
+                        android:textSize="15sp" />
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="25dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginLeft="40px"
+            android:layout_marginBottom="5px"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvOpFreeLabel"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/textViewParkingWopWLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="평일운영시간: "
-                    android:textColor="@android:color/black"
-                    android:textSize="10sp" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="무료 개방시간"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/textViewParkingWopWStartTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="09:00"
-                    android:textColor="@android:color/black"
-                    android:textSize="10sp" />
-                <TextView
-                    android:id="@+id/textViewParkingWopWDash"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="~"
-                    android:textColor="@android:color/black"
-                    android:textSize="10sp" />
-                <TextView
-                    android:id="@+id/textViewParkingWopWEndTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="18:00"
-                    android:textColor="@android:color/black"
-                    android:textSize="10sp" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/tvOpFreeModLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="400px"
+                android:text="수정요청"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+        </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/textViewParkingWopSLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="토요일운영시간: "
-                    android:textColor="@android:color/black"
-                    android:textSize="10sp" />
+        <LinearLayout
+            android:id="@+id/detailOpFreeLL"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_margin="10px"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textViewParkingWopSStartTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="09:00"
-                    android:textColor="@android:color/black"
-                    android:textSize="10sp" />
-                <TextView
-                    android:id="@+id/textViewParkingWopSDash"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="~"
-                    android:textColor="@android:color/black"
-                    android:textSize="10sp" />
-                <TextView
-                    android:id="@+id/textViewParkingWopSEndTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="18:00"
-                    android:textColor="@android:color/black"
-                    android:textSize="10sp" />
-            </LinearLayout>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:stretchColumns="*">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/textViewParkingWopHLabel"
+                <TableRow
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="공휴일운영시간: "
-                    android:textColor="@android:color/black"
-                    android:textSize="10sp" />
+                    android:paddingBottom="4dp">
 
-                <TextView
-                    android:id="@+id/textViewParkingWopHStartTime"
+                    <TextView
+                        android:id="@+id/tvTblWopFreeLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:background="#E7E1EF"
+                        android:gravity="center"
+                        android:text="평일"
+                        android:textSize="15sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/tvTblWopFreeTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:background="#E7E1EF"
+                        android:gravity="center"
+                        android:text="12:00 ~ 22:00"
+                        android:textSize="15sp" />
+                </TableRow>
+
+                <TableRow
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="09:00"
-                    android:textColor="@android:color/black"
-                    android:textSize="10sp" />
-                <TextView
-                    android:id="@+id/textViewParkingWopHDash"
+                    android:paddingBottom="4dp">
+
+                    <TextView
+                        android:id="@+id/tvTblSopFreeLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:background="#E7E1EF"
+                        android:gravity="center"
+                        android:text="토요일"
+                        android:textSize="15sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/tvTblSopFreeTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:background="#E7E1EF"
+                        android:gravity="center"
+                        android:text="12:00 ~ 22:00"
+                        android:textSize="15sp" />
+                </TableRow>
+
+                <TableRow
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="~"
-                    android:textColor="@android:color/black"
-                    android:textSize="10sp" />
-                <TextView
-                    android:id="@+id/textViewParkingWopHEndTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="18:00"
-                    android:textColor="@android:color/black"
-                    android:textSize="10sp" />
-            </LinearLayout>
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvTblHopFreeLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:background="#E7E1EF"
+                        android:gravity="center"
+                        android:text="공휴일"
+                        android:textSize="15sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/tvTblHopFreeTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:background="#E7E1EF"
+                        android:gravity="center"
+                        android:text="12:00 ~ 22:00"
+                        android:textSize="15sp" />
+                </TableRow>
+
+            </TableLayout>
         </LinearLayout>
 
     </LinearLayout>
-
 </LinearLayout>

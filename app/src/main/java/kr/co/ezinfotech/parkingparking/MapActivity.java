@@ -236,4 +236,19 @@ public class MapActivity extends AppCompatActivity {
 
         dmm.runMapProcessWithParam(division, type, op, fee);
     }
+
+    public void btnInitAllRadio(View v) {
+        RB_publicService.setChecked(false);
+        RB_private.setChecked(false);
+        RB_onRoad.setChecked(false);
+        RB_outside.setChecked(false);
+        RB_weekday.setChecked(false);
+        RB_weekdayNSaturday.setChecked(false);
+        RB_weekdayNSaturdayNHoliday.setChecked(false);
+        RB_holiday.setChecked(false);
+        RB_payFee.setChecked(false);
+        RB_freeFee.setChecked(false);
+
+        refreshMap();
+    }
 }

@@ -7,9 +7,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -112,8 +114,17 @@ public class ListActivity extends AppCompatActivity {
         for(int i = 0; i < pzData.size(); i++) {
             ListItemData oItem = new ListItemData();
             oItem.strName = pzData.get(i).name;
-            oItem.strAddress = pzData.get(i).addr_road;
-            oItem.strTel = pzData.get(i).tel;
+            if(pzData.get(i).addr_road.equals("null")) {
+                oItem.strAddress = "주소 : 미등록";
+            } else {
+                oItem.strAddress = "주소 : " + pzData.get(i).addr_road;
+            }
+
+            if(pzData.get(i).tel.equals("null")) {
+                oItem.strTel = "전화번호 : 미등록";
+            } else {
+                oItem.strTel = "전화번호 : " + pzData.get(i).tel;
+            }
 
             // https://developer88.tistory.com/70
             float distance = centerPoint.distanceTo(pzData.get(i).loc);
@@ -132,6 +143,11 @@ public class ListActivity extends AppCompatActivity {
         // Sort
         Ascending ascending = new Ascending();
         Collections.sort(oData, ascending);
+
+        // Set textview after sort
+        for(int j = 0; j < oData.size(); j++) {
+            oData.get(j).strDistance += "km";
+        }
 
         DistanceOrderListAdapter oAdapter = new DistanceOrderListAdapter(oData);
         listViewVal.setAdapter(oAdapter);
@@ -167,8 +183,21 @@ public class ListActivity extends AppCompatActivity {
         for(int i = 0; i < pzData.size(); i++) {
             ListItemData oItem = new ListItemData();
             oItem.strName = pzData.get(i).name;
-            oItem.strAddress = pzData.get(i).addr_road;
-            oItem.strTel = pzData.get(i).tel;
+
+            // oItem.strAddress = "주소 : " + pzData.get(i).addr_road;
+            // oItem.strTel = "전화번호 : " + pzData.get(i).tel;
+            if(pzData.get(i).addr_road.equals("null")) {
+                oItem.strAddress = "주소 : 미등록";
+            } else {
+                oItem.strAddress = "주소 : " + pzData.get(i).addr_road;
+            }
+
+            if(pzData.get(i).tel.equals("null")) {
+                oItem.strTel = "전화번호 : 미등록";
+            } else {
+                oItem.strTel = "전화번호 : " + pzData.get(i).tel;
+            }
+
             oItem.strFee = pzData.get(i).park_base.fee;
 
             float distance = centerPoint.distanceTo(pzData.get(i).loc);
@@ -187,6 +216,11 @@ public class ListActivity extends AppCompatActivity {
         // Sort
         AscendingFee ascending = new AscendingFee();
         Collections.sort(oData, ascending);
+
+        // Set textview after sort
+        for(int j = 0; j < oData.size(); j++) {
+            oData.get(j).strFee += "원";
+        }
 
         FeeOrderListAdapter oAdapter = new FeeOrderListAdapter(oData);
         listViewVal.setAdapter(oAdapter);

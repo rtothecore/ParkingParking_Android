@@ -6,6 +6,7 @@ import android.os.Message;
 
 import kr.co.ezinfotech.parkingparking.DATA.PZDataManager;
 import kr.co.ezinfotech.parkingparking.DB.DBManager;
+import kr.co.ezinfotech.parkingparking.NAVI.TmapManager;
 
 public class SplashPageProcessor extends Activity {
     Handler mHandler = null;

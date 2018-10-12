@@ -7,73 +7,358 @@
     <LinearLayout
         android:id="@+id/detailFeeLL"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="400dp"
         android:layout_gravity="top|left"
-        android:background="@drawable/border"
-        android:orientation="vertical"
-        android:divider="@drawable/divider"
-        android:showDividers="middle">
+        android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/detailFeeTermLL"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginLeft="40px"
+            android:layout_marginBottom="5px"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvTimeFeeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="시간요금"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvTimeFeeModLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="400px"
+                android:text="수정요청"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/detailFeeTimeLL"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:orientation="vertical"
-            android:gravity="center_vertical">
+            android:layout_margin="10px"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:stretchColumns="*">
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="4dp">
+
+                    <TextView
+                        android:id="@+id/tvTblBaseFeeLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:background="#E7E1EF"
+                        android:gravity="center"
+                        android:text="기본요금"
+                        android:textSize="15sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/tvTblBaseTimeFee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:background="#E7E1EF"
+                        android:gravity="center"
+                        android:text="30분 500원"
+                        android:textSize="15sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvTblAddFeeLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:background="#E7E1EF"
+                        android:gravity="center"
+                        android:text="추가요금"
+                        android:textSize="15sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/tvTblAddTimeFee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:background="#E7E1EF"
+                        android:gravity="center"
+                        android:text="15분당 300원"
+                        android:textSize="15sp" />
+                </TableRow>
+
+            </TableLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="25dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginLeft="40px"
+            android:layout_marginBottom="5px"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvDayPKLabel"
                 android:layout_width="wrap_content"
-                android:layout_height="19dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/textViewParkingBaseLabel"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="일주차"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvDayPKModLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="400px"
+                android:text="수정요청"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/detailDayPKLL"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_margin="10px"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:stretchColumns="*">
+
+                <TableRow
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="기본 "
-                    android:textColor="@android:color/black"
-                    android:textSize="10sp" />
+                    android:paddingBottom="4dp">
 
-                <TextView
-                    android:id="@+id/textViewParkingBaseTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="30분 "
-                    android:textColor="@android:color/black"
-                    android:textSize="10sp" />
+                    <TextView
+                        android:id="@+id/tvDayPKBaseLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:background="#E7E1EF"
+                        android:gravity="center"
+                        android:text="기본"
+                        android:textSize="15sp"
+                        android:textStyle="bold"/>
 
-                <TextView
-                    android:id="@+id/textViewParkingBaseFee"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="무료"
-                    android:textColor="@android:color/black"
-                    android:textSize="10sp" />
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/tvDayPKBaseContent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:background="#E7E1EF"
+                        android:gravity="center"
+                        android:text="6000원"
+                        android:textSize="15sp" />
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
 
-            <LinearLayout
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="25dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginLeft="40px"
+            android:layout_marginBottom="5px"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvMonthPKLabel"
                 android:layout_width="wrap_content"
-                android:layout_height="19dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/textViewParkingAddTermTime"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="월주차"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMonthPKModLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="400px"
+                android:text="수정요청"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/detailMonthPKLL"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_margin="10px"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:stretchColumns="*">
+
+                <TableRow
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="15분 당 "
-                    android:textColor="@android:color/black"
-                    android:textSize="10sp" />
-                <TextView
-                    android:id="@+id/textViewParkingAddTermFee"
+                    android:paddingBottom="4dp">
+
+                    <TextView
+                        android:id="@+id/tvMonthPKBaseLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:background="#E7E1EF"
+                        android:gravity="center"
+                        android:text="기본"
+                        android:textSize="15sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/tvMonthPKBaseContent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:background="#E7E1EF"
+                        android:gravity="center"
+                        android:text="75000원"
+                        android:textSize="15sp" />
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="25dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginLeft="40px"
+            android:layout_marginBottom="5px"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvSaleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="할인정보"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvSaleModLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="400px"
+                android:text="수정요청"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/detailSaleLL"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10px"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:stretchColumns="*">
+
+                <TableRow
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="300원"
-                    android:textColor="@android:color/black"
-                    android:textSize="10sp" />
-            </LinearLayout>
+                    android:paddingBottom="4dp">
+
+                    <TextView
+                        android:id="@+id/tvTblSaleLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:background="#E7E1EF"
+                        android:gravity="center"
+                        android:text="경차|장애인"
+                        android:textSize="15sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/tvTblSaleCont"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:background="#E7E1EF"
+                        android:gravity="center"
+                        android:text="50% 할인"
+                        android:textSize="15sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvTblSaleLabel2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:background="#E7E1EF"
+                        android:gravity="center"
+                        android:text="전기차"
+                        android:textSize="15sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/tvTblSaleCont2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:background="#E7E1EF"
+                        android:gravity="center"
+                        android:text="100% 할인"
+                        android:textSize="15sp" />
+                </TableRow>
+
+            </TableLayout>
         </LinearLayout>
 
     </LinearLayout>
