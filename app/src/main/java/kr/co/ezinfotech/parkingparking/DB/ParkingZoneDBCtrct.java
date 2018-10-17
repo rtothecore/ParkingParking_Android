@@ -40,6 +40,13 @@ public class ParkingZoneDBCtrct {
     public static final String COL_LAT = "LAT";
     public static final String COL_LNG = "LNG";
     public static final String COL_DATA_DATE = "DATA_DATE";
+    public static final String COL_HOMEPAGE = "HOMEPAGE";
+    public static final String COL_PARK_SPACE_SMALL = "PARK_SPACE_SMALL";
+    public static final String COL_PARK_SPACE_MID = "PARK_SPACE_MID";
+    public static final String COL_PARK_SPACE_BIG = "PARK_SPACE_BIG";
+    public static final String COL_PARK_SPACE_ELEC = "PARK_SPACE_ELEC";
+    public static final String COL_PARK_SPACE_HAND = "PARK_SPACE_HAND";
+    public static final String COL_SALE_INFO = "SALE_INFO";
 
     public static final String SQL_CREATE_TBL = "CREATE TABLE IF NOT EXISTS " + TBL_PARKING_ZONE + " " +
             "(" +
@@ -73,7 +80,14 @@ public class ParkingZoneDBCtrct {
                 COL_TEL +           " TEXT"                                   + ", " +
                 COL_LAT +           " TEXT"                                   + ", " +
                 COL_LNG +           " TEXT"                                   + ", " +
-                COL_DATA_DATE +          " TEXT"                                  +
+                COL_DATA_DATE +          " TEXT"                              + ", " +
+                COL_HOMEPAGE +               " TEXT"                               + ", " +
+                COL_PARK_SPACE_SMALL +               " TEXT"                               + ", " +
+                COL_PARK_SPACE_MID +               " TEXT"                               + ", " +
+                COL_PARK_SPACE_BIG +               " TEXT"                               + ", " +
+                COL_PARK_SPACE_ELEC +               " TEXT"                               + ", " +
+                COL_PARK_SPACE_HAND +               " TEXT"                               + ", " +
+                COL_SALE_INFO +          " TEXT"                                  +
             ")";
 
     public static final String SQL_DROP_TBL = "DROP TABLE IF EXISTS " + TBL_PARKING_ZONE;
@@ -99,7 +113,8 @@ public class ParkingZoneDBCtrct {
             "(" + COL_NO + ", " + COL_NAME + ", " + COL_DIVISION + ", " + COL_TYPE + ", " + COL_ADDR_ROAD + ", " + COL_ADDR_JIBUN + ", " + COL_TOTALP + ", " + COL_FEED + ", " +
                   COL_BUJE + ", " + COL_OP_DATE + ", " + COL_WOP_START + ", " + COL_WOP_END + ", " + COL_SOP_START + ", " + COL_SOP_END + ", " + COL_HOP_START + ", " + COL_HOP_END + ", " +
                   COL_FEE_INFO + ", " + COL_BASE_TIME + ", " + COL_BASE_FEE + ", " + COL_ADDTERM_TIME + ", " + COL_ADDTERM_FEE + ", " + COL_ONEDAYPARK_TIME + ", " + COL_ONEDAYPARK_FEE + ", " +
-                  COL_MONTH_FEE + ", " + COL_PAYMENT + ", " + COL_REMARKS + ", " + COL_MANAGER + ", " + COL_TEL + ", " + COL_LAT + ", " + COL_LNG + ", " + COL_DATA_DATE +
+                  COL_MONTH_FEE + ", " + COL_PAYMENT + ", " + COL_REMARKS + ", " + COL_MANAGER + ", " + COL_TEL + ", " + COL_LAT + ", " + COL_LNG + ", " + COL_DATA_DATE + ", " +
+                  COL_HOMEPAGE + ", " + COL_PARK_SPACE_SMALL + ", " + COL_PARK_SPACE_MID + ", " + COL_PARK_SPACE_BIG + ", " + COL_PARK_SPACE_ELEC + ", " + COL_PARK_SPACE_HAND + ", " + COL_SALE_INFO +
             ") VALUES ";
 
     public static final String SQL_DELETE = "DELETE FROM " + TBL_PARKING_ZONE;

@@ -39,6 +39,10 @@ public class PZData implements Parcelable {
     public Location loc;       // 위,경도
     public String data_date;
 
+    public String homepage;
+    public PZPSData park_space_count;
+    public String sale_info;
+
     public PZData() {
     }
 
@@ -60,12 +64,12 @@ public class PZData implements Parcelable {
         dest.writeString(this.buje);
         dest.writeString(this.op_date);
 
-        dest.writeString(this.w_op.start_date);
-        dest.writeString(this.w_op.end_date);
-        dest.writeString(this.s_op.start_date);
-        dest.writeString(this.s_op.end_date);
-        dest.writeString(this.h_op.start_date);
-        dest.writeString(this.h_op.end_date);
+        dest.writeString(this.w_op.start_time);
+        dest.writeString(this.w_op.end_time);
+        dest.writeString(this.s_op.start_time);
+        dest.writeString(this.s_op.end_time);
+        dest.writeString(this.h_op.start_time);
+        dest.writeString(this.h_op.end_time);
 
         dest.writeString(this.fee_info);
 
@@ -83,6 +87,14 @@ public class PZData implements Parcelable {
         dest.writeString(this.tel);
         dest.writeParcelable(this.loc, flags);
         dest.writeString(this.data_date);
+
+        dest.writeString(this.homepage);
+        dest.writeString(this.park_space_count.small);
+        dest.writeString(this.park_space_count.mid);
+        dest.writeString(this.park_space_count.big);
+        dest.writeString(this.park_space_count.elec);
+        dest.writeString(this.park_space_count.hand);
+        dest.writeString(this.sale_info);
     }
 
     protected PZData(Parcel in) {
@@ -99,14 +111,14 @@ public class PZData implements Parcelable {
         this.op_date = in.readString();
 
         this.w_op = new PZTermData();
-        this.w_op.start_date = in.readString();
-        this.w_op.end_date = in.readString();
+        this.w_op.start_time = in.readString();
+        this.w_op.end_time = in.readString();
         this.s_op = new PZTermData();
-        this.s_op.start_date = in.readString();
-        this.s_op.start_date = in.readString();
+        this.s_op.start_time = in.readString();
+        this.s_op.end_time = in.readString();
         this.h_op = new PZTermData();
-        this.h_op.start_date = in.readString();
-        this.h_op.start_date = in.readString();
+        this.h_op.start_time = in.readString();
+        this.h_op.end_time = in.readString();
 
         this.fee_info = in.readString();
 
@@ -127,6 +139,15 @@ public class PZData implements Parcelable {
         this.tel = in.readString();
         this.loc = in.readParcelable(Location.class.getClassLoader());
         this.data_date = in.readString();
+
+        this.homepage = in.readString();
+        this.park_space_count = new PZPSData();
+        this.park_space_count.small = in.readString();
+        this.park_space_count.mid = in.readString();
+        this.park_space_count.big = in.readString();
+        this.park_space_count.elec = in.readString();
+        this.park_space_count.hand = in.readString();
+        this.sale_info = in.readString();
     }
 
     public static final Parcelable.Creator<PZData> CREATOR = new Parcelable.Creator<PZData>() {

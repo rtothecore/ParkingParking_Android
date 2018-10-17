@@ -202,18 +202,18 @@ public class PZDataManager extends Activity {
 
                 JSONObject jsonTemp2 = (JSONObject)jsonTemp.get("w_op");
                 tempPz.w_op = new PZTermData();
-                tempPz.w_op.start_date = jsonTemp2.getString("start_date");
-                tempPz.w_op.end_date = jsonTemp2.getString("end_date");
+                tempPz.w_op.start_time = jsonTemp2.getString("start_time");
+                tempPz.w_op.end_time = jsonTemp2.getString("end_time");
 
                 jsonTemp2 = (JSONObject)jsonTemp.get("s_op");
                 tempPz.s_op = new PZTermData();
-                tempPz.s_op.start_date = jsonTemp2.getString("start_date");
-                tempPz.s_op.end_date = jsonTemp2.getString("end_date");
+                tempPz.s_op.start_time = jsonTemp2.getString("start_time");
+                tempPz.s_op.end_time = jsonTemp2.getString("end_time");
 
                 jsonTemp2 = (JSONObject)jsonTemp.get("h_op");
                 tempPz.h_op = new PZTermData();
-                tempPz.h_op.start_date = jsonTemp2.getString("start_date");
-                tempPz.h_op.end_date = jsonTemp2.getString("end_date");
+                tempPz.h_op.start_time = jsonTemp2.getString("start_time");
+                tempPz.h_op.end_time = jsonTemp2.getString("end_time");
 
                 tempPz.fee_info = jsonTemp.getString("fee_info");
 
@@ -243,6 +243,17 @@ public class PZDataManager extends Activity {
                 tempPz.loc.setLongitude(ParseDouble(jsonTemp.getString("lng")));
 
                 tempPz.data_date = jsonTemp.getString("data_date");
+
+                tempPz.homepage = jsonTemp.getString("homepage");
+                jsonTemp2 = (JSONObject)jsonTemp.get("park_space_count");
+                tempPz.park_space_count = new PZPSData();
+                tempPz.park_space_count.small = jsonTemp2.getString("small");
+                tempPz.park_space_count.mid = jsonTemp2.getString("mid");
+                tempPz.park_space_count.big = jsonTemp2.getString("big");
+                tempPz.park_space_count.elec = jsonTemp2.getString("elec");
+                tempPz.park_space_count.hand = jsonTemp2.getString("hand");
+                tempPz.sale_info = jsonTemp.getString("sale_info");
+
                 pzData.add(tempPz);
             }
         } catch (Throwable t) {
@@ -300,12 +311,12 @@ public class PZDataManager extends Activity {
                 "'" + pzData.buje + "', " +
                 "'" + pzData.op_date + "', " +
 
-                "'" + pzData.w_op.start_date + "', " +
-                "'" + pzData.w_op.end_date + "', " +
-                "'" + pzData.s_op.start_date + "', " +
-                "'" + pzData.s_op.end_date + "', " +
-                "'" + pzData.h_op.start_date + "', " +
-                "'" + pzData.h_op.end_date + "', " +
+                "'" + pzData.w_op.start_time + "', " +
+                "'" + pzData.w_op.end_time + "', " +
+                "'" + pzData.s_op.start_time + "', " +
+                "'" + pzData.s_op.end_time + "', " +
+                "'" + pzData.h_op.start_time + "', " +
+                "'" + pzData.h_op.end_time + "', " +
 
                 "'" + pzData.fee_info + "', " +
 
@@ -323,7 +334,16 @@ public class PZDataManager extends Activity {
                 "'" + pzData.tel + "', " +
                 "'" + pzData.loc.getLatitude() + "', " +
                 "'" + pzData.loc.getLongitude() + "', " +
-                "'" + pzData.data_date +
+                "'" + pzData.data_date + "', " +
+
+                "'" + pzData.homepage + "', " +
+                "'" + pzData.park_space_count.small + "', " +
+                "'" + pzData.park_space_count.mid + "', " +
+                "'" + pzData.park_space_count.big + "', " +
+                "'" + pzData.park_space_count.elec + "', " +
+                "'" + pzData.park_space_count.hand + "', " +
+                "'" + pzData.sale_info +
+
                 "')";
         db.execSQL(sqlInsert);
         Log.i("insertPZTableWithPzData", sqlInsert);
@@ -349,14 +369,14 @@ public class PZDataManager extends Activity {
                 tempPZData.buje = cursor.getString(8);
                 tempPZData.op_date = cursor.getString(9);
                 tempPZData.w_op = new PZTermData();
-                tempPZData.w_op.start_date = cursor.getString(10);
-                tempPZData.w_op.end_date = cursor.getString(11);
+                tempPZData.w_op.start_time = cursor.getString(10);
+                tempPZData.w_op.end_time = cursor.getString(11);
                 tempPZData.s_op = new PZTermData();
-                tempPZData.s_op.start_date = cursor.getString(12);
-                tempPZData.s_op.end_date = cursor.getString(13);
+                tempPZData.s_op.start_time = cursor.getString(12);
+                tempPZData.s_op.end_time = cursor.getString(13);
                 tempPZData.h_op = new PZTermData();
-                tempPZData.h_op.start_date = cursor.getString(14);
-                tempPZData.h_op.end_date = cursor.getString(15);
+                tempPZData.h_op.start_time = cursor.getString(14);
+                tempPZData.h_op.end_time = cursor.getString(15);
                 tempPZData.fee_info = cursor.getString(16);
                 tempPZData.park_base = new PZTFData();
                 tempPZData.park_base.time = cursor.getString(17);
@@ -376,6 +396,14 @@ public class PZDataManager extends Activity {
                 tempPZData.loc.setLatitude(Double.parseDouble(cursor.getString(28)));
                 tempPZData.loc.setLongitude(Double.parseDouble(cursor.getString(29)));
                 tempPZData.data_date = cursor.getString(30);
+                tempPZData.homepage = cursor.getString(31);
+                tempPZData.park_space_count = new PZPSData();
+                tempPZData.park_space_count.small = cursor.getString(32);
+                tempPZData.park_space_count.mid = cursor.getString(33);
+                tempPZData.park_space_count.big = cursor.getString(34);
+                tempPZData.park_space_count.elec = cursor.getString(35);
+                tempPZData.park_space_count.hand = cursor.getString(36);
+                tempPZData.sale_info = cursor.getString(37);
                 tempPZDatas.add(tempPZData);
                 cursor.moveToNext();
             }
@@ -461,14 +489,14 @@ public class PZDataManager extends Activity {
                 tempPZData.buje = cursor.getString(8);
                 tempPZData.op_date = cursor.getString(9);
                 tempPZData.w_op = new PZTermData();
-                tempPZData.w_op.start_date = cursor.getString(10);
-                tempPZData.w_op.end_date = cursor.getString(11);
+                tempPZData.w_op.start_time = cursor.getString(10);
+                tempPZData.w_op.end_time = cursor.getString(11);
                 tempPZData.s_op = new PZTermData();
-                tempPZData.s_op.start_date = cursor.getString(12);
-                tempPZData.s_op.end_date = cursor.getString(13);
+                tempPZData.s_op.start_time = cursor.getString(12);
+                tempPZData.s_op.end_time = cursor.getString(13);
                 tempPZData.h_op = new PZTermData();
-                tempPZData.h_op.start_date = cursor.getString(14);
-                tempPZData.h_op.end_date = cursor.getString(15);
+                tempPZData.h_op.start_time = cursor.getString(14);
+                tempPZData.h_op.end_time = cursor.getString(15);
                 tempPZData.fee_info = cursor.getString(16);
                 tempPZData.park_base = new PZTFData();
                 tempPZData.park_base.time = cursor.getString(17);
@@ -488,6 +516,14 @@ public class PZDataManager extends Activity {
                 tempPZData.loc.setLatitude(Double.parseDouble(cursor.getString(28)));
                 tempPZData.loc.setLongitude(Double.parseDouble(cursor.getString(29)));
                 tempPZData.data_date = cursor.getString(30);
+                tempPZData.homepage = cursor.getString(31);
+                tempPZData.park_space_count = new PZPSData();
+                tempPZData.park_space_count.small = cursor.getString(32);
+                tempPZData.park_space_count.mid = cursor.getString(33);
+                tempPZData.park_space_count.big = cursor.getString(34);
+                tempPZData.park_space_count.elec = cursor.getString(35);
+                tempPZData.park_space_count.hand = cursor.getString(36);
+                tempPZData.sale_info = cursor.getString(37);
                 tempPZDatas.add(tempPZData);
                 cursor.moveToNext();
             }

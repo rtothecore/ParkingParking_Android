@@ -137,7 +137,7 @@ public class DaumMapManager extends Activity {
                 tvParkingFeeContent.setText(pzData.get(mapPOIItem.getTag()).add_term.fee + "원/" + pzData.get(mapPOIItem.getTag()).add_term.time + "분");
 
                 TextView tvOpTimeContent = (TextView)((Activity)ctx).findViewById(R.id.textViewParkingOpTimeContent);
-                tvOpTimeContent.setText(pzData.get(mapPOIItem.getTag()).w_op.start_date + " ~ " + pzData.get(mapPOIItem.getTag()).w_op.end_date);
+                tvOpTimeContent.setText(pzData.get(mapPOIItem.getTag()).w_op.start_time + " ~ " + pzData.get(mapPOIItem.getTag()).w_op.end_time);
 
                 ll.setVisibility(View.VISIBLE);
                 selectedPZIndex = mapPOIItem.getTag();
@@ -199,12 +199,22 @@ public class DaumMapManager extends Activity {
                     intent.putExtra("park_base_fee", pzData.get(mapPOIItem.getTag()).park_base.fee);
                     intent.putExtra("add_term_time", pzData.get(mapPOIItem.getTag()).add_term.time);
                     intent.putExtra("add_term_fee", pzData.get(mapPOIItem.getTag()).add_term.fee);
-                    intent.putExtra("w_op_start_time", pzData.get(mapPOIItem.getTag()).w_op.start_date);
-                    intent.putExtra("w_op_end_time", pzData.get(mapPOIItem.getTag()).w_op.end_date);
-                    intent.putExtra("s_op_start_time", pzData.get(mapPOIItem.getTag()).s_op.start_date);
-                    intent.putExtra("s_op_end_time", pzData.get(mapPOIItem.getTag()).s_op.end_date);
-                    intent.putExtra("h_op_start_time", pzData.get(mapPOIItem.getTag()).h_op.start_date);
-                    intent.putExtra("h_op_end_time", pzData.get(mapPOIItem.getTag()).h_op.end_date);
+                    intent.putExtra("w_op_start_time", pzData.get(mapPOIItem.getTag()).w_op.start_time);
+                    intent.putExtra("w_op_end_time", pzData.get(mapPOIItem.getTag()).w_op.end_time);
+                    intent.putExtra("s_op_start_time", pzData.get(mapPOIItem.getTag()).s_op.start_time);
+                    intent.putExtra("s_op_end_time", pzData.get(mapPOIItem.getTag()).s_op.end_time);
+                    intent.putExtra("h_op_start_time", pzData.get(mapPOIItem.getTag()).h_op.start_time);
+                    intent.putExtra("h_op_end_time", pzData.get(mapPOIItem.getTag()).h_op.end_time);
+                    intent.putExtra("fee_info", pzData.get(mapPOIItem.getTag()).fee_info);
+                    intent.putExtra("one_day_park_fee", pzData.get(mapPOIItem.getTag()).one_day_park.fee);
+                    intent.putExtra("month_fee", pzData.get(mapPOIItem.getTag()).month_fee);
+                    intent.putExtra("homepage", pzData.get(mapPOIItem.getTag()).homepage);
+                    intent.putExtra("park_space_small", pzData.get(mapPOIItem.getTag()).park_space_count.small);
+                    intent.putExtra("park_space_mid", pzData.get(mapPOIItem.getTag()).park_space_count.mid);
+                    intent.putExtra("park_space_big", pzData.get(mapPOIItem.getTag()).park_space_count.big);
+                    intent.putExtra("park_space_elec", pzData.get(mapPOIItem.getTag()).park_space_count.elec);
+                    intent.putExtra("park_space_hand", pzData.get(mapPOIItem.getTag()).park_space_count.hand);
+                    intent.putExtra("sale_info", pzData.get(mapPOIItem.getTag()).sale_info);
                     ctx.startActivity(intent);
                 }
             });

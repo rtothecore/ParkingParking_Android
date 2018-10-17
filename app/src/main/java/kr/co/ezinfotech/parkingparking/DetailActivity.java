@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import kr.co.ezinfotech.parkingparking.DATA.PZData;
+import kr.co.ezinfotech.parkingparking.DATA.PZPSData;
 import kr.co.ezinfotech.parkingparking.DATA.PZTFData;
 import kr.co.ezinfotech.parkingparking.DATA.PZTermData;
 import kr.co.ezinfotech.parkingparking.DETAIL_TAB.DetailCustomPagerAdapter;
@@ -56,14 +57,29 @@ public class DetailActivity extends AppCompatActivity {
         pzData.add_term.fee = intent.getStringExtra("add_term_fee");
 
         pzData.w_op = new PZTermData();
-        pzData.w_op.start_date = intent.getStringExtra("w_op_start_time");
-        pzData.w_op.end_date = intent.getStringExtra("w_op_end_time");
+        pzData.w_op.start_time = intent.getStringExtra("w_op_start_time");
+        pzData.w_op.end_time = intent.getStringExtra("w_op_end_time");
         pzData.s_op = new PZTermData();
-        pzData.s_op.start_date = intent.getStringExtra("s_op_start_time");
-        pzData.s_op.end_date = intent.getStringExtra("s_op_end_time");
+        pzData.s_op.start_time = intent.getStringExtra("s_op_start_time");
+        pzData.s_op.end_time = intent.getStringExtra("s_op_end_time");
         pzData.h_op = new PZTermData();
-        pzData.h_op.start_date = intent.getStringExtra("h_op_start_time");
-        pzData.h_op.end_date = intent.getStringExtra("h_op_end_time");
+        pzData.h_op.start_time = intent.getStringExtra("h_op_start_time");
+        pzData.h_op.end_time = intent.getStringExtra("h_op_end_time");
+
+        pzData.fee_info = intent.getStringExtra("fee_info");
+
+        pzData.one_day_park = new PZTFData();
+        pzData.one_day_park.fee = intent.getStringExtra("one_day_park_fee");
+        pzData.month_fee = intent.getStringExtra("month_fee");
+
+        pzData.homepage = intent.getStringExtra("homepage");
+        pzData.park_space_count = new PZPSData();
+        pzData.park_space_count.small = intent.getStringExtra("park_space_small");
+        pzData.park_space_count.mid = intent.getStringExtra("park_space_mid");
+        pzData.park_space_count.big = intent.getStringExtra("park_space_big");
+        pzData.park_space_count.elec = intent.getStringExtra("park_space_elec");
+        pzData.park_space_count.hand = intent.getStringExtra("park_space_hand");
+        pzData.sale_info = intent.getStringExtra("sale_info");
 
         // Initializing the TabLayout
         tabLayout = (TabLayout) findViewById(R.id.detail_tab);
