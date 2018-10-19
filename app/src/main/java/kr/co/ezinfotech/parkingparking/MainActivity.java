@@ -38,8 +38,13 @@ public class MainActivity extends AppCompatActivity {
             @Override public void handleMessage(Message msg) {
                 if(777 == msg.arg1) {
                     Log.i("onCreate", "Thread job ended!");
+                    /*
                     Intent intent = new Intent(getApplicationContext(), MapActivity.class);
                     getApplicationContext().startActivity(intent);
+                    */
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    getApplicationContext().startActivity(intent);
+
                     finish();   // Destroy MainActivity
                 }
             }

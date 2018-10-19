@@ -32,7 +32,7 @@
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />
-            <!-- android:value="d3865fb8f2c49ac9625b8de0a67cca64" /> -->
+        <!-- android:value="d3865fb8f2c49ac9625b8de0a67cca64" /> -->
 
         <activity android:name=".MapActivity" />
         <activity android:name=".MAP.DaumMapManager" />
@@ -42,16 +42,24 @@
         </activity>
         <activity android:name=".ListActivity" />
         <activity android:name=".DetailActivity" />
-        <activity android:name=".POPUP.DetailTransferActivity" android:theme="@android:style/Theme.Dialog">
+        <activity
+            android:name=".POPUP.DetailTransferActivity"
+            android:theme="@android:style/Theme.Dialog">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="@string/kakao_scheme"
-                    android:host="@string/kakaolink_host" />
+                <data
+                    android:host="@string/kakaolink_host"
+                    android:scheme="@string/kakao_scheme" />
             </intent-filter>
         </activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".SIGN_UP.TermsActivity" />
+        <activity android:name=".SIGN_UP.TermsDetailActivity" />
+        <activity android:name=".AUTH.AuthActivity"></activity>
     </application>
 
 </manifest>

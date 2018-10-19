@@ -4,6 +4,7 @@ import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.IOException;
@@ -73,4 +74,10 @@ public class UtilManager {
         }
         return resultAddr;
     }
+
+    // 이메일 주소 체크 - https://stackoverflow.com/questions/1819142/how-should-i-validate-an-e-mail-address
+    public final static boolean isValidEmail(CharSequence target) {
+        return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+    }
+
 }
