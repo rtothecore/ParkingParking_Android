@@ -59,7 +59,8 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".SIGN_UP.TermsActivity" />
         <activity android:name=".SIGN_UP.TermsDetailActivity" />
-        <activity android:name=".AUTH.AuthActivity"></activity>
+        <activity android:name=".SIGN_UP.AuthActivity" />
+        <activity android:name=".SIGN_UP.SignUpActivity"></activity>
     </application>
 
 </manifest>

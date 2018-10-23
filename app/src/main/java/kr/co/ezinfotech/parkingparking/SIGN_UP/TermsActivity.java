@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
-import kr.co.ezinfotech.parkingparking.AUTH.AuthActivity;
 import kr.co.ezinfotech.parkingparking.R;
 
 public class TermsActivity extends AppCompatActivity {

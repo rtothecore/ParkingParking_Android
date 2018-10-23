@@ -2,16 +2,21 @@ package kr.co.ezinfotech.parkingparking;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import kr.co.ezinfotech.parkingparking.DATA.UserDataManagerForLogin;
 import kr.co.ezinfotech.parkingparking.SIGN_UP.TermsActivity;
+import kr.co.ezinfotech.parkingparking.UTIL.LoginManager;
 import kr.co.ezinfotech.parkingparking.UTIL.UtilManager;
 
 public class LoginActivity extends AppCompatActivity {
@@ -28,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void btnLogin(View v) {
         // 이메일 유효성 검사
-        EditText et = (EditText)findViewById(R.id.etEmail);
+        final EditText et = (EditText)findViewById(R.id.etEmail);
         if(UtilManager.isValidEmail(et.getText().toString())) {
         } else {
             showWrongEmail();
@@ -45,9 +50,26 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         // 서버에 접속하여 이메일, 비밀번호가 존재하는지 체크
-        Toast.makeText(getApplicationContext(), "로그인 성공!", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getApplicationContext(), MapActivity.class);
-        getApplicationContext().startActivity(intent);
+        Handler mHandler = new Handler() {
+            @Override public void handleMessage(Message msg) {
+                if(555 == msg.arg1) {   // 로그인 성공
+                    Toast.makeText(getApplicationContext(), "로그인 성공!", Toast.LENGTH_SHORT).show();
+
+                    LoginManager.setEmail(et.getText().toString()); // 로그인 정보 업데이트
+
+                    Intent intent = new Intent(getApplicationContext(), MapActivity.class);
+                    getApplicationContext().startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
+                    Log.i("UserDataManager", "로그인 실패");
+                }
+            }
+        };
+
+        UserDataManagerForLogin udmfl = new UserDataManagerForLogin(mHandler);
+        udmfl.getEmailNPassword(et.getText().toString(), et2.getText().toString());
+
     }
 
     public void btnOutside(View v) {
@@ -111,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void showSendEmailDlg(String emailVal) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("입력하신 이메일 '" + emailVal + "'로 가입된 계정의 비밀번호 재설정 링크를 전송합니다.");
+        builder.setMessage("입력하신 이메일 '" + emailVal + "'로 가입된 계정의 비밀번호를 전송합니다.");
         builder.setPositiveButton("확인",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
