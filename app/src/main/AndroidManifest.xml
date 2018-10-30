@@ -60,7 +60,10 @@
         <activity android:name=".SIGN_UP.TermsActivity" />
         <activity android:name=".SIGN_UP.TermsDetailActivity" />
         <activity android:name=".SIGN_UP.AuthActivity" />
-        <activity android:name=".SIGN_UP.SignUpActivity"></activity>
+        <activity android:name=".SIGN_UP.SignUpActivity" />
+        <activity android:name=".PasswordChangeActivity" />
+        <activity android:name=".TempPasswordSendActivity" />
+        <activity android:name=".PRIVATE_INFO.PrivateInfoActivity"></activity>
     </application>
 
 </manifest>

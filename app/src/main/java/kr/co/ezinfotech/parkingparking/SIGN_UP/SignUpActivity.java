@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.regex.Pattern;
+
 import kr.co.ezinfotech.parkingparking.DATA.UserDataManager;
 import kr.co.ezinfotech.parkingparking.LoginActivity;
 import kr.co.ezinfotech.parkingparking.R;
@@ -24,6 +26,15 @@ public class SignUpActivity extends AppCompatActivity {
 
     Toolbar signupToolbar = null;
     String phoneNo = null;
+    boolean isCheckDuplEmail = false;
+    // https://codinginflow.com/tutorials/android/validate-email-password-regular-expressions
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^" +
+                                                                    "(?=.*[0-9])" +         //at least 1 digit
+                                                                    "(?=.*[a-zA-Z])" +      //any letter
+                                                                    "(?=.*[!~*@#$%^&+=])" +    //at least 1 special character
+                                                                    "(?=\\S+$)" +           //no white spaces
+                                                                    ".{6,}" +               //at least 6 characters
+                                                                    "$");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +66,17 @@ public class SignUpActivity extends AppCompatActivity {
             etSignupEmail.setError("이메일 주소를 입력해주세요.");
             return false;
         }
+        if(!isCheckDuplEmail) {
+            etSignupEmail.setError("이메일 주소 중복체크를 해주세요.");
+            return false;
+        }
 
         EditText etSignupPw = findViewById(R.id.etSignupPw);
         if(etSignupPw.getText().toString().trim().equals("") || etSignupPw.getText().toString().length() < 6) {
-            etSignupPw.setError("비밀번호를 입력해주세요.");
+            etSignupPw.setError("비밀번호는 최소 6자리 입니다.");
+            return false;
+        } else if (!PASSWORD_PATTERN.matcher(etSignupPw.getText().toString()).matches()) {
+            etSignupPw.setError("비밀번호는 문자 + 숫자 + 특수기호로 이루어져야 합니다.");
             return false;
         }
 
@@ -125,6 +143,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 checkAllInputForm();
+                isCheckDuplEmail = false;
             }
 
             @Override
@@ -203,5 +222,26 @@ public class SignUpActivity extends AppCompatActivity {
             String password = ((EditText)findViewById(R.id.etSignupPw)).getText().toString();
             udm.setUserData(name, email, password, phoneNo);
         }
+    }
+
+    public void btnCheckDuplicateEmail(View v) {
+        EditText etSignupEmail = findViewById(R.id.etSignupEmail);
+
+        Handler mHandler = new Handler() {
+            @Override public void handleMessage(Message msg) {
+                if(670 == msg.arg1) {
+                    Log.i("UserDataManager", "존재하지 않는 이메일이므로 회원가입 가능");
+                    Toast.makeText(getApplicationContext(), "해당 이메일로 회원가입 가능", Toast.LENGTH_LONG).show();
+                    isCheckDuplEmail = true;
+                } else if(677 == msg.arg1) {
+                    Log.i("UserDataManager", "이미 존재하는 이메일이므로 회원가입 불가");
+                    Toast.makeText(getApplicationContext(), "해당 이메일로 회원가입 불가", Toast.LENGTH_LONG).show();
+                    isCheckDuplEmail = false;
+                }
+            }
+        };
+
+        UserDataManager udm = new UserDataManager(mHandler);
+        udm.isExistEmail(etSignupEmail.getText().toString());
     }
 }

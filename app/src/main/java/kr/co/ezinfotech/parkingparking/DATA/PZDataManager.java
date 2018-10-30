@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
@@ -20,11 +19,10 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 import kr.co.ezinfotech.parkingparking.DB.DBManager;
 import kr.co.ezinfotech.parkingparking.DB.ParkingZoneDBCtrct;
-import kr.co.ezinfotech.parkingparking.NAVI.TmapManager;
+import kr.co.ezinfotech.parkingparking.R;
 import kr.co.ezinfotech.parkingparking.UTIL.UtilManager;
 
 /**
@@ -77,8 +75,7 @@ public class PZDataManager extends Activity {
     private void getPZData() {
         Log.i("getPZData()-0", "Get PZ data");
 
-        StringBuilder urlBuilder = new StringBuilder("http://192.168.0.73:8083/pzData"); /*URL*/
-
+        StringBuilder urlBuilder = new StringBuilder(UtilManager.getPPServerIp() + "/pzData"); /*URL*/
         Log.i("getPZData()-1", urlBuilder.toString());
 
         URL url = null;

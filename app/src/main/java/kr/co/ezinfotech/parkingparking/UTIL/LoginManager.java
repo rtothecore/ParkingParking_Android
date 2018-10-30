@@ -1,20 +1,12 @@
 package kr.co.ezinfotech.parkingparking.UTIL;
 
-import android.content.Context;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.text.TextUtils;
-import android.util.Log;
-
-import java.io.IOException;
-import java.util.List;
-
 public class LoginManager {
     private static final LoginManager ourInstance = new LoginManager();
 
     private static boolean isLogin = false;
     private static String email = null;
+    private static String name = null;
+    private static String phone = null;
 
     public static LoginManager getInstance() {
         return ourInstance;
@@ -25,10 +17,39 @@ public class LoginManager {
 
     public static void setEmail(String emailVal) {
         email = emailVal;
-        isLogin = true;
+    }
+
+    public static void setName(String nameVal) {
+        name = nameVal;
+    }
+
+    public static void setPhone(String phoneVal) {
+        phone = phoneVal;
+    }
+
+    public static String getEmail() {
+        return email;
+    }
+
+    public static String getName() {
+        return name;
+    }
+
+    public static String getPhone() {
+        return phone;
     }
 
     public static boolean isLogin() {
         return isLogin;
+    }
+
+    public static void login() {
+        isLogin = true;
+    }
+
+    public static void logout() {
+        email = "";
+        name = "";
+        isLogin = false;
     }
 }

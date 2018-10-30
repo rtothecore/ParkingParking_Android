@@ -52,24 +52,26 @@ public class LoginActivity extends AppCompatActivity {
         // 서버에 접속하여 이메일, 비밀번호가 존재하는지 체크
         Handler mHandler = new Handler() {
             @Override public void handleMessage(Message msg) {
-                if(555 == msg.arg1) {   // 로그인 성공
+                if(200 == msg.arg1) {   // 로그인 성공
                     Toast.makeText(getApplicationContext(), "로그인 성공!", Toast.LENGTH_SHORT).show();
-
                     LoginManager.setEmail(et.getText().toString()); // 로그인 정보 업데이트
+                    LoginManager.login();
 
                     Intent intent = new Intent(getApplicationContext(), MapActivity.class);
                     getApplicationContext().startActivity(intent);
                     finish();
-                } else {
-                    Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
-                    Log.i("UserDataManager", "로그인 실패");
+                } else if(201 == msg.arg1) {
+                    Toast.makeText(getApplicationContext(), "로그인 실패 - 존재하지 않는 이메일입니다", Toast.LENGTH_SHORT).show();
+                    Log.i("UserDataManager", "로그인 실패 - 존재하지 않는 이메일입니다");
+                } else if(202 == msg.arg1) {
+                    Toast.makeText(getApplicationContext(), "로그인 실패 - 비밀번호가 맞지 않습니다", Toast.LENGTH_SHORT).show();
+                    Log.i("UserDataManager", "로그인 실패 - 비밀번호가 맞지 않습니다");
                 }
             }
         };
 
         UserDataManagerForLogin udmfl = new UserDataManagerForLogin(mHandler);
         udmfl.getEmailNPassword(et.getText().toString(), et2.getText().toString());
-
     }
 
     public void btnOutside(View v) {
@@ -131,13 +133,25 @@ public class LoginActivity extends AppCompatActivity {
         builder.show();
     }
 
-    private void showSendEmailDlg(String emailVal) {
+    private void showSendEmailDlg(final String emailVal) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("입력하신 이메일 '" + emailVal + "'로 가입된 계정의 비밀번호를 전송합니다.");
         builder.setPositiveButton("확인",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getApplicationContext(),"임시비밀번호를 메일로 전송했습니다.",Toast.LENGTH_LONG).show();
+                        // 서버에 접속하여 임시비밀번호 발급
+                        Handler mHandler = new Handler() {
+                            @Override public void handleMessage(Message msg) {
+                                if(200 == msg.arg1) {   // 임시비밀번호 발급 성공
+                                    Toast.makeText(getApplicationContext(),"임시비밀번호를 메일로 전송했습니다.",Toast.LENGTH_LONG).show();
+                                } else if(201 == msg.arg1) {
+                                    Toast.makeText(getApplicationContext(), "임시비밀번호 발급 실패 - 존재하지 않는 이메일입니다", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        };
+
+                        UserDataManagerForLogin udmfl = new UserDataManagerForLogin(mHandler);
+                        udmfl.findPassword(emailVal);
                     }
                 });
         builder.setNegativeButton("취소",

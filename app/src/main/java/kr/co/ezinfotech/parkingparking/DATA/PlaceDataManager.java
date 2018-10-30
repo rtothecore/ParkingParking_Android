@@ -18,6 +18,9 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import kr.co.ezinfotech.parkingparking.R;
+import kr.co.ezinfotech.parkingparking.UTIL.UtilManager;
+
 public class PlaceDataManager extends Activity {
 
     String searchKeyword = null;
@@ -51,7 +54,7 @@ public class PlaceDataManager extends Activity {
         Log.i("getSearchedPlace()-0", "Get Place data");
 
         // StringBuilder urlBuilder = new StringBuilder("http://192.168.0.73:8083/searchWithKeyword/코엑스"); /*URL*/
-        StringBuilder urlBuilder = new StringBuilder("http://192.168.0.73:8083/searchWithKeyword/" + searchKeyword); /*URL*/
+        StringBuilder urlBuilder = new StringBuilder(UtilManager.getPPServerIp() + "/searchWithKeyword/" + searchKeyword); /*URL*/
 
         Log.i("getSearchedPlace()-1", urlBuilder.toString());
 

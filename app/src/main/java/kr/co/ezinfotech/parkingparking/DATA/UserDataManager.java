@@ -10,7 +10,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -18,8 +17,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.util.ArrayList;
+
+import kr.co.ezinfotech.parkingparking.UTIL.UtilManager;
 
 /**
  * Created by hkim on 2018-04-17.
@@ -33,6 +32,7 @@ public class UserDataManager extends Activity {
     String password = null;
     String phone_no = null;
     boolean isInsertSuccess = false;
+    boolean isExistEmail = false;
 
     public UserDataManager(Handler handlerVal) {
         mHandler = handlerVal;
@@ -44,6 +44,98 @@ public class UserDataManager extends Activity {
         password = pwVal;
         phone_no = phoneNoVal;
         insertUserData();
+    }
+
+    public void isExistEmail(String emailVal) {
+        email = emailVal;
+        checkDuplicateEmail();
+    }
+
+    private void checkDuplicateEmail() {
+        ///////////////////////////////// Thread of network START //////////////////////////////
+        // http://nocomet.tistory.com/10
+        new Thread() {
+            public void run() {
+                getExistEmail();
+
+                if(isExistEmail) {      // 이미 존재하는 이메일
+                    Message message = Message.obtain();
+                    message.arg1 = 677;
+                    mHandler.sendMessage(message);
+                } else {                // 존재하지 않는 이메일
+                    Message message = Message.obtain();
+                    message.arg1 = 670;
+                    mHandler.sendMessage(message);
+                }
+            }
+        }.start();
+        ///////////////////////////////// Thread of network END //////////////////////////////
+    }
+
+    private void getExistEmail() {
+        StringBuilder urlBuilder = new StringBuilder(UtilManager.getPPServerIp() + "/getDuplicatedEmail/" + email); /*URL*/
+
+        URL url = null;
+        try {
+            url = new URL(urlBuilder.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        HttpURLConnection conn = null;
+        try {
+            conn = (HttpURLConnection) url.openConnection();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            conn.setRequestMethod("GET");
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        }
+        conn.setRequestProperty("Content-type", "application/json");
+        try {
+            System.out.println("Response code: " + conn.getResponseCode());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        BufferedReader rd = null;
+        try {
+            // responseCode = conn.getResponseCode();
+            if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+                rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            } else {
+                rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        StringBuilder sb = new StringBuilder();
+        String line = null;
+        try {
+            while ((line = rd.readLine()) != null) {
+                sb.append(line);
+            }
+            rd.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        conn.disconnect();
+
+        JSONArray result = null;
+        try {
+            result = new JSONArray(sb.toString());
+        } catch (Throwable t) {
+            Log.e("getSmsAuthData-3", "Could not parse malformed JSON");
+            t.printStackTrace();
+        }
+
+        if(0 == result.length()) {
+            isExistEmail = false;
+        } else {
+            isExistEmail = true;
+        }
+        // Log.e("getSmsAuthData-4", Integer.toString(responseCode));
     }
 
     private void insertUserData() {
@@ -68,7 +160,7 @@ public class UserDataManager extends Activity {
     }
 
     private void callInsertREST() {
-        StringBuilder urlBuilder = new StringBuilder("http://192.168.0.73:8083/addNewUser"); /*URL*/
+        StringBuilder urlBuilder = new StringBuilder(UtilManager.getPPServerIp() + "/addNewUser"); /*URL*/
 
         URL url = null;
         try {
@@ -98,6 +190,7 @@ public class UserDataManager extends Activity {
             jsonObject.accumulate("email", email);
             jsonObject.accumulate("password", password);
             jsonObject.accumulate("phone_no", phone_no);
+            jsonObject.accumulate("level", "99");
         } catch (JSONException e) {
             e.printStackTrace();
         }

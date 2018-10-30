@@ -80,4 +80,7 @@ public class UtilManager {
         return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
     }
 
+    public static String getPPServerIp() {
+        return "http://192.168.0.73:9081";
+    }
 }

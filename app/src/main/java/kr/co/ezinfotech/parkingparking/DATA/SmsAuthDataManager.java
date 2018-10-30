@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import kr.co.ezinfotech.parkingparking.DB.DBManager;
 import kr.co.ezinfotech.parkingparking.DB.ParkingZoneDBCtrct;
+import kr.co.ezinfotech.parkingparking.R;
 import kr.co.ezinfotech.parkingparking.UTIL.UtilManager;
 
 /**
@@ -69,7 +70,7 @@ public class SmsAuthDataManager extends Activity {
     }
 
     private void getSmsAuthData() {
-        StringBuilder urlBuilder = new StringBuilder("http://192.168.0.73:8083/getAuthCode/" + phoneNo); /*URL*/
+        StringBuilder urlBuilder = new StringBuilder(UtilManager.getPPServerIp() + "/getAuthCode/" + phoneNo); /*URL*/
 
         URL url = null;
         try {
