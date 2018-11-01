@@ -50,6 +50,7 @@ public class LoginManager {
     public static void logout() {
         email = "";
         name = "";
+        phone = "";
         isLogin = false;
     }
 }

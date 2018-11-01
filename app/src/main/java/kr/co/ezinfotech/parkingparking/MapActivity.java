@@ -16,7 +16,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -88,8 +94,11 @@ public class MapActivity extends AppCompatActivity
             CheckPasswordExpired();
         }
 
-        // set login info
+        // Set login info
         SetLoginInfo();
+
+        // Set click listener
+        SetOnClickListenerToImg();
     }
 
     // ToolBar에 menu.xml을 인플레이트함
@@ -145,7 +154,29 @@ public class MapActivity extends AppCompatActivity
                             Toast.makeText(getApplicationContext(), "공유 버튼 클릭됨", Toast.LENGTH_LONG).show();
                             break;
                         case R.id.bottom_nav_two:
-                            Toast.makeText(getApplicationContext(), "제보 버튼 클릭됨", Toast.LENGTH_LONG).show();
+                            // Toast.makeText(getApplicationContext(), "제보 버튼 클릭됨", Toast.LENGTH_LONG).show();
+                            final View ll = findViewById(R.id.mapOverlayLayout);
+                            if(View.INVISIBLE == ll.getVisibility()) {
+                                // https://stackoverflow.com/questions/9448732/shaking-wobble-view-animation-in-android
+                                /*
+                                Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
+                                animShake.setFillAfter(true);
+                                ll.startAnimation(animShake);
+                                */
+                                ll.setVisibility(View.VISIBLE);
+                            } else {
+                                /*
+                                Animation animate = new ScaleAnimation(
+                                        1f, 2f, // Start and end values for the X axis scaling
+                                        1f, 2f, // Start and end values for the Y axis scaling
+                                        Animation.RELATIVE_TO_SELF, 0f, // Pivot point of X scaling
+                                        Animation.RELATIVE_TO_SELF, 1f); // Pivot point of Y scaling
+                                animate.setDuration(250);
+                                animate.setFillAfter(true);
+                                ll.startAnimation(animate);
+                                */
+                                ll.setVisibility(View.INVISIBLE);
+                            }
                             break;
                         case R.id.bottom_nav_three:
                             Toast.makeText(getApplicationContext(), "리스트 버튼 클릭됨", Toast.LENGTH_LONG).show();
@@ -366,6 +397,38 @@ public class MapActivity extends AppCompatActivity
     public void onClickNavHeader(View v) {
         // Toast.makeText(getApplicationContext(), "개인정보", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getApplicationContext(), PrivateInfoActivity.class);
+        getApplicationContext().startActivity(intent);
+    }
+
+    private void SetOnClickListenerToImg() {
+        ImageView imgOverlay3 = findViewById(R.id.imgOverlay3);
+        imgOverlay3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "제보 그만하기", Toast.LENGTH_SHORT).show();
+                View ll = findViewById(R.id.mapOverlayLayout);
+                if(View.VISIBLE == ll.getVisibility()) {
+                    /*
+                    Animation animate = new ScaleAnimation(
+                            1f, 2f, // Start and end values for the X axis scaling
+                            1f, 2f, // Start and end values for the Y axis scaling
+                            Animation.RELATIVE_TO_SELF, 0f, // Pivot point of X scaling
+                            Animation.RELATIVE_TO_SELF, 1f); // Pivot point of Y scaling
+                    animate.setDuration(250);
+                    animate.setFillAfter(true);
+                    ll.startAnimation(animate);
+                    */
+                    ll.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+    }
+
+    public void onClickReport(View v) {
+        Toast.makeText(getApplicationContext(), "제보하기", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getApplicationContext(), ReportActivity.class);
+        intent.putExtra("centerPointLat", dmm.centerPoint.getLatitude());
+        intent.putExtra("centerPointLng", dmm.centerPoint.getLongitude());
         getApplicationContext().startActivity(intent);
     }
 }
