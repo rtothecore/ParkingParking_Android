@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.location.Location;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.text.method.Touch;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,11 +23,14 @@ import net.daum.mf.map.api.MapView;
 
 import java.util.ArrayList;
 
+import kr.co.ezinfotech.parkingparking.DATA.FavoritesDataManager;
 import kr.co.ezinfotech.parkingparking.DATA.PZData;
 import kr.co.ezinfotech.parkingparking.DATA.PZDataManager;
 import kr.co.ezinfotech.parkingparking.DetailActivity;
 import kr.co.ezinfotech.parkingparking.NAVI.TmapManager;
 import kr.co.ezinfotech.parkingparking.R;
+import kr.co.ezinfotech.parkingparking.TOUCH.TouchManager;
+import kr.co.ezinfotech.parkingparking.UTIL.LoginManager;
 
 public class DaumMapManager extends Activity {
 
@@ -35,9 +40,14 @@ public class DaumMapManager extends Activity {
     public ArrayList<PZData> pzData = new ArrayList<>();
     private int selectedPZIndex = 0;
     public Location centerPoint = new Location("centerPoint");
+    private boolean isFavorites = false;
+    private boolean isFirst = true;
 
     private static final MapPoint DEFAULT_MARKER_POINT = MapPoint.mapPointWithGeoCoord(33.5000217, 126.5456647);
     private static final MapPoint DEFAULT_MARKER_POINT2 = MapPoint.mapPointWithGeoCoord(33.50481997, 126.5343383);
+
+    public DaumMapManager() {
+    }
 
     class CustomCalloutBalloonAdapter implements CalloutBalloonAdapter {
         private final View mCalloutBalloon = null;
@@ -122,6 +132,10 @@ public class DaumMapManager extends Activity {
             // Toast.makeText(ctx, "Clicked " + mapPOIItem.getItemName() + " onPOIItemSelected", Toast.LENGTH_SHORT).show();
             LinearLayout ll = (LinearLayout) ((Activity)ctx).findViewById(R.id.parkingBottomLL);
 
+            // 해당 주차장을 터치할때마다 서버에 터치정보를 보냄
+            TouchManager tm = new TouchManager();
+            tm.touchParking(pzData.get(mapPOIItem.getTag()).no);
+            
             // 클릭한 마커를 다시 또 클릭했을 때
             if(selectedPZIndex == mapPOIItem.getTag()) {
                 if(View.INVISIBLE == ll.getVisibility()) {
@@ -163,7 +177,7 @@ public class DaumMapManager extends Activity {
                         }
                     }
                 );
-
+/*
                 ((Activity)ctx).findViewById(R.id.buttonReservation).setOnClickListener(
                     new Button.OnClickListener() {
                         public void onClick(View v) {
@@ -179,6 +193,15 @@ public class DaumMapManager extends Activity {
                         }
                     }
                 );
+*/
+            }
+
+            // 즐겨찾기(별모양) 아이콘 셋팅
+            if(null == LoginManager.getEmail()) {   // 로그인 안 한 경우
+            } else {
+                final ImageView ivFavoriteStar = ((Activity)ctx).findViewById(R.id.ivFavoriteStar);
+                final FavoritesDataManager fdm = new FavoritesDataManager();
+                fdm.CheckExistFavoriteInDBAndSet(ctx, ivFavoriteStar, pzData.get(mapPOIItem.getTag()).no);
             }
 
             // 주차장 선택하여 나타난 하단정보의 주차장명을 터치하면 발생하는 이벤트 - https://stackoverflow.com/questions/15596507/how-to-set-onclick-method-with-linearlayout
@@ -254,7 +277,10 @@ public class DaumMapManager extends Activity {
 
         mMapView.setCalloutBalloonAdapter(new DaumMapManager.CustomCalloutBalloonAdapter());
         createCustomMarker(mMapView);
-        showAll();
+        if (isFirst) {
+            showAll();
+            isFirst = false;
+        }
     }
 
     public void runMapProcessWithParam(int division, int type, int op, int fee) {
@@ -262,6 +288,22 @@ public class DaumMapManager extends Activity {
 
         mMapView.setCalloutBalloonAdapter(new DaumMapManager.CustomCalloutBalloonAdapter());
         createCustomMarkerWithParam(mMapView, division, type, op, fee);
+        showAll();
+    }
+
+    public void runMapProcessWithFee(int fee) {
+        mMapView.removeAllPOIItems();   // 맵 초기화
+
+        mMapView.setCalloutBalloonAdapter(new DaumMapManager.CustomCalloutBalloonAdapter());
+        createCustomMarkerWithFee(mMapView, fee);
+        // showAll();
+    }
+
+    public void runMapProcessWithFavorites(String[] favoritesVal) {
+        mMapView.removeAllPOIItems();   // 맵 초기화
+
+        mMapView.setCalloutBalloonAdapter(new DaumMapManager.CustomCalloutBalloonAdapter());
+        createCustomMarkerWithFavorites(mMapView, favoritesVal);
         showAll();
     }
 
@@ -301,6 +343,7 @@ public class DaumMapManager extends Activity {
                     mCustomMarker.setCustomImageResourceId(R.drawable.mk_20);
                     break;
                 default :
+                    mCustomMarker.setCustomImageResourceId(R.drawable.mk_x);
                     break;
             }
 
@@ -351,6 +394,107 @@ public class DaumMapManager extends Activity {
                     mCustomMarker.setCustomImageResourceId(R.drawable.mk_20);
                     break;
                 default :
+                    mCustomMarker.setCustomImageResourceId(R.drawable.mk_x);
+                    break;
+            }
+
+            mCustomMarker.setCustomImageAutoscale(false);
+            mCustomMarker.setCustomImageAnchor(0.5f, 1.0f);
+            mCustomMarker.setShowCalloutBalloonOnTouch(false);
+
+            mapView.addPOIItem(mCustomMarker);
+        }
+
+        mapView.selectPOIItem(mCustomMarker, true);
+    }
+
+    private void createCustomMarkerWithFee(MapView mapView, int fee) {
+        // 1. PZDataManager에서 SQLite에 접속하여 특정 요금정보를 가진 주차장정보를 얻음.
+        PZDataManager pzdm = new PZDataManager(null);
+        pzData = pzdm.getPZDataWithFee(fee);
+
+        // 2. 얻은 주차장 정보를 화면에 뿌림
+        for(int i = 0; i < pzData.size(); i++) {
+            mCustomMarker = new MapPOIItem();
+            mCustomMarker.setItemName(pzData.get(i).name);
+            mCustomMarker.setTag(i);
+            mCustomMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(pzData.get(i).loc.getLatitude(), pzData.get(i).loc.getLongitude()));
+            mCustomMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
+
+            switch(pzData.get(i).add_term.fee) {
+                case "0" :
+                    mCustomMarker.setCustomImageResourceId(R.drawable.mk_00);
+                    break;
+                case "250" :
+                    mCustomMarker.setCustomImageResourceId(R.drawable.mk_025);
+                    break;
+                case "300" :
+                    mCustomMarker.setCustomImageResourceId(R.drawable.mk_03);
+                    break;
+                case "500" :
+                    mCustomMarker.setCustomImageResourceId(R.drawable.mk_05);
+                    break;
+                case "1000" :
+                    mCustomMarker.setCustomImageResourceId(R.drawable.mk_10);
+                    break;
+                case "1500" :
+                    mCustomMarker.setCustomImageResourceId(R.drawable.mk_15);
+                    break;
+                case "2000" :
+                    mCustomMarker.setCustomImageResourceId(R.drawable.mk_20);
+                    break;
+                default :
+                    mCustomMarker.setCustomImageResourceId(R.drawable.mk_x);
+                    break;
+            }
+
+            mCustomMarker.setCustomImageAutoscale(false);
+            mCustomMarker.setCustomImageAnchor(0.5f, 1.0f);
+            mCustomMarker.setShowCalloutBalloonOnTouch(false);
+
+            mapView.addPOIItem(mCustomMarker);
+        }
+
+        mapView.selectPOIItem(mCustomMarker, true);
+    }
+
+    private void createCustomMarkerWithFavorites(MapView mapView, String[] favoritesVal) {
+        // 1. PZDataManager에서 SQLite에 접속하여 모든 주차장정보를 얻음.
+        PZDataManager pzdm = new PZDataManager(null);
+        pzData = pzdm.getPZDataWithNos(favoritesVal);
+
+        // 2. 얻은 주차장 정보를 화면에 뿌림
+        for(int i = 0; i < pzData.size(); i++) {
+            mCustomMarker = new MapPOIItem();
+            mCustomMarker.setItemName(pzData.get(i).name);
+            mCustomMarker.setTag(i);
+            mCustomMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(pzData.get(i).loc.getLatitude(), pzData.get(i).loc.getLongitude()));
+            mCustomMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
+
+            switch(pzData.get(i).add_term.fee) {
+                case "0" :
+                    mCustomMarker.setCustomImageResourceId(R.drawable.mk_00);
+                    break;
+                case "250" :
+                    mCustomMarker.setCustomImageResourceId(R.drawable.mk_025);
+                    break;
+                case "300" :
+                    mCustomMarker.setCustomImageResourceId(R.drawable.mk_03);
+                    break;
+                case "500" :
+                    mCustomMarker.setCustomImageResourceId(R.drawable.mk_05);
+                    break;
+                case "1000" :
+                    mCustomMarker.setCustomImageResourceId(R.drawable.mk_10);
+                    break;
+                case "1500" :
+                    mCustomMarker.setCustomImageResourceId(R.drawable.mk_15);
+                    break;
+                case "2000" :
+                    mCustomMarker.setCustomImageResourceId(R.drawable.mk_20);
+                    break;
+                default :
+                    mCustomMarker.setCustomImageResourceId(R.drawable.mk_x);
                     break;
             }
 
@@ -368,7 +512,8 @@ public class DaumMapManager extends Activity {
         int padding = 20;
         float minZoomLevel = 7;
         float maxZoomLevel = 10;
-        MapPointBounds bounds = new MapPointBounds(DEFAULT_MARKER_POINT, DEFAULT_MARKER_POINT2);
+        // MapPointBounds bounds = new MapPointBounds(DEFAULT_MARKER_POINT, DEFAULT_MARKER_POINT2);
+        MapPointBounds bounds = new MapPointBounds(getBottomLeftMapPoint(), getTopRightMapPoint());
         mMapView.moveCamera(CameraUpdateFactory.newMapPointBounds(bounds, padding, minZoomLevel, maxZoomLevel));
     }
 
@@ -376,5 +521,43 @@ public class DaumMapManager extends Activity {
     public void setMapCenter(double lat, double lng) {
         // mMapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(lat, lng), true);
         mMapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(lat,lng), 1, true);
+    }
+
+    private MapPoint getBottomLeftMapPoint() {
+        double bottom = pzData.get(0).loc.getLongitude();
+        double left = pzData.get(0).loc.getLatitude();
+
+        for(int i = 0; i < pzData.size(); i++) {
+            if(bottom > pzData.get(i).loc.getLongitude()) {
+                bottom = pzData.get(i).loc.getLongitude();
+            }
+        }
+
+        for(int i = 0; i < pzData.size(); i++) {
+            if(left > pzData.get(i).loc.getLatitude()) {
+                left = pzData.get(i).loc.getLatitude();
+            }
+        }
+
+        return MapPoint.mapPointWithGeoCoord(left, bottom);
+    }
+
+    private MapPoint getTopRightMapPoint() {
+        double top = pzData.get(0).loc.getLongitude();
+        double right = pzData.get(0).loc.getLatitude();
+
+        for(int i = 0; i < pzData.size(); i++) {
+            if(top < pzData.get(i).loc.getLongitude()) {
+                top = pzData.get(i).loc.getLongitude();
+            }
+        }
+
+        for(int i = 0; i < pzData.size(); i++) {
+            if(right < pzData.get(i).loc.getLatitude()) {
+                right = pzData.get(i).loc.getLatitude();
+            }
+        }
+
+        return MapPoint.mapPointWithGeoCoord(right, top);
     }
 }

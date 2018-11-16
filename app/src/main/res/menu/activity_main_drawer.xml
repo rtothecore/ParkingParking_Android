@@ -4,6 +4,7 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
+        <!--
         <item
             android:id="@+id/drawer_my_reservation"
             android:icon="@drawable/icons8_compass_24"
@@ -16,9 +17,43 @@
             android:id="@+id/drawer_points"
             android:icon="@drawable/icons8_compass_24"
             android:title="충전, 포인트" />
+        -->
+        <item
+            android:id="@+id/drawer_private_info"
+            android:icon="@drawable/icons8_compass_24"
+            android:title="개인정보" />
+        <!--
+        <item
+            android:id="@+id/drawer_alliance"
+            android:icon="@drawable/icons8_compass_24"
+            android:title="제휴의뢰" />
+        -->
+        <item
+            android:id="@+id/drawer_service_center"
+            android:icon="@drawable/icons8_compass_24"
+            android:title="고객센터" />
+        <item
+            android:id="@+id/drawer_preferences"
+            android:icon="@drawable/icons8_compass_24"
+            android:title="환경설정" />
+        <item
+            android:id="@+id/drawer_favorites"
+            android:icon="@drawable/icons8_compass_24"
+            android:title="즐겨찾기" />
+        <!--
+        <item
+            android:id="@+id/drawer_share_status"
+            android:icon="@drawable/icons8_compass_24"
+            android:title="공유현황" />
+        -->
+        <item
+            android:id="@+id/drawer_report_status"
+            android:icon="@drawable/icons8_compass_24"
+            android:title="제보현황" />
     </group>
 
-    <item android:title="Communicate">
+<!--
+    <item>
         <menu>
             <item
                 android:id="@+id/drawer_private_info"
@@ -50,5 +85,5 @@
                 android:title="제보현황" />
         </menu>
     </item>
-
+-->
 </menu>

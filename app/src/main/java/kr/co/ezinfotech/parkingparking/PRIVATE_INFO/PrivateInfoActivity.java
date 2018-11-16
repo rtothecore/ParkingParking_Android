@@ -1,5 +1,6 @@
 package kr.co.ezinfotech.parkingparking.PRIVATE_INFO;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import kr.co.ezinfotech.parkingparking.DATA.UserDataManager;
 import kr.co.ezinfotech.parkingparking.LoginActivity;
 import kr.co.ezinfotech.parkingparking.PasswordChangeActivity;
 import kr.co.ezinfotech.parkingparking.R;
@@ -16,12 +18,16 @@ import kr.co.ezinfotech.parkingparking.UTIL.LoginManager;
 
 public class PrivateInfoActivity extends AppCompatActivity {
 
+    // http://itbrain.tistory.com/entry/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C-%EB%8B%A4%EB%A5%B8-%EC%95%A1%ED%8B%B0%EB%B9%84%ED%8B%B0%EC%9D%98-%ED%95%A8%EC%88%98-%ED%98%B8%EC%B6%9C
+    public static Context mContext;
     Toolbar PIToolbar = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_private_info);
+
+        mContext = this;
 
         PIToolbar = (Toolbar) findViewById(R.id.pi_toolbar);
         setSupportActionBar(PIToolbar);
@@ -53,6 +59,9 @@ public class PrivateInfoActivity extends AppCompatActivity {
 
         TextView tvPiEmail = findViewById(R.id.tvPiEmail);
         tvPiEmail.setText(LoginManager.getEmail());
+
+        UserDataManager udm = new UserDataManager(null);
+        udm.getUserData(this, LoginManager.getEmail());
     }
 
     public void onClickPiLogout(View v) {
@@ -66,5 +75,50 @@ public class PrivateInfoActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), PasswordChangeActivity.class);
         intent.putExtra("whereFrom", "PrivateInfoActivity");
         getApplicationContext().startActivity(intent);
+    }
+
+    public void onClickPiChangePhoneNo(View v) {
+        /*
+        Intent intent = new Intent(getApplicationContext(), PhoneNoChangeActivity.class);
+        getApplicationContext().startActivity(intent);
+        */
+    }
+
+    public void onClickPiChangeCarNo(View v) {
+        Intent intent = new Intent(getApplicationContext(), CarNoChangeActivity.class);
+        getApplicationContext().startActivity(intent);
+    }
+
+    public void setCarNo(String carNoVal) {
+        TextView tvPiCarNo = findViewById(R.id.tvPiCarNo);
+        tvPiCarNo.setText(carNoVal);
+    }
+
+    public void onClickPiChangeCarType(View v) {
+        Intent intent = new Intent(getApplicationContext(), CarTypeChangeActivity.class);
+        getApplicationContext().startActivity(intent);
+    }
+
+    public void setCarType(String carTypeVal) {
+        TextView tvPiCarType = findViewById(R.id.tvPiCarType);
+        switch(carTypeVal) {
+            case "0" :
+                tvPiCarType.setText("소형");
+                break;
+            case "1" :
+                tvPiCarType.setText("중형");
+                break;
+            case "2" :
+                tvPiCarType.setText("대형");
+                break;
+            case "3" :
+                tvPiCarType.setText("전기");
+                break;
+            case "4" :
+                tvPiCarType.setText("장애");
+                break;
+            default :
+                break;
+        }
     }
 }

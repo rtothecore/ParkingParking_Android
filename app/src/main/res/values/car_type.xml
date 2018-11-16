@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="car_type_array">
+        <item>소형</item>
+        <item>중형</item>
+        <item>대형</item>
+        <item>전기</item>
+        <item>장애</item>
+    </string-array>
+</resources>

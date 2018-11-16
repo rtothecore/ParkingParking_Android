@@ -9,11 +9,11 @@
         android:title="검색"
         android:icon="@drawable/icons8_search_24"
         app:showAsAction="ifRoom"/>
-
+<!--
     <item
         android:id="@+id/action_filter"
         android:title="필터"
         android:icon="@drawable/icons8_filter_24"
         app:showAsAction="ifRoom"/>
-
+-->
 </menu>

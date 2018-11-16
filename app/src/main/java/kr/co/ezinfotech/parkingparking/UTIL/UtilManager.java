@@ -81,6 +81,7 @@ public class UtilManager {
     }
 
     public static String getPPServerIp() {
-        return "http://192.168.0.73:9081";
+        // return "http://192.168.0.73:9081";
+        return "http://59.8.37.86:9081";
     }
 }

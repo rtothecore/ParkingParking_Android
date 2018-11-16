@@ -42,6 +42,7 @@ public class PZData implements Parcelable {
     public String homepage;
     public PZPSData park_space_count;
     public String sale_info;
+    public String display;
 
     public PZData() {
     }
@@ -95,6 +96,7 @@ public class PZData implements Parcelable {
         dest.writeString(this.park_space_count.elec);
         dest.writeString(this.park_space_count.hand);
         dest.writeString(this.sale_info);
+        dest.writeString(this.display);
     }
 
     protected PZData(Parcel in) {
@@ -148,6 +150,7 @@ public class PZData implements Parcelable {
         this.park_space_count.elec = in.readString();
         this.park_space_count.hand = in.readString();
         this.sale_info = in.readString();
+        this.display = in.readString();
     }
 
     public static final Parcelable.Creator<PZData> CREATOR = new Parcelable.Creator<PZData>() {

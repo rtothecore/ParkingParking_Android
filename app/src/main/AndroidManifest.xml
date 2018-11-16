@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.DIAL_PHONE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -65,7 +65,16 @@
         <activity android:name=".PasswordChangeActivity" />
         <activity android:name=".TempPasswordSendActivity" />
         <activity android:name=".PRIVATE_INFO.PrivateInfoActivity" />
-        <activity android:name=".ReportActivity"></activity>
+        <activity android:name=".ReportActivity" />
+        <activity android:name=".ReportStatusActivity" />
+        <activity android:name=".ReportEditActivity" />
+        <activity android:name=".ReportDelActivity" />
+        <activity android:name=".PRIVATE_INFO.PhoneNoChangeActivity" />
+        <activity android:name=".PRIVATE_INFO.CarNoChangeActivity" />
+        <activity android:name=".PRIVATE_INFO.CarTypeChangeActivity" />
+        <activity android:name=".PREFERENCES.PreferencesActivity" />
+        <activity android:name=".PREFERENCES.UserLeaveActivity" />
+        <activity android:name=".ServiceCenterActivity"></activity>
     </application>
 
 </manifest>

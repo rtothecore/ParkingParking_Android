@@ -6,4 +6,5 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
     <color name="navigation_item_color">#51032d</color>
+    <color name="table_row_text_bg_color">#E7E1EF</color>
 </resources>

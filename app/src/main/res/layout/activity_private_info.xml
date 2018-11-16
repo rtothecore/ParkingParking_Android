@@ -56,7 +56,8 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:onClick="onClickPiChangePhoneNo">
 
             <ImageView
                 android:id="@+id/imageView3"
@@ -78,19 +79,21 @@
                 android:layout_weight="1"
                 android:gravity="right"
                 android:text="01032795690" />
-
+<!--
             <ImageView
                 android:id="@+id/ivPiPhone"
                 android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/icons8_chevron_right_24" />
+-->
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:onClick="onClickPiChangeCarNo">
 
             <ImageView
                 android:id="@+id/imageView4"
@@ -124,7 +127,8 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:onClick="onClickPiChangeCarType">
 
             <ImageView
                 android:id="@+id/imageView5"
@@ -192,7 +196,8 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:onClick="onClickPiChangePw">
 
             <ImageView
                 android:id="@+id/imageView7"
@@ -213,15 +218,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:text="tinyblonco@hanmail.net"
-                android:onClick="onClickPiChangePw"/>
+                android:text="tinyblonco@hanmail.net" />
 
             <ImageView
                 android:id="@+id/ivPiEmail"
                 android:layout_width="20dp"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/icons8_chevron_right_24"
-                android:onClick="onClickPiChangePw"/>
+                app:srcCompat="@drawable/icons8_chevron_right_24" />
         </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

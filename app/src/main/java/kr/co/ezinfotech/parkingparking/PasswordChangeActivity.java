@@ -5,7 +5,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -19,6 +21,7 @@ import kr.co.ezinfotech.parkingparking.UTIL.UtilManager;
 
 public class PasswordChangeActivity extends AppCompatActivity {
 
+    Toolbar PCToolbar = null;
     private String whereIFrom = null;
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^" +
                                                                     "(?=.*[0-9])" +         //at least 1 digit
@@ -33,8 +36,27 @@ public class PasswordChangeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password_change);
 
+        PCToolbar = (Toolbar) findViewById(R.id.pc_toolbar);
+        setSupportActionBar(PCToolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.icons8_left_24);
+        getSupportActionBar().setTitle("비밀번호 변경");
+
         // Get parcel data
         whereIFrom = getIntent().getStringExtra("whereFrom");
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                super.onBackPressed();
+                return true;
+            default:
+                Toast.makeText(getApplicationContext(), "나머지 버튼 터치됨", Toast.LENGTH_LONG).show();
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private boolean checkPwInputForm() {
