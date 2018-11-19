@@ -80,7 +80,7 @@
             android:onClick="onClickAskWithKakaoTalk">
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/textViewAskWithKaKaoTalk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -102,7 +102,7 @@
             android:onClick="onClickAskWithPhone">
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/tvAskWithTel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

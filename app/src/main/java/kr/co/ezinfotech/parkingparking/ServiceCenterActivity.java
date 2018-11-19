@@ -39,7 +39,8 @@ public class ServiceCenterActivity extends AppCompatActivity {
     }
 
     public void onClickNotice(View v) {
-
+        Intent intent = new Intent(getApplicationContext(), NoticeActivity.class);
+        getApplicationContext().startActivity(intent);
     }
 
     public void onClickSendEmail(View v) {

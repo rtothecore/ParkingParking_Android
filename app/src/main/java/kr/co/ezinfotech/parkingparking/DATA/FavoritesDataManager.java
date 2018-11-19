@@ -405,6 +405,8 @@ public class FavoritesDataManager extends Activity {
         }
 
         protected void onPostExecute(String[] result) {
+            dmm.setMode(3);
+            dmm.setFavorites(result);
             dmm.runMapProcessWithFavorites(result);
         }
     }

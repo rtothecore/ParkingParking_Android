@@ -107,6 +107,7 @@ public class MapActivity extends AppCompatActivity
 
         // Daum Map API
         dmm = new DaumMapManager(this);
+        dmm.setMode(0);
         dmm.runMapProcess();
 
         // Initialize radio buttons of search filter
@@ -149,6 +150,7 @@ public class MapActivity extends AppCompatActivity
                 fab1.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
                 fab2.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
                 fab3.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
+                dmm.setMode(2);
                 dmm.runMapProcessWithFee(2);
                 break;
             case R.id.fab2 :
@@ -156,6 +158,7 @@ public class MapActivity extends AppCompatActivity
                 fab1.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
                 fab2.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
                 fab3.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
+                dmm.setMode(1);
                 dmm.runMapProcessWithFee(1);
                 break;
             case R.id.fab3 :
@@ -163,6 +166,7 @@ public class MapActivity extends AppCompatActivity
                 fab1.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
                 fab2.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
                 fab3.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
+                dmm.setMode(0);
                 dmm.runMapProcess();
                 break;
             default:

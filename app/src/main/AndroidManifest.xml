@@ -74,7 +74,9 @@
         <activity android:name=".PRIVATE_INFO.CarTypeChangeActivity" />
         <activity android:name=".PREFERENCES.PreferencesActivity" />
         <activity android:name=".PREFERENCES.UserLeaveActivity" />
-        <activity android:name=".ServiceCenterActivity"></activity>
+        <activity android:name=".ServiceCenterActivity" />
+        <activity android:name=".NoticeActivity" />
+        <activity android:name=".POPUP.NoticeDetailActivity" android:theme="@android:style/Theme.Dialog"></activity>
     </application>
 
 </manifest>

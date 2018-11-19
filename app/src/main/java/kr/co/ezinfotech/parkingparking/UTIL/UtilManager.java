@@ -1,11 +1,15 @@
 package kr.co.ezinfotech.parkingparking.UTIL;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import java.io.IOException;
 import java.util.List;
@@ -83,5 +87,28 @@ public class UtilManager {
     public static String getPPServerIp() {
         // return "http://192.168.0.73:9081";
         return "http://59.8.37.86:9081";
+    }
+
+    // https://medium.com/@euryperez/android-pearls-set-size-to-a-view-in-dp-programatically-71d22eed7fc0
+    public static int dpToPx(Context ctx, int dp) {
+        float density = ctx.getResources()
+                .getDisplayMetrics()
+                .density;
+        return Math.round((float) dp * density);
+    }
+
+    // https://devtalk.kakao.com/t/android-mapview-custom-view/46225/3
+    public static Bitmap createBitmapFromView(View v) {
+        v.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT));
+        v.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+        v.layout(0, 0, v.getMeasuredWidth(), v.getMeasuredHeight());
+        Bitmap bitmap = Bitmap.createBitmap(v.getMeasuredWidth(), v.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+
+        Canvas c = new Canvas(bitmap);
+        v.layout(v.getLeft(), v.getTop(), v.getRight(), v.getBottom());
+        v.draw(c);
+        return bitmap;
     }
 }

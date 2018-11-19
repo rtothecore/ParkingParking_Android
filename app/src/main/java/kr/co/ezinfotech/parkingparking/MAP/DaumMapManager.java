@@ -3,10 +3,13 @@ package kr.co.ezinfotech.parkingparking.MAP;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.text.method.Touch;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 
 import net.daum.mf.map.api.CalloutBalloonAdapter;
 import net.daum.mf.map.api.CameraUpdateFactory;
+import net.daum.mf.map.api.MapCircle;
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapPointBounds;
@@ -24,6 +28,7 @@ import net.daum.mf.map.api.MapView;
 import java.util.ArrayList;
 
 import kr.co.ezinfotech.parkingparking.DATA.FavoritesDataManager;
+import kr.co.ezinfotech.parkingparking.DATA.MapClusterDataManager;
 import kr.co.ezinfotech.parkingparking.DATA.PZData;
 import kr.co.ezinfotech.parkingparking.DATA.PZDataManager;
 import kr.co.ezinfotech.parkingparking.DetailActivity;
@@ -31,6 +36,7 @@ import kr.co.ezinfotech.parkingparking.NAVI.TmapManager;
 import kr.co.ezinfotech.parkingparking.R;
 import kr.co.ezinfotech.parkingparking.TOUCH.TouchManager;
 import kr.co.ezinfotech.parkingparking.UTIL.LoginManager;
+import kr.co.ezinfotech.parkingparking.UTIL.UtilManager;
 
 public class DaumMapManager extends Activity {
 
@@ -42,6 +48,9 @@ public class DaumMapManager extends Activity {
     public Location centerPoint = new Location("centerPoint");
     private boolean isFavorites = false;
     private boolean isFirst = true;
+    private int currentMode = 0;    // 0:전체, 1:유료, 2:무료, 3:즐겨찾기
+    private String[] favorites = null;
+    private int currentZoomLevel = 0;
 
     private static final MapPoint DEFAULT_MARKER_POINT = MapPoint.mapPointWithGeoCoord(33.5000217, 126.5456647);
     private static final MapPoint DEFAULT_MARKER_POINT2 = MapPoint.mapPointWithGeoCoord(33.50481997, 126.5343383);
@@ -69,7 +78,7 @@ public class DaumMapManager extends Activity {
     MapView.MapViewEventListener mvel = new MapView.MapViewEventListener() {
         @Override
         public void onMapViewInitialized(MapView mapView) {
-            Toast.makeText(ctx, "onMapViewInitialized", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(ctx, "onMapViewInitialized", Toast.LENGTH_SHORT).show();
             centerPoint.setLatitude(mapView.getMapCenterPoint().getMapPointGeoCoord().latitude);
             centerPoint.setLongitude(mapView.getMapCenterPoint().getMapPointGeoCoord().longitude);
         }
@@ -87,8 +96,32 @@ public class DaumMapManager extends Activity {
         }
 
         @Override
-        public void onMapViewZoomLevelChanged(MapView mapView, int i) {
-
+        public void onMapViewZoomLevelChanged(MapView mapView, int zoomLevel) {
+            if(zoomLevel != currentZoomLevel) {
+                if(6 < zoomLevel) {
+                    // Toast.makeText(ctx, "onMapViewZoomLevelChanged-" + zoomLevel, Toast.LENGTH_SHORT).show();
+                    runMapCluster();
+                } else {
+                    mMapView.removeAllCircles();
+                    switch (currentMode) {
+                        case 0 :
+                            runMapProcess();
+                            break;
+                        case 1:
+                            runMapProcessWithFee(1);
+                            break;
+                        case 2:
+                            runMapProcessWithFee(2);
+                            break;
+                        case 3:
+                            runMapProcessWithFavorites(favorites);
+                            break;
+                        default :
+                            break;
+                    }
+                }
+            }
+            currentZoomLevel = zoomLevel;
         }
 
         @Override
@@ -135,7 +168,7 @@ public class DaumMapManager extends Activity {
             // 해당 주차장을 터치할때마다 서버에 터치정보를 보냄
             TouchManager tm = new TouchManager();
             tm.touchParking(pzData.get(mapPOIItem.getTag()).no);
-            
+
             // 클릭한 마커를 다시 또 클릭했을 때
             if(selectedPZIndex == mapPOIItem.getTag()) {
                 if(View.INVISIBLE == ll.getVisibility()) {
@@ -275,12 +308,41 @@ public class DaumMapManager extends Activity {
     public void runMapProcess() {
         // mMapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
 
+        /* ORIGINAL */
         mMapView.setCalloutBalloonAdapter(new DaumMapManager.CustomCalloutBalloonAdapter());
         createCustomMarker(mMapView);
         if (isFirst) {
             showAll();
             isFirst = false;
         }
+    }
+
+    private void runMapCluster() {
+        mMapView.removeAllPOIItems();
+
+        /*
+        1 - 33.48899942632974, 126.52345042899934
+        2 - 33.50856134715346, 126.58809093082762
+        3 - 33.48421551548222, 126.41674222392888
+        4 - 33.52733789240598, 126.85531797356151
+        5 - 33.21934163922076, 126.25168168904047
+        6 - 33.2471670492287, 126.50897195404724
+        7 - 33.25403040995482, 126.5704022266639
+        8 - 33.467086128033564, 126.9043005705542
+        */
+
+        MapClusterDataManager mcdm = new MapClusterDataManager();
+        mcdm.GetMapClusterDataAndSet(ctx, mMapView);
+
+        /*
+        // https://devtalk.kakao.com/t/android-mapview-custom-view/46225/3
+        mCustomMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
+
+        LayoutInflater inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View inflatedFrame = inflater.inflate(R.layout.view_map_bb_b, null);
+        Bitmap bitmap = UtilManager.createBitmapFromView(inflatedFrame.findViewById(R.id.view_m_b));
+        mCustomMarker.setCustomImageBitmap(bitmap);
+        */
     }
 
     public void runMapProcessWithParam(int division, int type, int op, int fee) {
@@ -559,5 +621,13 @@ public class DaumMapManager extends Activity {
         }
 
         return MapPoint.mapPointWithGeoCoord(right, top);
+    }
+
+    public void setMode(int modeVal) {
+        currentMode = modeVal;
+    }
+
+    public void setFavorites(String[] favoritesVal) {
+        favorites = favoritesVal;
     }
 }
