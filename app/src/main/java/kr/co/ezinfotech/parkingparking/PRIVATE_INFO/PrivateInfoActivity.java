@@ -68,12 +68,14 @@ public class PrivateInfoActivity extends AppCompatActivity {
         LoginManager.logout();
         Toast.makeText(getApplicationContext(), "로그아웃 했습니다.", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
         getApplicationContext().startActivity(intent);
         finish();
     }
 
     public void onClickPiChangePw(View v) {
         Intent intent = new Intent(getApplicationContext(), PasswordChangeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
         intent.putExtra("whereFrom", "PrivateInfoActivity");
         getApplicationContext().startActivity(intent);
     }
@@ -87,6 +89,7 @@ public class PrivateInfoActivity extends AppCompatActivity {
 
     public void onClickPiChangeCarNo(View v) {
         Intent intent = new Intent(getApplicationContext(), CarNoChangeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
         getApplicationContext().startActivity(intent);
     }
 
@@ -97,6 +100,7 @@ public class PrivateInfoActivity extends AppCompatActivity {
 
     public void onClickPiChangeCarType(View v) {
         Intent intent = new Intent(getApplicationContext(), CarTypeChangeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
         getApplicationContext().startActivity(intent);
     }
 

@@ -58,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
                     LoginManager.login();
 
                     Intent intent = new Intent(getApplicationContext(), MapActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
                     getApplicationContext().startActivity(intent);
                     finish();
                 } else if(201 == msg.arg1) {
@@ -77,6 +78,7 @@ public class LoginActivity extends AppCompatActivity {
     public void btnOutside(View v) {
         // Toast.makeText(getApplicationContext(), "이지파킹 둘러보기 터치!", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getApplicationContext(), MapActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
         getApplicationContext().startActivity(intent);
         // finish();
     }
@@ -93,6 +95,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void btnSignup(View v) {
         Intent intent = new Intent(getApplicationContext(), TermsActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
         getApplicationContext().startActivity(intent);
     }
 

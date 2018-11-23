@@ -209,6 +209,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                         // 로그인 폼으로 이동
                         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
                         getApplicationContext().startActivity(intent);
                     } else {
                         Log.i("UserDataManager", "DB insert 실패");

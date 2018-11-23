@@ -215,6 +215,7 @@ public class ReportDataManager extends Activity {
 
     private void moveToReportEditActivity(int dataIndex) {
         Intent intent = new Intent(parentCtx, ReportEditActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
         intent.putExtra("code", reportData.get(dataIndex).code);
         //  intent.putExtra("report_date", reportData.get(dataIndex));
         //  intent.putExtra("user_email", reportData.get(dataIndex));

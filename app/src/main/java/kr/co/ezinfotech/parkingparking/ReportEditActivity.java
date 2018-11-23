@@ -262,6 +262,7 @@ public class ReportEditActivity extends AppCompatActivity {
 
     public void onClickBtnReportDel(View v) {
         Intent intent = new Intent(getApplicationContext(), ReportDelActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
         intent.putExtra("code", code);
         getApplicationContext().startActivity(intent);
     }

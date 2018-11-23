@@ -46,18 +46,21 @@ public class TermsActivity extends AppCompatActivity {
 
     public void btnServiceTermDetail(View v) {
         Intent intent = new Intent(getApplicationContext(), TermsDetailActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
         intent.putExtra("tabIndex", 0);
         getApplicationContext().startActivity(intent);
     }
 
     public void btnPrivateTermDetail(View v) {
         Intent intent = new Intent(getApplicationContext(), TermsDetailActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
         intent.putExtra("tabIndex", 1);
         getApplicationContext().startActivity(intent);
     }
 
     public void btnLocationTermDetail(View v) {
         Intent intent = new Intent(getApplicationContext(), TermsDetailActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
         intent.putExtra("tabIndex", 2);
         getApplicationContext().startActivity(intent);
     }
@@ -147,6 +150,7 @@ public class TermsActivity extends AppCompatActivity {
 
     public void btnAgreeTermsOk(View v) {
         Intent intent = new Intent(getApplicationContext(), AuthActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
         getApplicationContext().startActivity(intent);
     }
 }

@@ -81,6 +81,7 @@ public class NoticeDataManager extends Activity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(ctx, NoticeDetailActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
                         intent.putExtra("subject", nDatas.get(dataIndex).subject);
                         intent.putExtra("contents", nDatas.get(dataIndex).contents);
                         ctx.startActivity(intent);

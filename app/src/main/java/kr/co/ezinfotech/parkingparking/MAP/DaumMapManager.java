@@ -122,11 +122,11 @@ public class DaumMapManager extends Activity {
         @Override
         public void onMapViewZoomLevelChanged(MapView mapView, int zoomLevel) {
             if(zoomLevel != currentZoomLevel) {
-                if(turnOnCluster && (3 < zoomLevel)) {
+                if(turnOnCluster && (4 < zoomLevel)) {
                     // Toast.makeText(ctx, "onMapViewZoomLevelChanged-" + zoomLevel, Toast.LENGTH_SHORT).show();
                     runMapCluster();
                 } else {
-                    mMapView.removeAllCircles();
+                    // mMapView.removeAllCircles();
                     if(preCurrentMode != currentMode) {
                         switch (currentMode) {
                             case 0 :
@@ -145,7 +145,7 @@ public class DaumMapManager extends Activity {
                                 break;
                         }
                     }
-                    if(3 < zoomLevel) {
+                    if(4 < zoomLevel) {
                         runMapCluster();
                     }
                 }
@@ -273,6 +273,7 @@ public class DaumMapManager extends Activity {
                 public void onClick(View v) {
                     // Toast.makeText(ctx, "OnClickListener-" + pzData.get(mapPOIItem.getTag()).addr_road, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ctx, DetailActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
                     intent.putExtra("no", pzData.get(mapPOIItem.getTag()).no);
                     intent.putExtra("name", pzData.get(mapPOIItem.getTag()).name);
                     intent.putExtra("addr_road", pzData.get(mapPOIItem.getTag()).addr_road);
@@ -330,6 +331,7 @@ public class DaumMapManager extends Activity {
             turnOnCluster = false;
             mMapView.removeAllCircles();    // 클러스터링 초기화
             mMapView.removeAllPOIItems();   // 맵 초기화
+            mMapView.setPOIItemEventListener(piel);
 
             mMapView.setCalloutBalloonAdapter(new DaumMapManager.CustomCalloutBalloonAdapter());
             createCustomMarker(mMapView);
@@ -347,6 +349,7 @@ public class DaumMapManager extends Activity {
         turnOnCluster = true;
         mMapView.removeAllPOIItems();
         mMapView.removeAllCircles();
+        mMapView.setPOIItemEventListener(null);
 
         int clusterRange = 1000;   // 1Km
         ArrayList<ClusteredData> clusteredData = new ArrayList<>();
@@ -354,20 +357,18 @@ public class DaumMapManager extends Activity {
         Arrays.fill(isClustered, Boolean.FALSE);
 
         // currentZoomLevel에 따라 clusterRange값 조절
-        if(3 >= currentZoomLevel) {
+        if(4 >= currentZoomLevel) {
             clusterRange = 1000;
-        } else if(3 < currentZoomLevel && 4 >=currentZoomLevel) {
-            clusterRange = 2000;
-        } else if(4 < currentZoomLevel && 5 >=currentZoomLevel) {
-            clusterRange = 3000;
-        } else if(5 < currentZoomLevel && 6 >=currentZoomLevel) {
-            clusterRange = 4000;
-        } else if(6 < currentZoomLevel && 7 >=currentZoomLevel) {
-            clusterRange = 5000;
-        } else if(7 < currentZoomLevel && 8 >=currentZoomLevel) {
+        } else if(4 < currentZoomLevel && 5 >= currentZoomLevel) {
             clusterRange = 6000;
-        } else if(8 < currentZoomLevel && 9 >=currentZoomLevel) {
-            clusterRange = 7000;
+        } else if(5 < currentZoomLevel && 6 >= currentZoomLevel) {
+            clusterRange = 12000;
+        } else if(6 < currentZoomLevel && 7 >= currentZoomLevel) {
+            clusterRange = 18000;
+        } else if(7 < currentZoomLevel && 8 >= currentZoomLevel) {
+            clusterRange = 24000;
+        } else if(8 < currentZoomLevel) {
+            clusterRange = 30000;
         }
 
         for(int i = 0; i < pzData.size(); i++) {
@@ -396,20 +397,23 @@ public class DaumMapManager extends Activity {
             }
         }
 
+        // 가중치 계산
+        int weightForCircle = ((currentZoomLevel - 4) * 1000);
+
         // 오버레이 이미지 그리기
         for(int k = 0; k < clusteredData.size(); k++) {
             int circleRadius = 0;
 
             if(1 == clusteredData.get(k).clusterData.size()) {
-                circleRadius = 100;  // 0.1Km
+                circleRadius = 300 + weightForCircle;  // 0.3Km
             } else if(1 < clusteredData.get(k).clusterData.size() && 10 >= clusteredData.get(k).clusterData.size()) {
-                circleRadius = 400;  // 0.4Km
+                circleRadius = 600 + weightForCircle;  // 0.6Km
             } else if(10 < clusteredData.get(k).clusterData.size() && 20 >= clusteredData.get(k).clusterData.size()) {
-                circleRadius = 600;  // 0.6Km
+                circleRadius = 900 + weightForCircle;  // 0.9Km
             } else if(20 < clusteredData.get(k).clusterData.size() && 30 >= clusteredData.get(k).clusterData.size()) {
-                circleRadius = 800;  // 0.8Km
+                circleRadius = 1200 + weightForCircle;  // 1.2Km
             } else if(30 < clusteredData.get(k).clusterData.size()) {
-                circleRadius = 1000;  // 1.0Km
+                circleRadius = 1500 + weightForCircle;  // 1.5Km
             }
 
             MapCircle circle = new MapCircle(
@@ -437,6 +441,8 @@ public class DaumMapManager extends Activity {
 
             Bitmap bitmap = UtilManager.createBitmapFromView(inflatedFrame.findViewById(R.id.view_m_b));
             mCustomMarker.setCustomImageBitmap(bitmap);
+            mCustomMarker.setCustomImageAnchor(0.5f, 0.5f);
+            mCustomMarker.setShowCalloutBalloonOnTouch(false);
 
             mMapView.addPOIItem(mCustomMarker);
         }
@@ -455,8 +461,8 @@ public class DaumMapManager extends Activity {
     public void runMapProcessWithFee(int fee) {
         turnOnCluster = false;
         mMapView.removeAllCircles();
-
         mMapView.removeAllPOIItems();   // 맵 초기화
+        mMapView.setPOIItemEventListener(piel);
 
         mMapView.setCalloutBalloonAdapter(new DaumMapManager.CustomCalloutBalloonAdapter());
         createCustomMarkerWithFee(mMapView, fee);
@@ -467,8 +473,8 @@ public class DaumMapManager extends Activity {
     public void runMapProcessWithFavorites(String[] favoritesVal) {
         turnOnCluster = false;
         mMapView.removeAllCircles();
-
         mMapView.removeAllPOIItems();   // 맵 초기화
+        mMapView.setPOIItemEventListener(piel);
 
         mMapView.setCalloutBalloonAdapter(new DaumMapManager.CustomCalloutBalloonAdapter());
         createCustomMarkerWithFavorites(mMapView, favoritesVal);

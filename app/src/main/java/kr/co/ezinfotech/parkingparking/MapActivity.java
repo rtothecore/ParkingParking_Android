@@ -194,6 +194,7 @@ public class MapActivity extends AppCompatActivity
                 // Toast.makeText(getApplicationContext(), "검색 버튼 클릭됨", Toast.LENGTH_LONG).show();
                 // https://stackoverflow.com/questions/14292398/how-to-pass-data-from-2nd-activity-to-1st-activity-when-pressed-back-android
                 Intent intent = new Intent(this, SearchActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
                 startActivityForResult(intent, 1);
                 return true;
 /*
@@ -235,6 +236,7 @@ public class MapActivity extends AppCompatActivity
                             if (!LoginManager.isLogin()) {  // 로그인 안 한 경우
                                 Toast.makeText(getApplicationContext(), "로그인이 필요한 서비스입니다.", Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
                                 getApplicationContext().startActivity(intent);
                             } else {
                                 final View ll = findViewById(R.id.mapOverlayLayout);
@@ -248,6 +250,7 @@ public class MapActivity extends AppCompatActivity
                         case R.id.bottom_nav_three:
                             // Toast.makeText(getApplicationContext(), "리스트 버튼 클릭됨", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(MapActivity.this, ListActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
                             intent.putExtra("centerPointLat", dmm.centerPoint.getLatitude());
                             intent.putExtra("centerPointLng", dmm.centerPoint.getLongitude());
                             intent.putParcelableArrayListExtra("pzData", dmm.pzData);
@@ -394,6 +397,7 @@ public class MapActivity extends AppCompatActivity
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     Intent intent = new Intent(myCtx, PasswordChangeActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
                                     intent.putExtra("whereFrom", "MapActivity");
                                     myCtx.startActivity(intent);
                                     finish();
@@ -409,6 +413,7 @@ public class MapActivity extends AppCompatActivity
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     Intent intent = new Intent(myCtx, TempPasswordSendActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
                                     myCtx.startActivity(intent);
                                 }
                             });
@@ -422,6 +427,7 @@ public class MapActivity extends AppCompatActivity
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     Intent intent = new Intent(myCtx, PasswordChangeActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
                                     intent.putExtra("whereFrom", "MapActivity");
                                     myCtx.startActivity(intent);
                                 }
@@ -473,33 +479,40 @@ public class MapActivity extends AppCompatActivity
             if (!LoginManager.isLogin()) {  // 로그인 안 한 경우
                 Toast.makeText(getApplicationContext(), "로그인이 필요한 서비스입니다.", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
                 getApplicationContext().startActivity(intent);
             } else {
                 Intent intent = new Intent(getApplicationContext(), PrivateInfoActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
                 getApplicationContext().startActivity(intent);
             }
         } else if (id == R.id.drawer_service_center) {
             if (!LoginManager.isLogin()) {  // 로그인 안 한 경우
                 Toast.makeText(getApplicationContext(), "로그인이 필요한 서비스입니다.", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
                 getApplicationContext().startActivity(intent);
             } else {
                 Intent intent = new Intent(getApplicationContext(), ServiceCenterActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
                 getApplicationContext().startActivity(intent);
             }
         } else if (id == R.id.drawer_preferences) {
             if (!LoginManager.isLogin()) {  // 로그인 안 한 경우
                 Toast.makeText(getApplicationContext(), "로그인이 필요한 서비스입니다.", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
                 getApplicationContext().startActivity(intent);
             } else {
                 Intent intent = new Intent(getApplicationContext(), PreferencesActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
                 getApplicationContext().startActivity(intent);
             }
         } else if (id == R.id.drawer_favorites) {
             if (!LoginManager.isLogin()) {  // 로그인 안 한 경우
                 Toast.makeText(getApplicationContext(), "로그인이 필요한 서비스입니다.", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
                 getApplicationContext().startActivity(intent);
             } else {
                 FavoritesDataManager fdm = new FavoritesDataManager();
@@ -509,9 +522,11 @@ public class MapActivity extends AppCompatActivity
             if (!LoginManager.isLogin()) {  // 로그인 안 한 경우
                 Toast.makeText(getApplicationContext(), "로그인이 필요한 서비스입니다.", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
                 getApplicationContext().startActivity(intent);
             } else {
                 Intent intent = new Intent(getApplicationContext(), ReportStatusActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
                 getApplicationContext().startActivity(intent);
             }
         }
@@ -544,10 +559,12 @@ public class MapActivity extends AppCompatActivity
             LoginManager.logout();
             Toast.makeText(getApplicationContext(), "로그아웃 했습니다.", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
             getApplicationContext().startActivity(intent);
             finish();
         } else {    // 로그아웃 된 상태
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
             getApplicationContext().startActivity(intent);
         }
     }
@@ -555,6 +572,7 @@ public class MapActivity extends AppCompatActivity
     public void onClickNavHeader(View v) {
         // Toast.makeText(getApplicationContext(), "개인정보", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getApplicationContext(), PrivateInfoActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
         getApplicationContext().startActivity(intent);
     }
 
@@ -585,6 +603,7 @@ public class MapActivity extends AppCompatActivity
     public void onClickReport(View v) {
         // Toast.makeText(getApplicationContext(), "제보하기", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getApplicationContext(), ReportActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
         intent.putExtra("centerPointLat", dmm.centerPoint.getLatitude());
         intent.putExtra("centerPointLng", dmm.centerPoint.getLongitude());
         getApplicationContext().startActivity(intent);

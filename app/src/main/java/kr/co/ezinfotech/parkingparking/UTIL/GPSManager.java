@@ -169,6 +169,7 @@ public class GPSManager extends Service implements LocationListener {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int which) {
                         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
                         mContext.startActivity(intent);
                     }
                 });

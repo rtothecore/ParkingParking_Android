@@ -161,6 +161,7 @@ public class AuthActivity extends AppCompatActivity {
 
                     // 2. 회원가입 폼으로 이동
                     Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
                     intent.putExtra("phoneNo", etPhoneNo.getText().toString());
                     getApplicationContext().startActivity(intent);
                 } else {

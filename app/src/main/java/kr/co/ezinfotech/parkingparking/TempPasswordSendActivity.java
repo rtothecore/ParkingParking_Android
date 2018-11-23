@@ -38,6 +38,7 @@ public class TempPasswordSendActivity extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(),"임시비밀번호를 메일로 전송했습니다.",Toast.LENGTH_LONG).show();
                                     LoginManager.logout();  // 로그아웃
                                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
                                     getApplicationContext().startActivity(intent);
                                 } else if(201 == msg.arg1) {
                                     Toast.makeText(getApplicationContext(), "임시비밀번호 발급 실패 - 존재하지 않는 이메일입니다", Toast.LENGTH_SHORT).show();

@@ -99,6 +99,7 @@ public class PasswordChangeActivity extends AppCompatActivity {
                         if("MapActivity".equals(whereIFrom)) {
                             // 로그인 폼으로 이동
                             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
                             getApplicationContext().startActivity(intent);
                         } else if ("PrivateInfoActivity".equals(whereIFrom)) {
                         }

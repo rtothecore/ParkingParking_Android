@@ -40,6 +40,7 @@ public class ServiceCenterActivity extends AppCompatActivity {
 
     public void onClickNotice(View v) {
         Intent intent = new Intent(getApplicationContext(), NoticeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
         getApplicationContext().startActivity(intent);
     }
 
@@ -70,6 +71,7 @@ public class ServiceCenterActivity extends AppCompatActivity {
         // http://gun0912.tistory.com/13
         String url ="https://pf.kakao.com/_ArmGj";
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
         startActivity(intent);
     }
 

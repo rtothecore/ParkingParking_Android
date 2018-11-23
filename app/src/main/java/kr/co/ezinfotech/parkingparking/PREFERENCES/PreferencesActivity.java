@@ -46,12 +46,14 @@ public class PreferencesActivity extends AppCompatActivity {
 
     public void onClickPreTOS(View v) {
         Intent intent = new Intent(getApplicationContext(), TermsDetailActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
         intent.putExtra("tabIndex", 0);
         getApplicationContext().startActivity(intent);
     }
 
     public void onClickPreLeaveUser(View v) {
         Intent intent = new Intent(getApplicationContext(), UserLeaveActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
         getApplicationContext().startActivity(intent);
     }
 }

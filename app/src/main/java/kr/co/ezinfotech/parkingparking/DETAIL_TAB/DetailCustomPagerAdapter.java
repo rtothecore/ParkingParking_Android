@@ -97,6 +97,7 @@ public class DetailCustomPagerAdapter extends PagerAdapter {
                 public void onClick(View v) {
                     // Toast.makeText(mContext, "transferLL-OnClickListener:" + pzData.name + ", " + pzData.addr_road, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(mContext, DetailTransferActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
                     intent.putExtra("name", pzData.name);
                     intent.putExtra("addr", pzData.addr_road);
                     mContext.startActivity(intent);
@@ -112,6 +113,7 @@ public class DetailCustomPagerAdapter extends PagerAdapter {
                     // http://gun0912.tistory.com/13
                     String url ="daummaps://roadView?p=" + pzData.loc.getLatitude() + "," + pzData.loc.getLongitude();
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
                     mContext.startActivity(intent);
                 }
             });

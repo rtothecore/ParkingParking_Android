@@ -469,6 +469,7 @@ public class UserDataManager extends Activity {
                     public void onClick(DialogInterface dialog, int which) {
                         LoginManager.logout();
                         Intent intent = new Intent(parentCtx, LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
                         parentCtx.startActivity(intent);
                         ((Activity)parentCtx).finish();
                     }

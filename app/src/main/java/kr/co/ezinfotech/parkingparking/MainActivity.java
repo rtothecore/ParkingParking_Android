@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
                     getApplicationContext().startActivity(intent);
                     */
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
                     getApplicationContext().startActivity(intent);
 
                     finish();   // Destroy MainActivity
