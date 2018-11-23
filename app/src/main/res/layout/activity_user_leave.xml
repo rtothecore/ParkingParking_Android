@@ -20,12 +20,18 @@
         android:layout_width="match_parent"
         android:layout_height="725dp"
         android:layout_below="@+id/ul_toolbar"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/ul_toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_height="25dp"
+            android:orientation="vertical"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="340dp"
+            android:layout_height="200dp"
             android:orientation="horizontal">
 
             <RadioGroup
@@ -37,37 +43,43 @@
                     android:id="@+id/option1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="원치 않는 앱" />
+                    android:text="원치 않는 앱"
+                    android:textSize="20sp" />
 
                 <RadioButton
                     android:id="@+id/option2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="앱 속도가 느림" />
+                    android:text="앱 속도가 느림"
+                    android:textSize="20sp" />
 
                 <RadioButton
                     android:id="@+id/option3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="앱 안정성 부족" />
+                    android:text="앱 안정성 부족"
+                    android:textSize="20sp" />
 
                 <RadioButton
                     android:id="@+id/option4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="타 앱과의 경쟁력 유무" />
+                    android:text="타 앱과의 경쟁력 유무"
+                    android:textSize="20sp" />
 
                 <RadioButton
                     android:id="@+id/option5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="사용빈도가 낮음" />
+                    android:text="사용빈도가 낮음"
+                    android:textSize="20sp" />
             </RadioGroup>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_width="340dp"
+            android:layout_height="460dp"
+            android:gravity="bottom"
             android:orientation="horizontal">
 
             <Button
@@ -75,8 +87,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="onClickUserLeave"
                 android:text="회원탈퇴"
-                android:onClick="onClickUserLeave"/>
+                android:textSize="20sp" />
         </LinearLayout>
 
 

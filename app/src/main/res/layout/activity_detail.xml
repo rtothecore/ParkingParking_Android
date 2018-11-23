@@ -23,8 +23,6 @@
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_alignParentBottom="true"
-
-        android:background="@drawable/border"
         android:divider="@drawable/divider"
         android:showDividers="middle">
 <!--

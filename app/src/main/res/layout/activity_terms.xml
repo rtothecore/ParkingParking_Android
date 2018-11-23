@@ -18,14 +18,20 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="800dp"
         android:layout_below="@+id/terms_toolbar"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/terms_toolbar">
 
         <LinearLayout
-            android:id="@+id/welcomeLabelLL"
             android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:orientation="vertical"></LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/welcomeLabelLL"
+            android:layout_width="340dp"
             android:layout_height="50dp"
             android:orientation="vertical">
 
@@ -33,7 +39,7 @@
                 android:id="@+id/tvWelcomeLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="주차왕파킹에 오신 것을 환영합니다." />
+                android:text="이지파킹에 오신 것을 환영합니다." />
 
             <TextView
                 android:id="@+id/tvWelcomeLabel2"
@@ -44,29 +50,31 @@
 
         <LinearLayout
             android:id="@+id/allAgreeTermsLL"
-            android:layout_width="match_parent"
+            android:layout_width="340dp"
             android:layout_height="80dp"
             android:orientation="vertical">
-
-            <CheckBox
-                android:id="@+id/cbAllAgreeTerms"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="이용약관 전체동의"
-                android:onClick="chkAllAgreeTerms"/>
 
             <TextView
                 android:id="@+id/tvAllAgreeTerms"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="서비스약관 및 개인정보취급방침, 위치기반서비스 이용약관에 모두 동의합니다." />
+
+            <CheckBox
+                android:id="@+id/cbAllAgreeTerms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right|center_vertical"
+                android:layoutDirection="rtl"
+                android:onClick="chkAllAgreeTerms"
+                android:text="이용약관 전체동의" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/eachTermsLL"
-            android:layout_width="match_parent"
+            android:layout_width="340dp"
             android:layout_height="140dp"
-            android:layout_margin="20dp"
+            android:layout_margin="0dp"
             android:background="@drawable/select_terms_bg"
             android:orientation="vertical"
             android:padding="20dp">
@@ -80,15 +88,15 @@
                     android:id="@+id/cbServiceTerm"
                     android:layout_width="240dp"
                     android:layout_height="wrap_content"
-                    android:text="서비스 이용약관 동의(필수)"
-                    android:onClick="chkServiceTerms"/>
+                    android:onClick="chkServiceTerms"
+                    android:text="서비스 이용약관 동의(필수)" />
 
                 <TextView
                     android:id="@+id/tvServiceDetail"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="상세보기"
-                    android:onClick="btnServiceTermDetail"/>
+                    android:onClick="btnServiceTermDetail"
+                    android:text="상세보기" />
             </LinearLayout>
 
             <LinearLayout
@@ -100,15 +108,15 @@
                     android:id="@+id/cbPrivateTerm"
                     android:layout_width="240dp"
                     android:layout_height="wrap_content"
-                    android:text="개인정보 수집 및 이용 동의(필수)"
-                    android:onClick="chkPrivateTerms"/>
+                    android:onClick="chkPrivateTerms"
+                    android:text="개인정보 수집 및 이용 동의(필수)" />
 
                 <TextView
                     android:id="@+id/tvPrivateDetail"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="상세보기"
-                    android:onClick="btnPrivateTermDetail"/>
+                    android:onClick="btnPrivateTermDetail"
+                    android:text="상세보기" />
             </LinearLayout>
 
             <LinearLayout
@@ -120,32 +128,34 @@
                     android:id="@+id/cbLocationTerm"
                     android:layout_width="240dp"
                     android:layout_height="wrap_content"
-                    android:text="위치정보 수집 및 이용 동의(필수)"
-                    android:onClick="chkLocationTerms"/>
+                    android:onClick="chkLocationTerms"
+                    android:text="위치정보 수집 및 이용 동의(필수)" />
 
                 <TextView
                     android:id="@+id/tvLocationDetail"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="상세보기"
-                    android:onClick="btnLocationTermDetail"/>
+                    android:onClick="btnLocationTermDetail"
+                    android:text="상세보기" />
             </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/termsAgreeButtonLL"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="340dp"
+            android:layout_height="400dp"
+            android:gravity="bottom"
             android:orientation="vertical">
 
             <Button
                 android:id="@+id/btnAgreeTerms"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="확인"
                 android:enabled="false"
-                android:onClick="btnAgreeTermsOk"/>
+                android:onClick="btnAgreeTermsOk"
+                android:text="확인"
+                android:textSize="20sp" />
         </LinearLayout>
 
     </LinearLayout>

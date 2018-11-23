@@ -75,7 +75,7 @@ public class MapActivity extends AppCompatActivity
         // https://developer.android.com/training/implementing-navigation/ancestral?hl=es
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.icons8_menu_24);
-        getSupportActionBar().setTitle("주차왕파킹");
+        getSupportActionBar().setTitle("이지파킹");
 
         // Drawer layout
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -108,7 +108,7 @@ public class MapActivity extends AppCompatActivity
         // Daum Map API
         dmm = new DaumMapManager(this);
         dmm.setMode(0);
-        dmm.runMapProcess();
+        dmm.runMapProcess(true);
 
         // Initialize radio buttons of search filter
         // InitializeRadioButtons();
@@ -167,7 +167,7 @@ public class MapActivity extends AppCompatActivity
                 fab2.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
                 fab3.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
                 dmm.setMode(0);
-                dmm.runMapProcess();
+                dmm.runMapProcess(false);
                 break;
             default:
                 break;
@@ -232,7 +232,8 @@ public class MapActivity extends AppCompatActivity
                         */
                         case R.id.bottom_nav_two:
                             // Toast.makeText(getApplicationContext(), "제보 버튼 클릭됨", Toast.LENGTH_LONG).show();
-                            if (null == LoginManager.getEmail()) {  // 로그인 안 한 경우
+                            if (!LoginManager.isLogin()) {  // 로그인 안 한 경우
+                                Toast.makeText(getApplicationContext(), "로그인이 필요한 서비스입니다.", Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                 getApplicationContext().startActivity(intent);
                             } else {
@@ -250,7 +251,8 @@ public class MapActivity extends AppCompatActivity
                             intent.putExtra("centerPointLat", dmm.centerPoint.getLatitude());
                             intent.putExtra("centerPointLng", dmm.centerPoint.getLongitude());
                             intent.putParcelableArrayListExtra("pzData", dmm.pzData);
-                            startActivity(intent);
+                            // startActivity(intent);
+                            startActivityForResult(intent, 1);
                             break;
                     }
                     return true;
@@ -264,8 +266,8 @@ public class MapActivity extends AppCompatActivity
             if(resultCode == RESULT_OK) {
                 String lat = data.getStringExtra("lat");
                 String lng = data.getStringExtra("lng");
-                Toast.makeText(getApplicationContext(), "lat:" + lat + ", lng:" + lng, Toast.LENGTH_LONG).show();
-                dmm.setMapCenter(Double.valueOf(lat), Double.valueOf(lng));
+                // Toast.makeText(getApplicationContext(), "lat:" + lat + ", lng:" + lng, Toast.LENGTH_LONG).show();
+                dmm.setMapCenter(Double.valueOf(lat), Double.valueOf(lng));     // 검색한 장소의 GPS로 이동
             }
         }
     }
@@ -468,7 +470,8 @@ public class MapActivity extends AppCompatActivity
         }
 */
         if (id == R.id.drawer_private_info) {
-            if (null == LoginManager.getEmail()) {  // 로그인 안 한 경우
+            if (!LoginManager.isLogin()) {  // 로그인 안 한 경우
+                Toast.makeText(getApplicationContext(), "로그인이 필요한 서비스입니다.", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 getApplicationContext().startActivity(intent);
             } else {
@@ -476,7 +479,8 @@ public class MapActivity extends AppCompatActivity
                 getApplicationContext().startActivity(intent);
             }
         } else if (id == R.id.drawer_service_center) {
-            if (null == LoginManager.getEmail()) {  // 로그인 안 한 경우
+            if (!LoginManager.isLogin()) {  // 로그인 안 한 경우
+                Toast.makeText(getApplicationContext(), "로그인이 필요한 서비스입니다.", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 getApplicationContext().startActivity(intent);
             } else {
@@ -484,7 +488,8 @@ public class MapActivity extends AppCompatActivity
                 getApplicationContext().startActivity(intent);
             }
         } else if (id == R.id.drawer_preferences) {
-            if (null == LoginManager.getEmail()) {  // 로그인 안 한 경우
+            if (!LoginManager.isLogin()) {  // 로그인 안 한 경우
+                Toast.makeText(getApplicationContext(), "로그인이 필요한 서비스입니다.", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 getApplicationContext().startActivity(intent);
             } else {
@@ -492,20 +497,17 @@ public class MapActivity extends AppCompatActivity
                 getApplicationContext().startActivity(intent);
             }
         } else if (id == R.id.drawer_favorites) {
-            if (null == LoginManager.getEmail()) {  // 로그인 안 한 경우
+            if (!LoginManager.isLogin()) {  // 로그인 안 한 경우
+                Toast.makeText(getApplicationContext(), "로그인이 필요한 서비스입니다.", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 getApplicationContext().startActivity(intent);
             } else {
-                /*
-                FavoritesDataManager fdm = new FavoritesDataManager();
-                String[] favorites = fdm.selectMyFavorites();
-                dmm.runMapProcessWithFavorites(favorites);
-                */
                 FavoritesDataManager fdm = new FavoritesDataManager();
                 fdm.selectMyFavoritesAndSet(dmm);
             }
         } else if (id == R.id.drawer_report_status) {
-            if (null == LoginManager.getEmail()) {  // 로그인 안 한 경우
+            if (!LoginManager.isLogin()) {  // 로그인 안 한 경우
+                Toast.makeText(getApplicationContext(), "로그인이 필요한 서비스입니다.", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 getApplicationContext().startActivity(intent);
             } else {
@@ -526,16 +528,28 @@ public class MapActivity extends AppCompatActivity
         TextView tvNavHeaderTitle = header.findViewById(R.id.tvNavHeaderTitle);
         tvNavHeaderTitle.setText(LoginManager.getName());
 
+        TextView tvNavHeaderLogout = header.findViewById(R.id.tvNavHeaderLogout);
+        if(LoginManager.isLogin()) {
+            tvNavHeaderLogout.setText("로그아웃");
+        } else {
+            tvNavHeaderLogout.setText("로그인");
+        }
+
         TextView tvNavHeaderSub = header.findViewById(R.id.tvNavHeaderSub);
         tvNavHeaderSub.setText(LoginManager.getEmail());
     }
 
     public void onClickLogout(View v) {
-        // Toast.makeText(getApplicationContext(), "로그아웃 성공", Toast.LENGTH_SHORT).show();
-        LoginManager.logout();
-        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        getApplicationContext().startActivity(intent);
-        finish();
+        if(LoginManager.isLogin()) {    // 로그인 한 상태
+            LoginManager.logout();
+            Toast.makeText(getApplicationContext(), "로그아웃 했습니다.", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            getApplicationContext().startActivity(intent);
+            finish();
+        } else {    // 로그아웃 된 상태
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            getApplicationContext().startActivity(intent);
+        }
     }
 
     public void onClickNavHeader(View v) {

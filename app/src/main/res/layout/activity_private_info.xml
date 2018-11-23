@@ -25,14 +25,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:orientation="horizontal"
             android:padding="10dp">
 
             <ImageView
                 android:id="@+id/imageView2"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 app:srcCompat="@drawable/icons8_compass_24" />
 
             <TextView
@@ -40,7 +40,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="김혁" />
+                android:text="김혁"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tvPiLogout"
@@ -48,21 +49,22 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
+                android:onClick="onClickPiLogout"
                 android:text="로그아웃"
-                android:onClick="onClickPiLogout"/>
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
+            android:onClick="onClickPiChangePhoneNo"
             android:orientation="horizontal"
-            android:padding="10dp"
-            android:onClick="onClickPiChangePhoneNo">
+            android:padding="10dp">
 
             <ImageView
                 android:id="@+id/imageView3"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 app:srcCompat="@drawable/icons8_compass_24" />
 
             <TextView
@@ -70,7 +72,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="연락처" />
+                android:text="연락처"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tvPiPhone"
@@ -78,8 +81,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:text="01032795690" />
-<!--
+                android:text="01032795690"
+                android:textSize="20sp" />
+            <!--
             <ImageView
                 android:id="@+id/ivPiPhone"
                 android:layout_width="20dp"
@@ -90,15 +94,15 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
+            android:onClick="onClickPiChangeCarNo"
             android:orientation="horizontal"
-            android:padding="10dp"
-            android:onClick="onClickPiChangeCarNo">
+            android:padding="10dp">
 
             <ImageView
                 android:id="@+id/imageView4"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 app:srcCompat="@drawable/icons8_compass_24" />
 
             <TextView
@@ -106,7 +110,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="차번호" />
+                android:text="차번호"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tvPiCarNo"
@@ -114,26 +119,27 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:text="입력필요" />
+                android:text="입력필요"
+                android:textSize="20sp" />
 
             <ImageView
                 android:id="@+id/ivPiCarNo"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 app:srcCompat="@drawable/icons8_chevron_right_24" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
+            android:onClick="onClickPiChangeCarType"
             android:orientation="horizontal"
-            android:padding="10dp"
-            android:onClick="onClickPiChangeCarType">
+            android:padding="10dp">
 
             <ImageView
                 android:id="@+id/imageView5"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 app:srcCompat="@drawable/icons8_compass_24" />
 
             <TextView
@@ -141,7 +147,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="차종" />
+                android:text="차종"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tvPiCarType"
@@ -149,25 +156,26 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:text="입력필요" />
+                android:text="입력필요"
+                android:textSize="20sp" />
 
             <ImageView
                 android:id="@+id/ivPiCarType"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 app:srcCompat="@drawable/icons8_chevron_right_24" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:orientation="horizontal"
             android:padding="10dp">
 
             <ImageView
                 android:id="@+id/imageView6"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 app:srcCompat="@drawable/icons8_compass_24" />
 
             <TextView
@@ -175,7 +183,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="카드번호" />
+                android:text="카드번호"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tvPiCardNo"
@@ -183,26 +192,27 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:text="입력필요" />
+                android:text="입력필요"
+                android:textSize="20sp" />
 
             <ImageView
                 android:id="@+id/ivPiCardNo"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 app:srcCompat="@drawable/icons8_chevron_right_24" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
+            android:onClick="onClickPiChangePw"
             android:orientation="horizontal"
-            android:padding="10dp"
-            android:onClick="onClickPiChangePw">
+            android:padding="10dp">
 
             <ImageView
                 android:id="@+id/imageView7"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 app:srcCompat="@drawable/icons8_compass_24" />
 
             <TextView
@@ -210,7 +220,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="이메일" />
+                android:text="이메일"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tvPiEmail"
@@ -218,12 +229,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:text="tinyblonco@hanmail.net" />
+                android:text="tinyblonco@hanmail.net"
+                android:textSize="20sp" />
 
             <ImageView
                 android:id="@+id/ivPiEmail"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 app:srcCompat="@drawable/icons8_chevron_right_24" />
         </LinearLayout>
     </LinearLayout>

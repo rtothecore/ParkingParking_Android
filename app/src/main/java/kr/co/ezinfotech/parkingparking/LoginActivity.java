@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void btnOutside(View v) {
-        // Toast.makeText(getApplicationContext(), "주차왕파킹 둘러보기 터치!", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(getApplicationContext(), "이지파킹 둘러보기 터치!", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getApplicationContext(), MapActivity.class);
         getApplicationContext().startActivity(intent);
         // finish();

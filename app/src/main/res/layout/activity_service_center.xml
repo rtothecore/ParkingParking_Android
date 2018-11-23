@@ -42,7 +42,7 @@
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="공지사항"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
         </LinearLayout>
 
         <View
@@ -64,7 +64,7 @@
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="문의메일 보내기"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
         </LinearLayout>
 
         <View
@@ -86,7 +86,7 @@
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="카카오톡으로 문의하기"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
         </LinearLayout>
 
         <View
@@ -108,7 +108,7 @@
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="전화로 문의하기"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
         </LinearLayout>
 
         <View

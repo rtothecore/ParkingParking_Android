@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -43,6 +44,54 @@ public class FavoritesDataManager extends Activity {
 
     public FavoritesDataManager () {
     }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// GET
+    // http://itmir.tistory.com/624
+    private class CheckExistFavoriteTask2 extends AsyncTask<String, Void, Boolean> {
+        Context ctx = null;
+        AppCompatButton acbFavorite = null;
+        String no = null;
+        boolean isFavorites = false;
+        public CheckExistFavoriteTask2(Context ctxVal, AppCompatButton acbFavoriteVal) {
+            ctx = ctxVal;
+            acbFavorite = acbFavoriteVal;
+        }
+
+        protected Boolean doInBackground(String... noVal) {
+            no = noVal[0];
+            return getFavoriteDataWithNo(no);
+        }
+
+        protected void onPostExecute(Boolean result) {
+            if(result) {    // 즐겨찾기된 주차장일 경우
+                acbFavorite.setText("즐겨찾기 해제");
+            } else {        // 즐겨찾기 안된 주차장일 경우
+                acbFavorite.setText("즐겨찾기 추가");
+            }
+            isFavorites = result;
+
+            // 즐겨찾기 버튼 이벤트
+            acbFavorite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(isFavorites) {
+                        Toast.makeText(ctx, "즐겨찾기 해제-" + no, Toast.LENGTH_SHORT).show();
+                        deleteFavorite(no);
+                        acbFavorite.setText("즐겨찾기 추가");
+                    } else {
+                        Toast.makeText(ctx, "즐겨찾기 추가-" + no, Toast.LENGTH_SHORT).show();
+                        insertFavorite(no);
+                        acbFavorite.setText("즐겨찾기 해제");
+                    }
+                }
+            });
+        }
+    }
+
+    public void CheckExistFavoriteInDBAndSet2 (Context ctxVal, AppCompatButton acbFavoriteVal, String noVal) {
+        new CheckExistFavoriteTask2(ctxVal, acbFavoriteVal).execute(noVal);
+    }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////// GET
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// GET
     // http://itmir.tistory.com/624
@@ -97,7 +146,7 @@ public class FavoritesDataManager extends Activity {
 
     private boolean getFavoriteDataWithNo(String noVal) {
         int responseCode = 0;
-        StringBuilder urlBuilder = new StringBuilder(UtilManager.getPPServerIp() + "/getFavoriteWithNo/" + noVal); /*URL*/
+        StringBuilder urlBuilder = new StringBuilder(UtilManager.getPPServerIp() + "/getFavoriteWithEmailNNo/" + LoginManager.getEmail() + "/" + noVal); /*URL*/
 
         URL url = null;
         try {

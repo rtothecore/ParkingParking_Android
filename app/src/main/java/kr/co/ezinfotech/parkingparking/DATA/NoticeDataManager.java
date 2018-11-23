@@ -63,11 +63,13 @@ public class NoticeDataManager extends Activity {
             LinearLayout rootLL = ll;
 
             for (int i = 0; i < nDatas.size(); i++) {
+                /*
                 View view = new View(ctx);
                 view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, UtilManager.dpToPx(ctx, 1)));
                 view.setBackgroundColor(Color.DKGRAY);
 
                 rootLL.addView(view);
+                */
 
                 LinearLayout childLL = new LinearLayout(ctx);
                 childLL.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, UtilManager.dpToPx(ctx, 50)));
@@ -88,9 +90,10 @@ public class NoticeDataManager extends Activity {
                 rootLL.addView(childLL);
 
                 TextView tvSubject = new TextView(ctx);
-                tvSubject.setLayoutParams(new TableLayout.LayoutParams(UtilManager.dpToPx(ctx, 300), TableLayout.LayoutParams.WRAP_CONTENT, 1f));
+                tvSubject.setLayoutParams(new TableLayout.LayoutParams(UtilManager.dpToPx(ctx, 250), TableLayout.LayoutParams.WRAP_CONTENT, 1f));
                 tvSubject.setText(nDatas.get(i).subject);
-                tvSubject.setTextSize(18);
+                tvSubject.setTextSize(20);
+                tvSubject.setPadding(UtilManager.dpToPx(ctx,10), 0, 0, 0);
 
                 childLL.addView(tvSubject);
 
@@ -100,6 +103,13 @@ public class NoticeDataManager extends Activity {
                 tvDate.setTextSize(12);
 
                 childLL.addView(tvDate);
+
+                //
+                View view = new View(ctx);
+                view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, UtilManager.dpToPx(ctx, 1)));
+                view.setBackgroundColor(Color.DKGRAY);
+
+                rootLL.addView(view);
             }
         }
     }

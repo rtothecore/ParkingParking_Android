@@ -24,11 +24,6 @@
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/notice_toolbar">
 <!--
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -37,20 +32,26 @@
 
             <TextView
                 android:id="@+id/tvNoticeSubject1"
-                android:layout_width="300dp"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:text="공지사항공지사항공지사항공지사항공지사항공지사항"
                 android:layout_weight="1"
-                android:textSize="18sp" />
+                android:paddingLeft="10dp"
+                android:text="공지사항입니다"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tvNoticeDate1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2018-11-16"
+                android:text="2018-11-21 13:01:30"
                 android:layout_weight="1"
                 android:textSize="12sp" />
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
 -->
     </LinearLayout>
 

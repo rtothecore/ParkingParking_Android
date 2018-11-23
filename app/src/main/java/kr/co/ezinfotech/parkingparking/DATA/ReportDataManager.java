@@ -87,10 +87,11 @@ public class ReportDataManager extends Activity {
     private void setDataToTableRow() {
         TableLayout tlReportList = ((Activity)parentCtx).findViewById(R.id.tlReportList);
 
-        Log.i("ReportData size:", String.valueOf(reportData.size()));
+        // Log.i("ReportData size:", String.valueOf(reportData.size()));
         for(int i = 0; i < reportData.size(); i++) {
             TableRow tr = new TableRow(parentCtx);
-            TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
+            // TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
+            TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, 100);
             tr.setLayoutParams(lp);
             tr.setPadding(0, 0, 0, 2);
 
@@ -108,7 +109,7 @@ public class ReportDataManager extends Activity {
             tvReportDate.setBackgroundColor(parentCtx.getResources().getColor(R.color.table_row_text_bg_color));
             tvReportDate.setGravity(Gravity.CENTER);
             tvReportDate.setTextSize(16);
-            tvReportDate.setText(reportData.get(i).report_date);
+            tvReportDate.setText(reportData.get(i).report_date.substring(0, 10));
 
             TextView tvReportStatus = new TextView(parentCtx);
             tvReportStatus.setLayoutParams(lp);
@@ -134,9 +135,33 @@ public class ReportDataManager extends Activity {
                     break;
                 case "1" :
                     tvReportStatus.setText("승인중");
+                    tvParkingName.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(parentCtx, "승인중 상태입니다", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    tvReportDate.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(parentCtx, "승인중 상태입니다", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                     break;
                 case "2" :
                     tvReportStatus.setText("승인");
+                    tvParkingName.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(parentCtx, "승인 상태입니다", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    tvReportDate.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(parentCtx, "승인 상태입니다", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                     break;
                 case "3" :
                     tvReportStatus.setText("보류");
@@ -169,11 +194,13 @@ public class ReportDataManager extends Activity {
                 tvParkingName.setOnClickListener(new View.OnClickListener() {   // 삭제요청 상태일 경우 터치이벤트 없앰
                     @Override
                     public void onClick(View v) {
+                        Toast.makeText(parentCtx, "삭제요청 상태입니다", Toast.LENGTH_SHORT).show();
                     }
                 });
                 tvReportDate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Toast.makeText(parentCtx, "삭제요청 상태입니다", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

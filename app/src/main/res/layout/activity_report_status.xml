@@ -17,7 +17,7 @@
 
     <LinearLayout
         android:id="@+id/report_status_LL"
-        android:layout_width="0dp"
+        android:layout_width="340dp"
         android:layout_height="0dp"
         android:layout_below="@+id/report_status_toolbar"
         android:layout_margin="10px"
@@ -26,55 +26,61 @@
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="6dp"
-        android:gravity="center_vertical"
+        android:gravity="top"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/report_status_toolbar">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:orientation="vertical"></LinearLayout>
+
         <TableLayout
             android:id="@+id/tlReportList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:stretchColumns="*">
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:paddingBottom="1dp">
 
                 <TextView
                     android:id="@+id/tvReportListLabel1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginRight="1dp"
                     android:background="#E7E1EF"
                     android:gravity="center"
                     android:text="주차장명"
-                    android:textSize="16sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvReportListLabel2"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginRight="1dp"
                     android:background="#E7E1EF"
                     android:gravity="center"
                     android:text="제보일"
-                    android:textSize="16sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvReportListLabel3"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginRight="1dp"
                     android:background="#E7E1EF"
                     android:gravity="center"
                     android:text="상태"
-                    android:textSize="16sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
             </TableRow>
 

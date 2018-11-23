@@ -75,13 +75,13 @@ public class DetailTransferActivity extends Activity {
 
     public void mOnCickByKakaotalk(View v) {
         Log.d("DTA", "mOnCickByKakaotalk");
-        String text = "앱 주차왕파킹에서 안내합니다.\n\n[" + name + "]\n주소 : " + addr;
+        String text = "앱 이지파킹에서 안내합니다.\n\n[" + name + "]\n주소 : " + addr;
         sendDefaultTextTemplate(text);
     }
 
     public void mOnCickBySMS(View v) {
         Log.d("DTA", "mOnCickBySMS");
-        String text = "앱 주차왕파킹에서 안내합니다.\n\n[" + name + "]\n주소 : " + addr;
+        String text = "앱 이지파킹에서 안내합니다.\n\n[" + name + "]\n주소 : " + addr;
         sendMmsIntent(text);
     }
 
@@ -105,7 +105,7 @@ public class DetailTransferActivity extends Activity {
                         .setMobileWebUrl("https://developers.kakao.com")
                         .build()
         )
-                .setButtonTitle("주차왕파킹에서 확인")
+                .setButtonTitle("이지파킹에서 확인")
                 .build();
 
         KakaoLinkService.getInstance().sendDefault(this, params, serverCallbackArgs, new ResponseCallback<KakaoLinkResponse>() {

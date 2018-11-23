@@ -19,4 +19,9 @@
         <item name="android:textColorSecondary">@color/colorPrimaryDark</item>
     </style>
 
+    <style name="menu_text_style" parent="AppTheme">
+        <item name="android:textSize">18sp</item>
+        <!-- <item name="android:fontFamily">sans-serif-light</item> -->
+    </style>
+
 </resources>

@@ -44,7 +44,7 @@ public class PrivateInfoActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Toast.makeText(getApplicationContext(), "이전 버튼 터치됨", Toast.LENGTH_LONG).show();
+                // Toast.makeText(getApplicationContext(), "이전 버튼 터치됨", Toast.LENGTH_LONG).show();
                 super.onBackPressed();
                 return true;
             default:
@@ -66,6 +66,7 @@ public class PrivateInfoActivity extends AppCompatActivity {
 
     public void onClickPiLogout(View v) {
         LoginManager.logout();
+        Toast.makeText(getApplicationContext(), "로그아웃 했습니다.", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         getApplicationContext().startActivity(intent);
         finish();

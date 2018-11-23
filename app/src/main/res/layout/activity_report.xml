@@ -19,12 +19,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="700dp"
-        android:orientation="vertical"
         android:layout_below="@+id/report_toolbar"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/report_toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:orientation="vertical"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="340dp"
             android:layout_height="50dp"
             android:orientation="horizontal">
 
@@ -33,7 +39,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="주차장명" />
+                android:text="주차장명"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/etReportParkingName"
@@ -42,11 +49,12 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="" />
+                android:text=""
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="340dp"
             android:layout_height="50dp"
             android:orientation="horizontal">
 
@@ -55,7 +63,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="전화번호" />
+                android:text="전화번호"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/etReportPhoneNo"
@@ -63,12 +72,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="phone" />
+                android:inputType="phone"
+                android:textSize="20sp" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="340dp"
             android:layout_height="50dp"
             android:orientation="horizontal">
 
@@ -77,7 +87,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="요금정보" />
+                android:text="요금정보"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/etReportFeeInfo"
@@ -85,11 +96,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="340dp"
             android:layout_height="150dp"
             android:orientation="horizontal">
 
@@ -105,12 +117,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="주차장 입구" />
+                    android:text="주차장 입구"
+                    android:textSize="20sp" />
 
                 <ImageView
                     android:id="@+id/ivPhotoParkingEntrance"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:layout_below="@+id/tvPhotoParkingEntrance"
                     android:layout_centerHorizontal="true"
                     android:layout_weight="1"
@@ -130,12 +143,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="요금표" />
+                    android:text="요금표"
+                    android:textSize="20sp" />
 
                 <ImageView
                     android:id="@+id/ivPhotoParkingTariff"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:layout_below="@+id/tvPhotoParkingTariff"
                     android:layout_centerHorizontal="true"
                     android:layout_weight="1"
@@ -155,12 +169,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="영수증" />
+                    android:text="영수증"
+                    android:textSize="20sp" />
 
                 <ImageView
                     android:id="@+id/ivPhotoParkingBills"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:layout_below="@+id/tvPhotoParkingBills"
                     android:layout_centerHorizontal="true"
                     android:layout_weight="1"
@@ -171,7 +186,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="340dp"
             android:layout_height="150dp"
             android:gravity="center_horizontal|center"
             android:orientation="horizontal">
@@ -181,7 +196,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="기타정보" />
+                android:text="기타정보"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/etReportEtcInfo"
@@ -190,12 +206,14 @@
                 android:layout_weight="1"
                 android:background="@color/com_kakao_cancel_button_background"
                 android:ems="10"
-                android:inputType="textMultiLine" />
+                android:inputType="textMultiLine"
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_width="340dp"
+            android:layout_height="225dp"
+            android:gravity="bottom"
             android:orientation="horizontal">
 
             <Button
@@ -203,8 +221,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="onClickBtnReport"
                 android:text="정보입력 완료"
-                android:onClick="onClickBtnReport"/>
+                android:textSize="20sp" />
         </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

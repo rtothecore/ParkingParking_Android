@@ -111,4 +111,12 @@ public class UtilManager {
         v.draw(c);
         return bitmap;
     }
+
+    public static String cutTheString(String strVal, int length) {
+        if(strVal.length() <= length) {  // 문자열의 길이가 자를 길이보다 작은 경우 문자열을 자를 필요 없이 그대로 내보낸다
+            return strVal;
+        } else {
+            return strVal.substring(0, length) + "...";
+        }
+    }
 }

@@ -6,11 +6,14 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import kr.co.ezinfotech.parkingparking.DATA.FavoritesDataManager;
 import kr.co.ezinfotech.parkingparking.DATA.PZData;
 import kr.co.ezinfotech.parkingparking.DATA.PZPSData;
 import kr.co.ezinfotech.parkingparking.DATA.PZTFData;
@@ -39,6 +42,7 @@ public class DetailActivity extends AppCompatActivity {
 
         // Get data
         Intent intent = getIntent();
+        pzData.no = intent.getStringExtra("no");
         pzData.name = intent.getStringExtra("name");
         getSupportActionBar().setTitle(pzData.name);
 
@@ -105,13 +109,17 @@ public class DetailActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
+
+        // 즐겨찾기 버튼 셋팅
+        FavoritesDataManager fdm = new FavoritesDataManager();
+        fdm.CheckExistFavoriteInDBAndSet2(this, (AppCompatButton)findViewById(R.id.buttonDetailFavorites), pzData.no);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Toast.makeText(getApplicationContext(), "이전 버튼 터치됨", Toast.LENGTH_LONG).show();
+                // Toast.makeText(getApplicationContext(), "이전 버튼 터치됨", Toast.LENGTH_LONG).show();
                 super.onBackPressed();
                 return true;
             default:
@@ -131,7 +139,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 */
     public void btnDetailFavorites(View v) {
-        if(null == LoginManager.getEmail()) {
+        if(!LoginManager.isLogin()) {
             Toast.makeText(getApplicationContext(), "로그인이 필요한 서비스 입니다.", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(getApplicationContext(), "즐겨찾기 터치됨", Toast.LENGTH_SHORT).show();

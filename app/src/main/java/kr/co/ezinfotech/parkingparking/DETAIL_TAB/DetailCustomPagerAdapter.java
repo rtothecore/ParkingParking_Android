@@ -19,6 +19,7 @@ import kr.co.ezinfotech.parkingparking.DATA.PZData;
 import kr.co.ezinfotech.parkingparking.NAVI.TmapManager;
 import kr.co.ezinfotech.parkingparking.POPUP.DetailTransferActivity;
 import kr.co.ezinfotech.parkingparking.R;
+import kr.co.ezinfotech.parkingparking.UTIL.UtilManager;
 
 public class DetailCustomPagerAdapter extends PagerAdapter {
 
@@ -49,7 +50,7 @@ public class DetailCustomPagerAdapter extends PagerAdapter {
             if(pzData.addr_road.equals("null")) {
                 ((TextView) layout.findViewById(R.id.textViewParkingAddr)).setText("미등록");
             } else {
-                ((TextView) layout.findViewById(R.id.textViewParkingAddr)).setText(pzData.addr_road);
+                ((TextView) layout.findViewById(R.id.textViewParkingAddr)).setText(UtilManager.cutTheString(pzData.addr_road, 16));
             }
             if(pzData.tel.equals("null")) {
                 ((TextView)layout.findViewById(R.id.textViewParkingTel)).setText("미등록");

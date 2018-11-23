@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="80dp">
+    android:layout_height="90dp"
+    android:orientation="horizontal">
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -13,39 +14,42 @@
             android:id="@+id/FOListName"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:text="주차장명"
-            android:layout_weight="60"
+            android:layout_weight="80"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
-            android:textStyle="bold"
+            android:text="주차장명"
             android:textColor="#33aabb"
-            />
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/FOListAddress"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:text="주소"
-            android:layout_weight="40"
+            android:layout_weight="60"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
-            />
+            android:text="주소"
+            android:textSize="16sp" />
+
         <TextView
             android:id="@+id/FOListTel"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:text="전화번호"
-            android:layout_weight="40"
+            android:layout_weight="60"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
-            />
+            android:text="전화번호"
+            android:textSize="16sp" />
+
         <TextView
             android:id="@+id/FOListFee"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:text="요금"
-            android:layout_weight="40"
+            android:layout_weight="60"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
-            />
+            android:text="요금"
+            android:textSize="16sp" />
     </LinearLayout>
 </LinearLayout>

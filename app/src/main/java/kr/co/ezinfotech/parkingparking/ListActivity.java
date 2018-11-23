@@ -134,6 +134,10 @@ public class ListActivity extends AppCompatActivity {
             Log.d("PZ", "주차장 LNG:" + pzData.get(i).loc.getLongitude());
             Log.d("DISTANCE", "distance:" + distance);
 
+            oItem.loc = new Location("loc");
+            oItem.loc.setLatitude(pzData.get(i).loc.getLatitude());
+            oItem.loc.setLongitude(pzData.get(i).loc.getLongitude());
+
             if(5000 >= distance) {  // 맵의 중심점으로부터 5Km 이내에 있는 주차장만 보여주기
                 oItem.strDistance = String.format("%.2f", (distance / 1000));
                 oData.add(oItem);
@@ -156,13 +160,11 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // MapActivity로 되돌아가기
-                /*
                 Intent intent = new Intent();
-                intent.putExtra("lat", SHData.get(position).y);
-                intent.putExtra("lng", SHData.get(position).x);
+                intent.putExtra("lat", Double.toString(oData.get(position).loc.getLatitude()));
+                intent.putExtra("lng", Double.toString(oData.get(position).loc.getLongitude()));
                 setResult(RESULT_OK, intent);
                 finish();
-                */
                 // Toast.makeText(getApplicationContext(), pzData.get(position).addr_road + " 버튼 터치됨", Toast.LENGTH_LONG).show();
                 Toast.makeText(getApplicationContext(), oData.get(position).strAddress + " 버튼 터치됨", Toast.LENGTH_LONG).show();
             }
@@ -207,6 +209,10 @@ public class ListActivity extends AppCompatActivity {
             Log.d("PZ", "주차장 LNG:" + pzData.get(i).loc.getLongitude());
             Log.d("DISTANCE", "distance:" + distance);
 
+            oItem.loc = new Location("loc");
+            oItem.loc.setLatitude(pzData.get(i).loc.getLatitude());
+            oItem.loc.setLongitude(pzData.get(i).loc.getLongitude());
+
             if(5000 >= distance) {  // 맵의 중심점으로부터 5Km 이내에 있는 주차장만 보여주기
                 // oItem.strDistance = String.format("%.2f", (distance / 1000));
                 oData.add(oItem);
@@ -229,13 +235,11 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // MapActivity로 되돌아가기
-                /*
                 Intent intent = new Intent();
-                intent.putExtra("lat", SHData.get(position).y);
-                intent.putExtra("lng", SHData.get(position).x);
+                intent.putExtra("lat", Double.toString(oData.get(position).loc.getLatitude()));
+                intent.putExtra("lng", Double.toString(oData.get(position).loc.getLongitude()));
                 setResult(RESULT_OK, intent);
                 finish();
-                */
                 // Toast.makeText(getApplicationContext(), pzData.get(position).addr_road + " 버튼 터치됨", Toast.LENGTH_LONG).show();
                 Toast.makeText(getApplicationContext(), oData.get(position).strAddress + " 버튼 터치됨", Toast.LENGTH_LONG).show();
             }

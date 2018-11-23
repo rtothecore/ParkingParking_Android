@@ -28,24 +28,36 @@
             android:icon="@drawable/icons8_compass_24"
             android:title="제휴의뢰" />
         -->
+    </group>
+
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/drawer_service_center"
             android:icon="@drawable/icons8_compass_24"
             android:title="고객센터" />
+    </group>
+
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/drawer_preferences"
             android:icon="@drawable/icons8_compass_24"
             android:title="환경설정" />
+    </group>
+
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/drawer_favorites"
             android:icon="@drawable/icons8_compass_24"
             android:title="즐겨찾기" />
+    </group>
         <!--
         <item
             android:id="@+id/drawer_share_status"
             android:icon="@drawable/icons8_compass_24"
             android:title="공유현황" />
         -->
+
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/drawer_report_status"
             android:icon="@drawable/icons8_compass_24"

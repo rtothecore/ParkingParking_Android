@@ -15,7 +15,7 @@
             android:textSize="20sp"
             android:textColor="#fff"
             android:gravity="center"
-            android:background="#ff7a00"
+            android:background="#000000"
             android:layout_width="match_parent"
             android:layout_height="53dp" />
     </LinearLayout>

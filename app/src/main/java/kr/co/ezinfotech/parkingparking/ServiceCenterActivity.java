@@ -67,7 +67,10 @@ public class ServiceCenterActivity extends AppCompatActivity {
 
     public void onClickAskWithKakaoTalk(View v) {
         // https://namcreative.tistory.com/258
-        // https://devtalk.kakao.com/t/topic/22401
+        // http://gun0912.tistory.com/13
+        String url ="https://pf.kakao.com/_ArmGj";
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(intent);
     }
 
     public void onClickAskWithPhone(View v) {

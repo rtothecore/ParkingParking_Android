@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import kr.co.ezinfotech.parkingparking.DATA.SmsAuthData;
 import kr.co.ezinfotech.parkingparking.DATA.SmsAuthDataManager;
 import kr.co.ezinfotech.parkingparking.R;
 
@@ -60,6 +61,10 @@ public class AuthActivity extends AppCompatActivity {
             return;
         }
 
+        // ppRestServer의 smsauths콜렉션에 인증코드를 생성하고 해당 휴대폰번호로 보냄
+        SmsAuthDataManager sadm = new SmsAuthDataManager(null, this);
+        sadm.createSmsAuthCode(etPhoneNo.getText().toString());
+
         Button btnSendAuthCode = (Button)findViewById(R.id.btnSendAuthCode);
         btnSendAuthCode.setText("입력대기");
         btnSendAuthCode.setEnabled(false);
@@ -85,7 +90,7 @@ public class AuthActivity extends AppCompatActivity {
 
         Calendar calAfter3Min = Calendar.getInstance();
         calAfter3Min.setTime(date);
-        calAfter3Min.add(Calendar.MINUTE, 1);
+        calAfter3Min.add(Calendar.MINUTE, 3);
         after3min = calAfter3Min.getTimeInMillis();
 
         // http://blog.naver.com/PostView.nhn?blogId=ssarang8649&logNo=220947884163
@@ -122,12 +127,18 @@ public class AuthActivity extends AppCompatActivity {
         timer.schedule(tt, 0, 1000);
     }
 
+    // 인증 시간이 다 되었을때
     private void setBtnSendAuthCode() {
+        // ppRestServer의 smsauths콜렉션의 해당 휴대폰번호로 입력된 인증코드를 삭제
+        SmsAuthDataManager sadm = new SmsAuthDataManager(null, this);
+        sadm.deleteSmsAuthCode(((EditText)findViewById(R.id.etPhoneNo)).getText().toString());
+
         Button btnSendAuthCode = (Button)findViewById(R.id.btnSendAuthCode);
         btnSendAuthCode.setText("재발송");
         btnSendAuthCode.setEnabled(true);
     }
 
+    // "다음" 버튼 설정
     private void setBtnAuthOk() {
         Button btnAuthOk = findViewById(R.id.btnAuthOk);
         EditText etAuthNo = findViewById(R.id.etAuthNo);
@@ -159,7 +170,7 @@ public class AuthActivity extends AppCompatActivity {
             }
         };
 
-        SmsAuthDataManager sadm = new SmsAuthDataManager(mHandler);
+        SmsAuthDataManager sadm = new SmsAuthDataManager(mHandler, this);
         sadm.getMySmsAuthCode(etPhoneNo.getText().toString(), etAuthNo.getText().toString());
 
     }

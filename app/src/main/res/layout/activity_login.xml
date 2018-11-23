@@ -9,36 +9,45 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/emailPwInputLL"
+            android:id="@+id/loginLogoLL"
             android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:orientation="vertical"></LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/emailPwInputLL"
+            android:layout_width="340dp"
             android:layout_height="100dp"
-            android:orientation="vertical"
             android:focusable="true"
-            android:focusableInTouchMode="true">
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
 
             <EditText
                 android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:hint="이메일"
                 android:inputType="textEmailAddress"
-                android:hint="이메일"/>
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/etPw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:hint="비밀번호"
                 android:inputType="textPassword"
-                android:hint="비밀번호"/>
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/loginOutsideLL"
-            android:layout_width="match_parent"
+            android:layout_width="340dp"
             android:layout_height="100dp"
             android:orientation="vertical">
 
@@ -46,8 +55,9 @@
                 android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="btnLogin"
                 android:text="로그인"
-                android:onClick="btnLogin"/>
+                android:textSize="20sp" />
 
             <LinearLayout
                 android:id="@+id/outsideLL"
@@ -60,31 +70,36 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="주차왕파킹 둘러보기"
-                    android:onClick="btnOutside"/>
+                    android:onClick="btnOutside"
+                    android:text="이지파킹 둘러보기"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/tvFindPw"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:gravity="right"
+                    android:onClick="btnFindPw"
                     android:text="비밀번호 찾기"
-                    android:onClick="btnFindPw"/>
+                    android:textSize="20sp" />
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/signUpLL"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="340dp"
+            android:layout_height="350dp"
+            android:gravity="bottom"
             android:orientation="vertical">
 
             <Button
                 android:id="@+id/btnSignUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="btnSignup"
                 android:text="회원가입"
-                android:onClick="btnSignup"/>
+                android:textSize="20sp" />
         </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
