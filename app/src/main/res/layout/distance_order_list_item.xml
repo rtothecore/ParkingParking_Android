@@ -17,9 +17,10 @@
             android:layout_weight="80"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
+            android:fontFamily="@font/nanum_gothic"
             android:text="주차장명"
             android:textColor="#33aabb"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
@@ -29,8 +30,9 @@
             android:layout_weight="60"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
+            android:fontFamily="@font/nanum_gothic"
             android:text="주소"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/DOListTel"
@@ -39,8 +41,9 @@
             android:layout_weight="60"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
+            android:fontFamily="@font/nanum_gothic"
             android:text="전화번호"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/DOListDistance"
@@ -49,7 +52,8 @@
             android:layout_weight="60"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
+            android:fontFamily="@font/nanum_gothic"
             android:text="거리"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 </LinearLayout>

@@ -1,6 +1,7 @@
 package kr.co.ezinfotech.parkingparking;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Handler;
 
 import kr.co.ezinfotech.parkingparking.DATA.PZDataManager;

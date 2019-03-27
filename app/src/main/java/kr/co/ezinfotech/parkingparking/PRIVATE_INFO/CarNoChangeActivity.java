@@ -58,7 +58,7 @@ public class CarNoChangeActivity extends AppCompatActivity {
     }
 
     public void callParentSetCarNo(String carNoVal) {
-        ((PrivateInfoActivity)PrivateInfoActivity.mContext).setCarNo(carNoVal);
+        // ((PrivateInfoActivity)PrivateInfoActivity.mContext).setCarNo(carNoVal);
     }
 
 }

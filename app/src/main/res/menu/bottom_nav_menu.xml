@@ -11,15 +11,20 @@
         android:icon="@drawable/icons8_share_24"
         android:title="@string/share" />
     -->
+    <group android:id="@+id/grp1">
     <item
         android:id="@+id/bottom_nav_two"
         app:showAsAction="ifRoom"
-        android:icon="@drawable/icons8_empty_flag_24"
+        android:icon="@drawable/icon_report"
         android:title="@string/report" />
+    </group>
+
+    <group android:id="@+id/grp2">
     <item
         android:id="@+id/bottom_nav_three"
         app:showAsAction="ifRoom"
         android:enabled="true"
-        android:icon="@drawable/icons8_list_24"
+        android:icon="@drawable/icon_list"
         android:title="@string/list" />
+    </group>
 </menu>

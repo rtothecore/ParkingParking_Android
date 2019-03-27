@@ -87,33 +87,39 @@ public class ReportDataManager extends Activity {
     private void setDataToTableRow() {
         TableLayout tlReportList = ((Activity)parentCtx).findViewById(R.id.tlReportList);
 
+        // Remove table row except header title row
+        tlReportList.removeViews(1, tlReportList.getChildCount() - 1);
+
         // Log.i("ReportData size:", String.valueOf(reportData.size()));
         for(int i = 0; i < reportData.size(); i++) {
             TableRow tr = new TableRow(parentCtx);
             // TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
             TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, 100);
             tr.setLayoutParams(lp);
-            tr.setPadding(0, 0, 0, 2);
+            //tr.setPadding(0, 0, 0, 2);
 
-            lp.setMargins(0, 0, 2, 0);
+            //lp.setMargins(0, 0, 2, 0);
 
             TextView tvParkingName = new TextView(parentCtx);
             tvParkingName.setLayoutParams(lp);
-            tvParkingName.setBackgroundColor(parentCtx.getResources().getColor(R.color.table_row_text_bg_color));
+            // tvParkingName.setBackgroundColor(parentCtx.getResources().getColor(R.color.table_row_text_bg_color));
+            tvParkingName.setBackground(parentCtx.getResources().getDrawable(R.drawable.cell_shape));
             tvParkingName.setGravity(Gravity.CENTER);
             tvParkingName.setTextSize(16);
             tvParkingName.setText(reportData.get(i).parking_name);
 
             TextView tvReportDate = new TextView(parentCtx);
             tvReportDate.setLayoutParams(lp);
-            tvReportDate.setBackgroundColor(parentCtx.getResources().getColor(R.color.table_row_text_bg_color));
+            // tvReportDate.setBackgroundColor(parentCtx.getResources().getColor(R.color.table_row_text_bg_color));
+            tvReportDate.setBackground(parentCtx.getResources().getDrawable(R.drawable.cell_shape));
             tvReportDate.setGravity(Gravity.CENTER);
             tvReportDate.setTextSize(16);
             tvReportDate.setText(reportData.get(i).report_date.substring(0, 10));
 
             TextView tvReportStatus = new TextView(parentCtx);
             tvReportStatus.setLayoutParams(lp);
-            tvReportStatus.setBackgroundColor(parentCtx.getResources().getColor(R.color.table_row_text_bg_color));
+            // tvReportStatus.setBackgroundColor(parentCtx.getResources().getColor(R.color.table_row_text_bg_color));
+            tvReportStatus.setBackground(parentCtx.getResources().getDrawable(R.drawable.cell_shape));
             tvReportStatus.setGravity(Gravity.CENTER);
             tvReportStatus.setTextSize(16);
             final int dataIndex = i;

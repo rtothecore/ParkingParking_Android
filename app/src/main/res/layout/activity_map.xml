@@ -28,8 +28,9 @@
                 android:layout_marginEnd="7dp"
                 android:layout_marginRight="7dp"
                 android:layout_marginBottom="14dp"
-                android:src="@android:color/transparent"
-                app:backgroundTint="#ffffff"
+                android:src="@drawable/fab_free_n"
+                app:backgroundTint="@android:color/transparent"
+                app:maxImageSize="56dp"
                 app:elevation="6dp"
                 app:pressedTranslationZ="12dp" />
 
@@ -44,8 +45,9 @@
                 android:layout_marginEnd="7dp"
                 android:layout_marginRight="7dp"
                 android:layout_marginBottom="354dp"
-                android:src="@android:color/transparent"
-                app:backgroundTint="#ffffff"
+                android:src="@drawable/fab_fee_n"
+                app:backgroundTint="@android:color/transparent"
+                app:maxImageSize="56dp"
                 app:elevation="6dp"
                 app:pressedTranslationZ="12dp" />
 
@@ -59,8 +61,9 @@
                 android:layout_marginTop="205dp"
                 android:layout_marginEnd="7dp"
                 android:layout_marginRight="7dp"
-                android:src="@android:color/transparent"
-                app:backgroundTint="#ffffff"
+                android:src="@drawable/fab_all_n"
+                app:backgroundTint="@android:color/transparent"
+                app:maxImageSize="56dp"
                 app:elevation="6dp"
                 app:pressedTranslationZ="12dp" />
 
@@ -80,7 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            app:itemBackground="@color/colorWhite"
+            app:itemBackground="@drawable/bottom_nav_menu_bg"
             app:itemIconTint="@color/bottom_section_color"
             app:itemTextColor="@color/bottom_section_color"
             app:menu="@menu/bottom_nav_menu" />
@@ -250,7 +253,7 @@
             <LinearLayout
                 android:id="@+id/parkingBottomLL"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="170dp"
                 android:layout_gravity="bottom|left"
                 android:background="@drawable/border"
                 android:orientation="vertical"
@@ -259,24 +262,28 @@
                 <LinearLayout
                     android:id="@+id/parkingNameLL"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal">
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp">
 
                     <TextView
                         android:id="@+id/textViewParkingName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/nanum_gothic_bold"
                         android:text="제주대학교 주차장"
                         android:textColor="@android:color/black"
-                        android:textSize="30sp" />
+                        android:textSize="20sp" />
 
                     <ImageView
                         android:id="@+id/ivFavoriteStar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
                         app:srcCompat="@drawable/icons8_star_50" />
 
                 </LinearLayout>
@@ -284,31 +291,35 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="75dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp">
 
-                    <RelativeLayout
-                        xmlns:android="http://schemas.android.com/apk/res/android"
+                    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                         android:layout_width="match_parent"
-                        android:layout_height="38dp">
+                        android:layout_height="38dp"
+                        android:gravity="center_vertical">
 
                         <TextView
                             android:id="@+id/textViewParkingFeeLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
+                            android:fontFamily="@font/nanum_gothic"
                             android:text="주차요금 : "
                             android:textColor="@android:color/black"
-                            android:textSize="20sp" />
+                            android:textSize="15sp" />
 
                         <TextView
                             android:id="@+id/textViewParkingFeeContent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
+                            android:fontFamily="@font/nanum_gothic"
                             android:gravity="right"
                             android:text="2000원/1시간"
                             android:textColor="@android:color/black"
-                            android:textSize="20sp" />
+                            android:textSize="15sp" />
                     </RelativeLayout>
 
                     <LinearLayout
@@ -319,62 +330,71 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="5dp"
-                            android:src="@drawable/dotted"
-                            android:layerType="software" />
+                            android:layerType="software"
+                            android:src="@drawable/dotted2" />
                     </LinearLayout>
 
-                    <RelativeLayout
-                        xmlns:android="http://schemas.android.com/apk/res/android"
+                    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                         android:layout_width="match_parent"
-                        android:layout_height="38dp">
+                        android:layout_height="38dp"
+                        android:gravity="center_vertical">
 
                         <TextView
                             android:id="@+id/textViewParkingOpTimeLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
+                            android:fontFamily="@font/nanum_gothic"
                             android:text="운영시간 : "
                             android:textColor="@android:color/black"
-                            android:textSize="20sp" />
+                            android:textSize="15sp" />
 
                         <TextView
                             android:id="@+id/textViewParkingOpTimeContent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
+                            android:fontFamily="@font/nanum_gothic"
                             android:text="09:00 ~ 18:00"
                             android:textColor="@android:color/black"
-                            android:textSize="20sp" />
+                            android:textSize="15sp" />
                     </RelativeLayout>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="75dp"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
                     <!-- https://stackoverflow.com/questions/26346727/android-material-design-button-styles -->
                     <android.support.v7.widget.AppCompatButton
                         android:id="@+id/buttonTel"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="15dp"
                         android:layout_weight="1"
+                        android:background="@drawable/ez_button_bg"
+                        android:fontFamily="@font/nanum_gothic"
                         android:text="전화"
                         android:textColor="@color/colorBlack"
-                        android:textSize="17sp"
-                        app:backgroundTint="@color/colorWhite"/>
+                        android:textSize="15sp" />
 
                     <android.support.v7.widget.AppCompatButton
                         android:id="@+id/buttonNavi"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="30dp"
                         android:layout_weight="1"
+                        android:background="@drawable/ez_button_bg"
+                        android:fontFamily="@font/nanum_gothic"
                         android:text="내비"
                         android:textColor="@color/colorBlack"
-                        android:textSize="17sp"
-                        app:backgroundTint="@color/colorWhite"/>
-<!--
+                        android:textSize="15sp" />
+                    <!--
                     <android.support.v7.widget.AppCompatButton
                         android:id="@+id/buttonReservation"
                         android:layout_width="wrap_content"

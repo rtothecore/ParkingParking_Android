@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PRIVATE_INFO.PhoneNoChangeActivity">
+    tools:context=".SIGN_UP.AuthActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/pnc_toolbar"
@@ -15,5 +15,134 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
     </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pnc_toolbar"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/pnc_toolbar">
+
+        <com.ssomai.android.scalablelayout.ScalableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:scale_base_height="1900"
+            app:scale_base_width="1080">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:orientation="vertical"
+                app:scale_height="25"
+                app:scale_left="87"
+                app:scale_textsize="40"
+                app:scale_top="0"
+                app:scale_width="900"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:orientation="vertical"
+                app:scale_height="200"
+                app:scale_left="87"
+                app:scale_textsize="40"
+                app:scale_top="25"
+                app:scale_width="900">
+
+                <TextView
+                    android:id="@+id/tvPncAuthLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanum_gothic"
+                    android:text="이지파킹의 전체서비스 이용을 위해서는 휴대폰번호 인증이 필요합니다." />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/inputPncAuthPhoneLL"
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/select_terms_bg"
+                android:orientation="vertical"
+                android:padding="20dp"
+                app:scale_height="450"
+                app:scale_left="87"
+                app:scale_textsize="20"
+                app:scale_top="225"
+                app:scale_width="900">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/etPncPhoneNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="휴대폰번호 입력"
+                        android:inputType="number" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnPncSendAuthCode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nanum_gothic"
+                        android:onClick="sendAuthCode"
+                        android:text="인증번호 발송" />
+
+                    <EditText
+                        android:id="@+id/etPncAuthWaitTime"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="time" />
+
+                    <EditText
+                        android:id="@+id/etPncAuthNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="인증번호"
+                        android:inputType="number" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:orientation="horizontal"
+                app:scale_height="1000"
+                app:scale_left="87"
+                app:scale_textsize="40"
+                app:scale_top="700"
+                app:scale_width="900">
+
+                <Button
+                    android:id="@+id/btnPncAuthOk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/ezRed"
+                    android:enabled="false"
+                    android:fontFamily="@font/nanum_gothic"
+                    android:onClick="authOk"
+                    android:text="수정완료"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </com.ssomai.android.scalablelayout.ScalableLayout>
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

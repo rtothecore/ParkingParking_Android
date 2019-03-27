@@ -1,17 +1,22 @@
 package kr.co.ezinfotech.parkingparking.UTIL;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class UtilManager {
@@ -118,5 +123,14 @@ public class UtilManager {
         } else {
             return strVal.substring(0, length) + "...";
         }
+    }
+
+    public static String getNowDate() {
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String getTime = sdf.format(date);
+
+        return getTime;
     }
 }

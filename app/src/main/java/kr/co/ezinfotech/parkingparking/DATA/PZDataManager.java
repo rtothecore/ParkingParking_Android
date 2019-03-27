@@ -1,14 +1,19 @@
 package kr.co.ezinfotech.parkingparking.DATA;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -33,6 +38,7 @@ public class PZDataManager extends Activity {
 
     private int mode = 0;   // 0: just parse & insert, 1: check datadate, delete & insert PZ table
     Handler mHandler = null;
+    Thread mThread = null;
 
     JSONArray result = null;
     ArrayList<PZData> pzData = new ArrayList<>();
@@ -60,19 +66,26 @@ public class PZDataManager extends Activity {
     private void runPZDataThreadProcess() {
         ///////////////////////////////// Thread of network START //////////////////////////////
         // http://nocomet.tistory.com/10
-        new Thread() {
+        mThread = new Thread() {
             public void run() {
-                getPZData();
+                int resultCode = getPZData();
 
+                /*
                 Message message = Message.obtain();
                 message.arg1 = 777;
                 mHandler.sendMessage(message);
+                */
+                Message message = Message.obtain();
+                message.arg1 = resultCode;
+                mHandler.sendMessage(message);
             }
-        }.start();
+        };
+
+        mThread.start();
         ///////////////////////////////// Thread of network END //////////////////////////////
     }
 
-    private void getPZData() {
+    private int getPZData() {
         Log.i("getPZData()-0", "Get PZ data");
 
         StringBuilder urlBuilder = new StringBuilder(UtilManager.getPPServerIp() + "/pzData"); /*URL*/
@@ -88,6 +101,7 @@ public class PZDataManager extends Activity {
         HttpURLConnection conn = null;
         try {
             conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(5 * 1000);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -100,7 +114,9 @@ public class PZDataManager extends Activity {
         try {
             System.out.println("Response code: " + conn.getResponseCode());
         } catch (IOException e) {
+            Log.e("getPZData-4", "Could not get response code");
             e.printStackTrace();
+            return 666;
         }
         BufferedReader rd = null;
         try {
@@ -120,6 +136,7 @@ public class PZDataManager extends Activity {
             }
             rd.close();
         } catch (IOException e) {
+            Log.e("getPZData-2", "Could not read inputStreamReader");
             e.printStackTrace();
         }
         conn.disconnect();
@@ -141,8 +158,11 @@ public class PZDataManager extends Activity {
             default :
                 break;
         }
+
+        return 777;
     }
 
+    /*
     private void checkDataDateNInsertPZ() {
         String dataDateVal = "";
         try{
@@ -159,6 +179,47 @@ public class PZDataManager extends Activity {
             t.printStackTrace();
             Log.e("checkDataDateNInsertPZ", "Could not parse malformed JSON");
         }
+    }
+    */
+    private void checkDataDateNInsertPZ() {
+        String dataDateMaxVal = getMaxDataDate();
+        try{
+            /*
+            JSONObject jsonTemp = (JSONObject)result.get(0);
+            dataDateVal = jsonTemp.getString("data_date");
+            */
+            if(isExistDataWithDataDate(dataDateMaxVal)) {
+                // dateDataVal과 일치하는 데이터셋이 존재하므로 테이블 업데이트 안함
+            } else {
+                // dateDataVal과 데이터셋이 일치하지 않으므로 테이블 업데이트(delete & insert)
+                deletePZTable();
+                parseNInsertPZ();
+            }
+        } catch (Throwable t) {
+            t.printStackTrace();
+            Log.e("checkDataDateNInsertPZ", "Could not parse malformed JSON");
+        }
+    }
+
+    private String getMaxDataDate() {
+        int MaxDataDate = 0;
+        for (int i = 0; i < result.length(); i++) {
+            String strDataDate = null;
+            try {
+                JSONObject jsonTemp = (JSONObject) result.get(i);
+                strDataDate = jsonTemp.getString("data_date");
+                strDataDate = strDataDate.replaceAll("-", "");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            int iDataDate = Integer.parseInt(strDataDate);
+            if ( MaxDataDate < iDataDate ) {
+                MaxDataDate = iDataDate;
+            }
+        }
+        String strMaxDataDate = String.valueOf(MaxDataDate);
+        strMaxDataDate = strMaxDataDate.substring(0, 4) + "-" + strMaxDataDate.substring(4, 6) + "-" + strMaxDataDate.substring(6, 8);
+        return strMaxDataDate;
     }
 
     private void deletePZTable() {

@@ -54,34 +54,51 @@ public class SignUpActivity extends AppCompatActivity {
         setEditTextChange();
     }
 
+    private boolean checkEmailForm() {
+        EditText etSignupEmail = findViewById(R.id.etSignupEmail);
+        if(etSignupEmail.getText().toString().trim().equals("") || !(UtilManager.isValidEmail(etSignupEmail.getText().toString()))) {
+            etSignupEmail.requestFocus();
+            etSignupEmail.setError("이메일 주소를 입력해주세요.");
+            return false;
+        }
+
+        return true;
+    }
+
     private boolean checkAllInputForm2() {
         EditText etSignupName = findViewById(R.id.etSignupName);
         if(etSignupName.getText().toString().trim().equals("") || etSignupName.getText().toString().length() < 2) {
+            etSignupName.requestFocus();
             etSignupName.setError("이름을 입력해주세요.");
             return false;
         }
 
         EditText etSignupEmail = findViewById(R.id.etSignupEmail);
         if(etSignupEmail.getText().toString().trim().equals("") || !(UtilManager.isValidEmail(etSignupEmail.getText().toString()))) {
+            etSignupEmail.requestFocus();
             etSignupEmail.setError("이메일 주소를 입력해주세요.");
             return false;
         }
         if(!isCheckDuplEmail) {
+            etSignupEmail.requestFocus();
             etSignupEmail.setError("이메일 주소 중복체크를 해주세요.");
             return false;
         }
 
         EditText etSignupPw = findViewById(R.id.etSignupPw);
         if(etSignupPw.getText().toString().trim().equals("") || etSignupPw.getText().toString().length() < 6) {
+            etSignupPw.requestFocus();
             etSignupPw.setError("비밀번호는 최소 6자리 입니다.");
             return false;
         } else if (!PASSWORD_PATTERN.matcher(etSignupPw.getText().toString()).matches()) {
+            etSignupPw.requestFocus();
             etSignupPw.setError("비밀번호는 문자 + 숫자 + 특수기호로 이루어져야 합니다.");
             return false;
         }
 
         EditText etSignupPw2 = findViewById(R.id.etSignupPw2);
         if(etSignupPw2.getText().toString().trim().equals("") || !(etSignupPw2.getText().toString().equals(etSignupPw.getText().toString()))) {
+            etSignupPw2.requestFocus();
             etSignupPw2.setError("비밀번호를 확인해주세요.");
             return false;
         }
@@ -227,6 +244,10 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void btnCheckDuplicateEmail(View v) {
         EditText etSignupEmail = findViewById(R.id.etSignupEmail);
+
+        if (!checkEmailForm()) {
+            return;
+        }
 
         Handler mHandler = new Handler() {
             @Override public void handleMessage(Message msg) {

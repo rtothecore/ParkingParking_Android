@@ -87,14 +87,18 @@ public class DetailActivity extends AppCompatActivity {
 
         // Initializing the TabLayout
         tabLayout = (TabLayout) findViewById(R.id.detail_tab);
-        tabLayout.addTab(tabLayout.newTab().setText("상세"));
-        tabLayout.addTab(tabLayout.newTab().setText("요금"));
-        tabLayout.addTab(tabLayout.newTab().setText("운영"));
+        // tabLayout.addTab(tabLayout.newTab().setText("상세"));
+        // tabLayout.addTab(tabLayout.newTab().setText("요금"));
+        // tabLayout.addTab(tabLayout.newTab().setText("운영"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         // Initializing ViewPager - https://www.journaldev.com/10096/android-viewpager-example-tutorial
         viewPager = (ViewPager) findViewById(R.id.detail_viewpager);
         viewPager.setAdapter(new DetailCustomPagerAdapter(this, pzData));
+
+        // https://m.blog.naver.com/PostView.nhn?blogId=pistolcaffe&logNo=220629248791&proxyReferer=https%3A%2F%2Fwww.google.com%2F
+        // https://stackoverflow.com/questions/38049076/tablayout-tabs-text-not-displaying
+        tabLayout.setupWithViewPager(viewPager);
 
         // Set TabSelectedListener
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

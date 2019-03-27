@@ -1,6 +1,8 @@
 package kr.co.ezinfotech.parkingparking.SIGN_UP;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +12,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import kr.co.ezinfotech.parkingparking.MapActivity;
 import kr.co.ezinfotech.parkingparking.R;
 
 public class TermsActivity extends AppCompatActivity {
@@ -83,9 +86,6 @@ public class TermsActivity extends AppCompatActivity {
             if(!cbLocationTerm.isChecked()) {
                 cbLocationTerm.setChecked(true);
             }
-
-            Button btnAgreeTerms = (Button)findViewById(R.id.btnAgreeTerms);
-            btnAgreeTerms.setEnabled(true);
         } else {
             CheckBox cbServiceTerm = (CheckBox)findViewById(R.id.cbServiceTerm);
             if(cbServiceTerm.isChecked()) {
@@ -101,9 +101,6 @@ public class TermsActivity extends AppCompatActivity {
             if(cbLocationTerm.isChecked()) {
                 cbLocationTerm.setChecked(false);
             }
-
-            Button btnAgreeTerms = (Button)findViewById(R.id.btnAgreeTerms);
-            btnAgreeTerms.setEnabled(false);
         }
     }
 
@@ -119,38 +116,75 @@ public class TermsActivity extends AppCompatActivity {
         checkIsAllAgree();
     }
 
-    private void checkIsAllAgree() {
-        Button btnAgreeTerms = (Button)findViewById(R.id.btnAgreeTerms);
+    private boolean checkIsAllAgree() {
         CheckBox cbAllAgreeTerms = (CheckBox)findViewById(R.id.cbAllAgreeTerms);
 
         CheckBox cbServiceTerm = (CheckBox)findViewById(R.id.cbServiceTerm);
         if(!cbServiceTerm.isChecked()) {
-            btnAgreeTerms.setEnabled(false);
             cbAllAgreeTerms.setChecked(false);
-            return;
+            return false;
         }
 
         CheckBox cbPrivateTerm = (CheckBox)findViewById(R.id.cbPrivateTerm);
         if(!cbPrivateTerm.isChecked()) {
-            btnAgreeTerms.setEnabled(false);
             cbAllAgreeTerms.setChecked(false);
-            return;
+            return false;
         }
 
         CheckBox cbLocationTerm = (CheckBox)findViewById(R.id.cbLocationTerm);
         if(!cbLocationTerm.isChecked()) {
-            btnAgreeTerms.setEnabled(false);
             cbAllAgreeTerms.setChecked(false);
-            return;
+            return false;
         }
 
-        btnAgreeTerms.setEnabled(true);
         cbAllAgreeTerms.setChecked(true);
+        return true;
+    }
+
+    private void chkAllAgreeTerms() {
+        CheckBox cbServiceTerm = (CheckBox)findViewById(R.id.cbServiceTerm);
+        if(!cbServiceTerm.isChecked()) {
+            cbServiceTerm.setChecked(true);
+        }
+
+        CheckBox cbPrivateTerm = (CheckBox)findViewById(R.id.cbPrivateTerm);
+        if(!cbPrivateTerm.isChecked()) {
+            cbPrivateTerm.setChecked(true);
+        }
+
+        CheckBox cbLocationTerm = (CheckBox)findViewById(R.id.cbLocationTerm);
+        if(!cbLocationTerm.isChecked()) {
+            cbLocationTerm.setChecked(true);
+        }
+
+        CheckBox cbAllAgreeTerms = (CheckBox)findViewById(R.id.cbAllAgreeTerms);
+        if(!cbAllAgreeTerms.isChecked()) {
+            cbAllAgreeTerms.setChecked(true);
+        }
     }
 
     public void btnAgreeTermsOk(View v) {
-        Intent intent = new Intent(getApplicationContext(), AuthActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
-        getApplicationContext().startActivity(intent);
+        if (checkIsAllAgree()) {
+            Intent intent = new Intent(getApplicationContext(), AuthActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
+            getApplicationContext().startActivity(intent);
+        } else {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(TermsActivity.this);
+            dialog.setTitle("약관 알림")
+                    .setMessage("모든 약관에 동의해야 합니다")
+                    .setPositiveButton("동의합니다.", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            chkAllAgreeTerms();
+                        }
+                    })
+                    .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(TermsActivity.this, "모든 약관에 동의해야 가입이 가능합니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .create().show();
+        }
     }
 }

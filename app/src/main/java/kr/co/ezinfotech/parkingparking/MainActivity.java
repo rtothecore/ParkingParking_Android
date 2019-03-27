@@ -2,12 +2,14 @@ package kr.co.ezinfotech.parkingparking;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -25,6 +27,9 @@ import kr.co.ezinfotech.parkingparking.DB.DBManager;
 import kr.co.ezinfotech.parkingparking.NAVI.TmapManager;
 import kr.co.ezinfotech.parkingparking.UTIL.UtilManager;
 
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
+
 public class MainActivity extends AppCompatActivity {
 
     Handler mHandler = null;
@@ -32,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
         mHandler = new Handler() {
@@ -47,13 +53,25 @@ public class MainActivity extends AppCompatActivity {
                     getApplicationContext().startActivity(intent);
 
                     finish();   // Destroy MainActivity
+                } else if (666 == msg.arg1) {
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle("서버에 접속할 수 없습니다")
+                            .setMessage("잠시후 다시 실행해 주세요")
+                            .setPositiveButton("닫기", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    finish();
+                                }
+                            })
+                            .show();
                 }
             }
         };
         runPermissionListener(this);
         DBManager.setContext(this);
         UtilManager.setContext(this);
-        // getHashKey();
+        // getHashKey2();
     }
 
     @Override
@@ -67,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         PermissionListener permissionlistener = new PermissionListener() {
             @Override
             public void onPermissionGranted() {
-                Toast.makeText(MainActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(MainActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
                 Initialize();
             }
 
@@ -112,5 +130,14 @@ public class MainActivity extends AppCompatActivity {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
+    }
+
+    // https://developers.kakao.com/apps/227318/settings/general
+    // https://stackoverflow.com/questions/44355452/google-play-app-signing-key-hash/44448437#44448437
+    private void getHashKey2(){
+        byte[] sha1 = {
+                0x6A, (byte)0xFF, (byte)0xC6, (byte)0xDC, (byte)0xF1, 0x62, (byte)0xCC, 0x07, 0x13, 0x0D, 0x58, 0x50, (byte)0x9C, (byte)0xAE, (byte)0xF2, 0x01, (byte)0xD4, 0x32, (byte)0xCB, (byte)0xB0
+        };
+        Log.e("keyhash", Base64.encodeToString(sha1, Base64.NO_WRAP));
     }
 }

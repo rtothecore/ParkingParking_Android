@@ -2,18 +2,33 @@ package kr.co.ezinfotech.parkingparking;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.net.URL;
+
+import kr.co.ezinfotech.parkingparking.DATA.NoticeImageDataManager;
 import kr.co.ezinfotech.parkingparking.DATA.UserDataManagerForLogin;
 import kr.co.ezinfotech.parkingparking.SIGN_UP.TermsActivity;
 import kr.co.ezinfotech.parkingparking.UTIL.LoginManager;
@@ -29,6 +44,51 @@ public class LoginActivity extends AppCompatActivity {
         // 커서 제거 - https://m.blog.naver.com/doryjj/194584359
         EditText et = (EditText)findViewById(R.id.etEmail);
         et.clearFocus();
+
+        // 로그인 된 상태라면 맵 메인 페이지로 이동한다.
+        if(LoginManager.isLogin()) {
+            Intent intent = new Intent(getApplicationContext(), MapActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
+            getApplicationContext().startActivity(intent);
+            finish();
+        }
+
+        // popup window
+        // createPopup();
+    }
+
+    // https://stackoverflow.com/questions/4187673/problems-creating-a-popup-window-in-android-activity
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        createPopup();
+    }
+
+    @Override
+    public void onBackPressed() {
+        //Alert로 종료시키기
+        AlertDialog.Builder dialog = new AlertDialog.Builder(LoginActivity.this);
+        dialog.setTitle("종료 알림")
+                .setMessage("정말 종료하시겠습니까?")
+                .setPositiveButton("종료합니다.", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finishAffinity();
+                    }
+                })
+                .setNegativeButton("아니요", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(LoginActivity.this, "종료하지 않습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .create().show();
+    }
+
+    // http://puzzleleaf.tistory.com/48
+    private void createPopup() {
+        NoticeImageDataManager nid = new NoticeImageDataManager();
+        nid.GetNoticeImgDataAndSet(this);
     }
 
     public void btnLogin(View v) {
@@ -80,7 +140,6 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), MapActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
         getApplicationContext().startActivity(intent);
-        // finish();
     }
 
     public void btnFindPw(View v) {

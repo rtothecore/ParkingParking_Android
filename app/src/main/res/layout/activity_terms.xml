@@ -18,146 +18,193 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="800dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/terms_toolbar"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/terms_toolbar">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:orientation="vertical"></LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/welcomeLabelLL"
-            android:layout_width="340dp"
-            android:layout_height="50dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tvWelcomeLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="이지파킹에 오신 것을 환영합니다." />
-
-            <TextView
-                android:id="@+id/tvWelcomeLabel2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="아래 이용약관 동의 후 서비스를 이용해 주세요." />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/allAgreeTermsLL"
-            android:layout_width="340dp"
-            android:layout_height="80dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tvAllAgreeTerms"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="서비스약관 및 개인정보취급방침, 위치기반서비스 이용약관에 모두 동의합니다." />
-
-            <CheckBox
-                android:id="@+id/cbAllAgreeTerms"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right|center_vertical"
-                android:layoutDirection="rtl"
-                android:onClick="chkAllAgreeTerms"
-                android:text="이용약관 전체동의" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/eachTermsLL"
-            android:layout_width="340dp"
-            android:layout_height="140dp"
-            android:layout_margin="0dp"
-            android:background="@drawable/select_terms_bg"
-            android:orientation="vertical"
-            android:padding="20dp">
+        <com.ssomai.android.scalablelayout.ScalableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:scale_base_height="1900"
+            app:scale_base_width="1080">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:orientation="horizontal">
+                android:layout_height="25dp"
+                android:orientation="vertical"
+                app:scale_height="200"
+                app:scale_left="87"
+                app:scale_textsize="40"
+                app:scale_top="0"
+                app:scale_width="900">
 
-                <CheckBox
-                    android:id="@+id/cbServiceTerm"
-                    android:layout_width="240dp"
-                    android:layout_height="wrap_content"
-                    android:onClick="chkServiceTerms"
-                    android:text="서비스 이용약관 동의(필수)" />
-
-                <TextView
-                    android:id="@+id/tvServiceDetail"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:onClick="btnServiceTermDetail"
-                    android:text="상세보기" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/cbPrivateTerm"
-                    android:layout_width="240dp"
-                    android:layout_height="wrap_content"
-                    android:onClick="chkPrivateTerms"
-                    android:text="개인정보 수집 및 이용 동의(필수)" />
+                android:id="@+id/welcomeLabelLL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:scale_height="200"
+                app:scale_left="87"
+                app:scale_textsize="40"
+                app:scale_top="25"
+                app:scale_width="900">
 
                 <TextView
-                    android:id="@+id/tvPrivateDetail"
-                    android:layout_width="100dp"
+                    android:id="@+id/tvWelcomeLabel"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="btnPrivateTermDetail"
-                    android:text="상세보기" />
+                    android:fontFamily="@font/nanum_gothic"
+                    android:text="이지파킹에 오신 것을 환영합니다." />
+
+                <TextView
+                    android:id="@+id/tvWelcomeLabel2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanum_gothic"
+                    android:text="아래 이용약관 동의 후 서비스를 이용해 주세요." />
+
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/cbLocationTerm"
-                    android:layout_width="240dp"
-                    android:layout_height="wrap_content"
-                    android:onClick="chkLocationTerms"
-                    android:text="위치정보 수집 및 이용 동의(필수)" />
+                android:id="@+id/allAgreeTermsLL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:scale_height="200"
+                app:scale_left="87"
+                app:scale_textsize="40"
+                app:scale_top="200"
+                app:scale_width="900">
 
                 <TextView
-                    android:id="@+id/tvLocationDetail"
-                    android:layout_width="100dp"
+                    android:id="@+id/tvAllAgreeTerms"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="btnLocationTermDetail"
-                    android:text="상세보기" />
+                    android:fontFamily="@font/nanum_gothic"
+                    android:text="서비스약관 및 개인정보취급방침, 위치기반서비스 이용약관에 모두 동의합니다." />
+
+                <CheckBox
+                    android:id="@+id/cbAllAgreeTerms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanum_gothic"
+                    android:gravity="right|center_vertical"
+                    android:layoutDirection="rtl"
+                    android:onClick="chkAllAgreeTerms"
+                    android:text="이용약관 전체동의" />
             </LinearLayout>
 
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/eachTermsLL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:background="@drawable/select_terms_bg"
+                android:orientation="vertical"
+                android:padding="15dp"
+                app:scale_height="400"
+                app:scale_left="87"
+                app:scale_textsize="40"
+                app:scale_top="400"
+                app:scale_width="900">
 
-        <LinearLayout
-            android:id="@+id/termsAgreeButtonLL"
-            android:layout_width="340dp"
-            android:layout_height="400dp"
-            android:gravity="bottom"
-            android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btnAgreeTerms"
+                    <CheckBox
+                        android:id="@+id/cbServiceTerm"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nanum_gothic"
+                        android:onClick="chkServiceTerms"
+                        android:text="서비스 이용약관 동의(필수)" />
+
+                    <TextView
+                        android:id="@+id/tvServiceDetail"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nanum_gothic"
+                        android:onClick="btnServiceTermDetail"
+                        android:text="상세보기" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/cbPrivateTerm"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nanum_gothic"
+                        android:onClick="chkPrivateTerms"
+                        android:text="개인정보 수집 및 이용 동의(필수)" />
+
+                    <TextView
+                        android:id="@+id/tvPrivateDetail"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nanum_gothic"
+                        android:onClick="btnPrivateTermDetail"
+                        android:text="상세보기" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/cbLocationTerm"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nanum_gothic"
+                        android:onClick="chkLocationTerms"
+                        android:text="위치정보 수집 및 이용 동의(필수)" />
+
+                    <TextView
+                        android:id="@+id/tvLocationDetail"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nanum_gothic"
+                        android:onClick="btnLocationTermDetail"
+                        android:text="상세보기" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/termsAgreeButtonLL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:enabled="false"
-                android:onClick="btnAgreeTermsOk"
-                android:text="확인"
-                android:textSize="20sp" />
-        </LinearLayout>
+                android:gravity="bottom"
+                android:orientation="vertical"
+                app:scale_height="950"
+                app:scale_left="87"
+                app:scale_textsize="40"
+                app:scale_top="750"
+                app:scale_width="900">
 
+                <Button
+                    android:id="@+id/btnAgreeTerms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/ezRed"
+                    android:enabled="true"
+                    android:fontFamily="@font/nanum_gothic"
+                    android:onClick="btnAgreeTermsOk"
+                    android:text="확인"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+        </com.ssomai.android.scalablelayout.ScalableLayout>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

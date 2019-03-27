@@ -18,29 +18,46 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="700dp"
+        android:layout_height="match_parent"
         android:layout_below="@+id/report_toolbar"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/report_toolbar">
 
+        <com.ssomai.android.scalablelayout.ScalableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:scale_base_height="1950"
+            app:scale_base_width="1080">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="25dp"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical"
+            app:scale_height="25"
+            app:scale_left="87"
+            app:scale_textsize="40"
+            app:scale_top="0"
+            app:scale_width="900"></LinearLayout>
 
         <LinearLayout
             android:layout_width="340dp"
             android:layout_height="50dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:scale_height="150"
+            app:scale_left="87"
+            app:scale_textsize="40"
+            app:scale_top="200"
+            app:scale_width="900">
 
             <TextView
                 android:id="@+id/tvReportParkingNameLabel"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/nanum_gothic"
                 android:text="주차장명"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/etReportParkingName"
@@ -56,15 +73,21 @@
         <LinearLayout
             android:layout_width="340dp"
             android:layout_height="50dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:scale_height="150"
+            app:scale_left="87"
+            app:scale_textsize="40"
+            app:scale_top="300"
+            app:scale_width="900">
 
             <TextView
                 android:id="@+id/tvReportPhoneLabel"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/nanum_gothic"
                 android:text="전화번호"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/etReportPhoneNo"
@@ -80,15 +103,21 @@
         <LinearLayout
             android:layout_width="340dp"
             android:layout_height="50dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:scale_height="150"
+            app:scale_left="87"
+            app:scale_textsize="40"
+            app:scale_top="400"
+            app:scale_width="900">
 
             <TextView
                 android:id="@+id/tvReportFeeInfoLabel"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/nanum_gothic"
                 android:text="요금정보"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/etReportFeeInfo"
@@ -103,7 +132,12 @@
         <LinearLayout
             android:layout_width="340dp"
             android:layout_height="150dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:scale_height="300"
+            app:scale_left="87"
+            app:scale_textsize="40"
+            app:scale_top="600"
+            app:scale_width="900">
 
             <RelativeLayout
                 android:layout_width="100dp"
@@ -117,8 +151,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/nanum_gothic"
                     android:text="주차장 입구"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:id="@+id/ivPhotoParkingEntrance"
@@ -126,9 +161,10 @@
                     android:layout_height="100dp"
                     android:layout_below="@+id/tvPhotoParkingEntrance"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:onClick="onClickPhotoParkingEntrance"
-                    app:srcCompat="@mipmap/ic_launcher" />
+                    app:srcCompat="@drawable/report_blank_icon" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -143,8 +179,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/nanum_gothic"
                     android:text="요금표"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:id="@+id/ivPhotoParkingTariff"
@@ -152,9 +189,10 @@
                     android:layout_height="100dp"
                     android:layout_below="@+id/tvPhotoParkingTariff"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:onClick="onClickPhotoParkingTariff"
-                    app:srcCompat="@mipmap/ic_launcher" />
+                    app:srcCompat="@drawable/report_blank_icon" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -169,8 +207,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/nanum_gothic"
                     android:text="영수증"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:id="@+id/ivPhotoParkingBills"
@@ -178,9 +217,10 @@
                     android:layout_height="100dp"
                     android:layout_below="@+id/tvPhotoParkingBills"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:onClick="onClickPhotoParkingBills"
-                    app:srcCompat="@mipmap/ic_launcher" />
+                    app:srcCompat="@drawable/report_blank_icon" />
             </RelativeLayout>
 
         </LinearLayout>
@@ -189,15 +229,21 @@
             android:layout_width="340dp"
             android:layout_height="150dp"
             android:gravity="center_horizontal|center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:scale_height="300"
+            app:scale_left="87"
+            app:scale_textsize="40"
+            app:scale_top="1000"
+            app:scale_width="900">
 
             <TextView
                 android:id="@+id/tvReportEtcInfoLabel"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/nanum_gothic"
                 android:text="기타정보"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/etReportEtcInfo"
@@ -210,20 +256,28 @@
                 android:textSize="20sp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="340dp"
-            android:layout_height="225dp"
-            android:gravity="bottom"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnReport"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="340dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="onClickBtnReport"
-                android:text="정보입력 완료"
-                android:textSize="20sp" />
-        </LinearLayout>
+                android:orientation="horizontal"
+                app:scale_height="200"
+                app:scale_left="87"
+                app:scale_textsize="40"
+                app:scale_top="1750"
+                app:scale_width="900">
+
+                <Button
+                    android:id="@+id/btnReport"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/ezRed"
+                    android:fontFamily="@font/nanum_gothic"
+                    android:onClick="onClickBtnReport"
+                    android:text="정보입력 완료"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </com.ssomai.android.scalablelayout.ScalableLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

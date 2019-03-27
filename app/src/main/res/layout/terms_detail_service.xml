@@ -3,10 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvTermsDetailServiceCont"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="서비스 이용약관 내용서비스 이용약관 내용서비스 이용약관 내용서비스 이용약관 내용서비스 이용약관 내용서비스 이용약관 내용서비스 이용약관 내용서비스 이용약관 내용서비스 이용약관 내용서비스 이용약관 내용서비스 이용약관 내용서비스 이용약관 내용서비스 이용약관 내용서비스 이용약관 내용서비스 이용약관 내용서비스 이용약관 내용서비스 이용약관 내용서비스 이용약관 내용서비스 이용약관 내용서비스 이용약관 내용서비스 이용약관 내용서비스 이용약관 내용서비스 이용약관 내용서비스 이용약관 내용서비스 이용약관 내용서비스 이용약관 내용" />
+
+    <WebView
+        android:id="@+id/wvTermsService"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

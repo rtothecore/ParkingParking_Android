@@ -65,10 +65,12 @@ public class FavoritesDataManager extends Activity {
         protected void onPostExecute(Boolean result) {
             if(result) {    // 즐겨찾기된 주차장일 경우
                 acbFavorite.setText("즐겨찾기 해제");
+                isFavorites = result;
             } else {        // 즐겨찾기 안된 주차장일 경우
                 acbFavorite.setText("즐겨찾기 추가");
+                isFavorites = result;
             }
-            isFavorites = result;
+            // isFavorites = result;
 
             // 즐겨찾기 버튼 이벤트
             acbFavorite.setOnClickListener(new View.OnClickListener() {
@@ -78,10 +80,12 @@ public class FavoritesDataManager extends Activity {
                         Toast.makeText(ctx, "즐겨찾기 해제-" + no, Toast.LENGTH_SHORT).show();
                         deleteFavorite(no);
                         acbFavorite.setText("즐겨찾기 추가");
+                        isFavorites = false;
                     } else {
                         Toast.makeText(ctx, "즐겨찾기 추가-" + no, Toast.LENGTH_SHORT).show();
                         insertFavorite(no);
                         acbFavorite.setText("즐겨찾기 해제");
+                        isFavorites = true;
                     }
                 }
             });
@@ -89,7 +93,11 @@ public class FavoritesDataManager extends Activity {
     }
 
     public void CheckExistFavoriteInDBAndSet2 (Context ctxVal, AppCompatButton acbFavoriteVal, String noVal) {
-        new CheckExistFavoriteTask2(ctxVal, acbFavoriteVal).execute(noVal);
+        if(!LoginManager.isLogin()) {
+            // Toast.makeText(ctxVal, "로그인이 필요한 서비스 입니다.", Toast.LENGTH_LONG).show();
+        } else {
+            new CheckExistFavoriteTask2(ctxVal, acbFavoriteVal).execute(noVal);
+        }
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// GET
 
@@ -456,7 +464,8 @@ public class FavoritesDataManager extends Activity {
         protected void onPostExecute(String[] result) {
             dmm.setMode(3);
             dmm.setFavorites(result);
-            dmm.runMapProcessWithFavorites(result);
+            // dmm.runMapProcessWithFavorites(result);
+            dmm.runMapProcessWithFavoritesAtFirst(result);
         }
     }
 

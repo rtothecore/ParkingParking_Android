@@ -10,331 +10,437 @@
         android:layout_height="700dp"
         android:layout_gravity="top|left"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/ezIvory">
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="25dp" />
+            android:layout_height="5dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginLeft="40px"
-            android:layout_marginBottom="5px"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvTimeFeeLabel"
+            <com.ssomai.android.scalablelayout.ScalableLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="시간요금"
-                android:textColor="@android:color/black"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-            <!--
-            <TextView
-                android:id="@+id/tvTimeFeeModLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="400px"
-                android:layout_weight="1"
-                android:text="수정요청"
-                android:textColor="@android:color/black"
-                android:textSize="15sp" />
--->
+                app:scale_base_height="100"
+                app:scale_base_width="1080">
+
+                <TextView
+                    android:id="@+id/tvTimeFeeLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/nanum_gothic_bold"
+                    android:text="시간요금"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:scale_height="100"
+                    app:scale_left="0"
+                    app:scale_textsize="70"
+                    app:scale_top="0"
+                    app:scale_width="900" />
+                <!--
+                <TextView
+                    android:id="@+id/tvTimeFeeModLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="400px"
+                    android:layout_weight="1"
+                    android:text="수정요청"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp" />
+    -->
+            </com.ssomai.android.scalablelayout.ScalableLayout>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/detailFeeTimeLL"
             android:layout_width="360dp"
             android:layout_height="100dp"
-            android:layout_margin="10px"
+            android:layout_marginLeft="40px"
+            android:layout_marginRight="5dp"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:stretchColumns="*">
+            <com.ssomai.android.scalablelayout.ScalableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:scale_base_height="300"
+                app:scale_base_width="1080">
 
-                <TableRow
+                <TableLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:paddingBottom="1dp">
+                    android:layout_height="match_parent"
+                    android:stretchColumns="*"
+                    app:scale_height="300"
+                    app:scale_left="40"
+                    app:scale_textsize="50"
+                    app:scale_top="0"
+                    app:scale_width="900">
 
-                    <TextView
-                        android:id="@+id/tvTblBaseFeeLabel"
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tvTblBaseFeeLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+
+                            android:background="@drawable/cell_shape_header"
+                            android:gravity="center"
+                            android:text="기본요금"
+                            android:textColor="#545454"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvTblBaseTimeFee"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+
+                            android:background="@drawable/cell_shape"
+                            android:gravity="center"
+                            android:text="30분 500원"
+                            android:textColor="#545454"
+                            android:textSize="15sp" />
+                    </TableRow>
+
+                    <TableRow
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="1dp"
-                        android:background="#E7E1EF"
-                        android:gravity="center"
-                        android:text="기본요금"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
 
-                    <TextView
-                        android:id="@+id/tvTblBaseTimeFee"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="1dp"
-                        android:background="#E7E1EF"
-                        android:gravity="center"
-                        android:text="30분 500원"
-                        android:textSize="20sp" />
-                </TableRow>
+                        <TextView
+                            android:id="@+id/tvTblAddFeeLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
 
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
+                            android:background="@drawable/cell_shape_header"
+                            android:gravity="center"
+                            android:text="추가요금"
+                            android:textColor="#545454"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tvTblAddFeeLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="1dp"
-                        android:background="#E7E1EF"
-                        android:gravity="center"
-                        android:text="추가요금"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/tvTblAddTimeFee"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
 
-                    <TextView
-                        android:id="@+id/tvTblAddTimeFee"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="1dp"
-                        android:background="#E7E1EF"
-                        android:gravity="center"
-                        android:text="15분당 300원"
-                        android:textSize="20sp" />
-                </TableRow>
+                            android:background="@drawable/cell_shape"
+                            android:gravity="center"
+                            android:text="15분당 300원"
+                            android:textColor="#545454"
+                            android:textSize="15sp" />
+                    </TableRow>
 
-            </TableLayout>
+                </TableLayout>
+            </com.ssomai.android.scalablelayout.ScalableLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="25dp" />
+            android:layout_height="2dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginLeft="40px"
-            android:layout_marginBottom="5px"
             android:gravity="left"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvDayPKLabel"
+            <com.ssomai.android.scalablelayout.ScalableLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="일주차"
-                android:textColor="@android:color/black"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-            <!--
-            <TextView
-                android:id="@+id/tvDayPKModLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="400px"
-                android:layout_weight="1"
-                android:text="수정요청"
-                android:textColor="@android:color/black"
-                android:textSize="15sp" />
--->
+                app:scale_base_height="100"
+                app:scale_base_width="1080">
+
+                <TextView
+                    android:id="@+id/tvDayPKLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/nanum_gothic_bold"
+                    android:text="일주차"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:scale_height="100"
+                    app:scale_left="0"
+                    app:scale_textsize="70"
+                    app:scale_top="0"
+                    app:scale_width="900" />
+                <!--
+                <TextView
+                    android:id="@+id/tvDayPKModLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="400px"
+                    android:layout_weight="1"
+                    android:text="수정요청"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp" />
+    -->
+            </com.ssomai.android.scalablelayout.ScalableLayout>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/detailDayPKLL"
             android:layout_width="360dp"
             android:layout_height="50dp"
-            android:layout_margin="10px"
+            android:layout_marginLeft="40px"
+            android:layout_marginRight="5dp"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <TableLayout
+            <com.ssomai.android.scalablelayout.ScalableLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:stretchColumns="*">
+                android:layout_height="wrap_content"
+                app:scale_base_height="100"
+                app:scale_base_width="1080">
 
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:paddingBottom="1dp">
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:stretchColumns="*"
+                    app:scale_height="100"
+                    app:scale_left="40"
+                    app:scale_textsize="50"
+                    app:scale_top="0"
+                    app:scale_width="900">
 
-                    <TextView
-                        android:id="@+id/tvDayPKBaseLabel"
+                    <TableRow
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="1dp"
-                        android:background="#E7E1EF"
-                        android:gravity="center"
-                        android:text="기본"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
 
-                    <TextView
-                        android:id="@+id/tvDayPKBaseContent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="1dp"
-                        android:background="#E7E1EF"
-                        android:gravity="center"
-                        android:text="6000원"
-                        android:textSize="20sp" />
-                </TableRow>
-            </TableLayout>
+                        <TextView
+                            android:id="@+id/tvDayPKBaseLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+
+                            android:background="@drawable/cell_shape_header"
+                            android:gravity="center"
+                            android:text="기본"
+                            android:textColor="#545454"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvDayPKBaseContent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+
+                            android:background="@drawable/cell_shape"
+                            android:gravity="center"
+                            android:text="6000원"
+                            android:textColor="#545454"
+                            android:textSize="15sp" />
+                    </TableRow>
+                </TableLayout>
+            </com.ssomai.android.scalablelayout.ScalableLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="25dp" />
+            android:layout_height="2dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginLeft="40px"
-            android:layout_marginBottom="5px"
             android:gravity="left"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvMonthPKLabel"
+            <com.ssomai.android.scalablelayout.ScalableLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="월주차"
-                android:textColor="@android:color/black"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-            <!--
-            <TextView
-                android:id="@+id/tvMonthPKModLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="400px"
-                android:layout_weight="1"
-                android:text="수정요청"
-                android:textColor="@android:color/black"
-                android:textSize="15sp" />
--->
+                app:scale_base_height="100"
+                app:scale_base_width="1080">
+
+                <TextView
+                    android:id="@+id/tvMonthPKLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/nanum_gothic_bold"
+                    android:text="월주차"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:scale_height="100"
+                    app:scale_left="0"
+                    app:scale_textsize="70"
+                    app:scale_top="0"
+                    app:scale_width="900" />
+                <!--
+                <TextView
+                    android:id="@+id/tvMonthPKModLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="400px"
+                    android:layout_weight="1"
+                    android:text="수정요청"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp" />
+    -->
+            </com.ssomai.android.scalablelayout.ScalableLayout>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/detailMonthPKLL"
             android:layout_width="360dp"
             android:layout_height="50dp"
-            android:layout_margin="10px"
+            android:layout_marginLeft="40px"
+            android:layout_marginRight="5dp"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <TableLayout
+            <com.ssomai.android.scalablelayout.ScalableLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:stretchColumns="*">
+                android:layout_height="wrap_content"
+                app:scale_base_height="100"
+                app:scale_base_width="1080">
 
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:paddingBottom="1dp">
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:stretchColumns="*"
+                    app:scale_height="100"
+                    app:scale_left="40"
+                    app:scale_textsize="50"
+                    app:scale_top="0"
+                    app:scale_width="900">
 
-                    <TextView
-                        android:id="@+id/tvMonthPKBaseLabel"
+                    <TableRow
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="1dp"
-                        android:background="#E7E1EF"
-                        android:gravity="center"
-                        android:text="기본"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
 
-                    <TextView
-                        android:id="@+id/tvMonthPKBaseContent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="1dp"
-                        android:background="#E7E1EF"
-                        android:gravity="center"
-                        android:text="75000원"
-                        android:textSize="20sp" />
-                </TableRow>
-            </TableLayout>
+                        <TextView
+                            android:id="@+id/tvMonthPKBaseLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+
+                            android:background="@drawable/cell_shape_header"
+                            android:gravity="center"
+                            android:text="기본"
+                            android:textColor="#545454"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvMonthPKBaseContent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+
+                            android:background="@drawable/cell_shape"
+                            android:gravity="center"
+                            android:text="75000원"
+                            android:textColor="#545454"
+                            android:textSize="15sp" />
+                    </TableRow>
+                </TableLayout>
+            </com.ssomai.android.scalablelayout.ScalableLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="25dp" />
+            android:layout_height="2dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginLeft="40px"
-            android:layout_marginBottom="5px"
             android:gravity="left"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvSaleLabel"
+            <com.ssomai.android.scalablelayout.ScalableLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="할인정보"
-                android:textColor="@android:color/black"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-            <!--
-            <TextView
-                android:id="@+id/tvSaleModLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="400px"
-                android:layout_weight="1"
-                android:text="수정요청"
-                android:textColor="@android:color/black"
-                android:textSize="15sp" />
--->
+                app:scale_base_height="100"
+                app:scale_base_width="1080">
+
+                <TextView
+                    android:id="@+id/tvSaleLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/nanum_gothic_bold"
+                    android:text="할인정보"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:scale_height="100"
+                    app:scale_left="0"
+                    app:scale_textsize="70"
+                    app:scale_top="0"
+                    app:scale_width="900" />
+                <!--
+                <TextView
+                    android:id="@+id/tvSaleModLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="400px"
+                    android:layout_weight="1"
+                    android:text="수정요청"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp" />
+    -->
+            </com.ssomai.android.scalablelayout.ScalableLayout>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/detailSaleLL"
             android:layout_width="360dp"
-            android:layout_height="60dp"
-            android:layout_margin="10px"
+            android:layout_height="80dp"
+            android:layout_marginLeft="40px"
+            android:layout_marginRight="5dp"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <TableLayout
+            <com.ssomai.android.scalablelayout.ScalableLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:stretchColumns="*">
+                android:layout_height="wrap_content"
+                app:scale_base_height="200"
+                app:scale_base_width="1080">
 
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:paddingBottom="1dp">
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:stretchColumns="*"
+                    app:scale_height="200"
+                    app:scale_left="40"
+                    app:scale_textsize="50"
+                    app:scale_top="0"
+                    app:scale_width="900">
 
-                    <TextView
-                        android:id="@+id/tvTblSaleCont"
+                    <TableRow
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="1dp"
-                        android:background="#E7E1EF"
-                        android:gravity="left|center"
-                        android:text="경차|장애인 50% 할인, 전기차 100% 할인"
-                        android:textSize="18sp" />
-                </TableRow>
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
 
-            </TableLayout>
+                        <TextView
+                            android:id="@+id/tvTblSaleCont"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+
+                            android:background="@drawable/cell_shape"
+                            android:gravity="center"
+                            android:text="경차|장애인 50% 할인, 전기차 100% 할인"
+                            android:textColor="#545454"
+                            android:textSize="15sp" />
+                    </TableRow>
+
+                </TableLayout>
+            </com.ssomai.android.scalablelayout.ScalableLayout>
         </LinearLayout>
 
     </LinearLayout>

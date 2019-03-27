@@ -36,11 +36,7 @@ public class ReportStatusActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.icons8_left_24);
         getSupportActionBar().setTitle("제보현황");
 
-        // Get report data from ppRestServer
-        ReportDataManager rdm = new ReportDataManager();
-        rdm.setContext(this);
-        rdm.setEmail(LoginManager.getEmail());
-        rdm.getReports();
+        getReportData();
     }
 
     @Override
@@ -53,5 +49,20 @@ public class ReportStatusActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "나머지 버튼 터치됨", Toast.LENGTH_LONG).show();
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+
+        getReportData();
+    }
+
+    // Get report data from ppRestServer
+    private void getReportData() {
+        ReportDataManager rdm = new ReportDataManager();
+        rdm.setContext(this);
+        rdm.setEmail(LoginManager.getEmail());
+        rdm.getReports();
     }
 }

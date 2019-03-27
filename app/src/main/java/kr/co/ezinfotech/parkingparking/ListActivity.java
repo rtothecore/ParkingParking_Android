@@ -1,5 +1,6 @@
 package kr.co.ezinfotech.parkingparking;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.support.design.widget.TabLayout;

@@ -8,7 +8,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:src="@drawable/icons8_accuracy_24" />
+        android:src="@drawable/report_target_icon"
+        />
 
     <ImageView
         android:id="@+id/imgOverlay2"
@@ -16,7 +17,7 @@
         android:layout_height="50dp"
         android:layout_below="@+id/imgOverlay"
         android:layout_gravity="center"
-        android:src="@drawable/icons8_typing_24"
+        android:src="@drawable/report_report_icon"
         android:onClick="onClickReport"/>
 
     <ImageView
@@ -25,6 +26,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/imgOverlay2"
         android:layout_gravity="center"
-        android:src="@drawable/icons8_cancel_24" />
+        android:src="@drawable/report_cancel_icon" />
 
 </RelativeLayout>

@@ -76,6 +76,6 @@ public class CarTypeChangeActivity extends AppCompatActivity {
     }
 
     public void callParentSetCarType(String carTypeVal) {
-        ((PrivateInfoActivity)PrivateInfoActivity.mContext).setCarType(carTypeVal);
+        // ((PrivateInfoActivity)PrivateInfoActivity.mContext).setCarType(carTypeVal);
     }
 }

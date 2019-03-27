@@ -93,6 +93,14 @@ public class AuthActivity extends AppCompatActivity {
         calAfter3Min.add(Calendar.MINUTE, 3);
         after3min = calAfter3Min.getTimeInMillis();
 
+        //
+        final Handler handler3 = new Handler(){
+            public void handleMessage(Message msg){
+                etAuthWaitTime.setText(msg.getData().getString("strDiff"));    // UI에 뿌리기
+            }
+        };
+        //
+
         // http://blog.naver.com/PostView.nhn?blogId=ssarang8649&logNo=220947884163
         TimerTask tt = new TimerTask() {
             @Override
@@ -111,8 +119,15 @@ public class AuthActivity extends AppCompatActivity {
                 long nowTime = calNow.getTimeInMillis();
                 long diff = after3min - nowTime;
                 String strDiff = sdf.format(diff);
-                etAuthWaitTime.setText(strDiff);    // UI에 뿌리기
-                // Log.e("남은시간:", strDiff);
+
+                // etAuthWaitTime.setText(strDiff);    // UI에 뿌리기
+                //
+                Bundle data = new Bundle();
+                Message msg3 = new Message();
+                data.putString("strDiff", strDiff);
+                msg3.setData(data);
+                handler3.sendMessage(msg3);
+                //
 
                 if(strDiff.equals("00:00")) {
                     // http://devfarming.tistory.com/3
@@ -129,13 +144,16 @@ public class AuthActivity extends AppCompatActivity {
 
     // 인증 시간이 다 되었을때
     private void setBtnSendAuthCode() {
-        // ppRestServer의 smsauths콜렉션의 해당 휴대폰번호로 입력된 인증코드를 삭제
-        SmsAuthDataManager sadm = new SmsAuthDataManager(null, this);
-        sadm.deleteSmsAuthCode(((EditText)findViewById(R.id.etPhoneNo)).getText().toString());
+        // https://blog.sangyoung.me/2016/12/28/BadTokenException/
+        if(!AuthActivity.this.isFinishing()) {
+            // ppRestServer의 smsauths콜렉션의 해당 휴대폰번호로 입력된 인증코드를 삭제
+            SmsAuthDataManager sadm = new SmsAuthDataManager(null, this);
+            sadm.deleteSmsAuthCode(((EditText)findViewById(R.id.etPhoneNo)).getText().toString());
 
-        Button btnSendAuthCode = (Button)findViewById(R.id.btnSendAuthCode);
-        btnSendAuthCode.setText("재발송");
-        btnSendAuthCode.setEnabled(true);
+            Button btnSendAuthCode = (Button)findViewById(R.id.btnSendAuthCode);
+            btnSendAuthCode.setText("재발송");
+            btnSendAuthCode.setEnabled(true);
+        }
     }
 
     // "다음" 버튼 설정

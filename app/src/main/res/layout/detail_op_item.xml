@@ -10,29 +10,40 @@
         android:layout_height="600dp"
         android:layout_gravity="top|left"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/ezIvory">
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="25dp" />
+            android:layout_height="5dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_marginLeft="40px"
-            android:layout_marginBottom="5px"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvOpPayLabel"
+            <com.ssomai.android.scalablelayout.ScalableLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="유료 운영시간"
-                android:textColor="@android:color/black"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-            <!--
+                app:scale_base_height="100"
+                app:scale_base_width="1080">
+
+                <TextView
+                    android:id="@+id/tvOpPayLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/nanum_gothic_bold"
+                    android:text="유료 운영시간"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    app:scale_height="100"
+                    app:scale_left="0"
+                    app:scale_textsize="70"
+                    app:scale_top="0"
+                    app:scale_width="900" />
+                <!--
             <TextView
                 android:id="@+id/tvOpPayModLabel"
                 android:layout_width="match_parent"
@@ -43,127 +54,157 @@
                 android:textColor="@android:color/black"
                 android:textSize="15sp" />
 -->
+            </com.ssomai.android.scalablelayout.ScalableLayout>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/detailOpPayLL"
             android:layout_width="360dp"
-            android:layout_height="150dp"
+            android:layout_height="110dp"
             android:layout_margin="10px"
+            android:layout_marginLeft="40px"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:stretchColumns="*">
+            <com.ssomai.android.scalablelayout.ScalableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:scale_base_height="300"
+                app:scale_base_width="1080">
 
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:paddingBottom="1dp">
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:stretchColumns="*"
+                    app:scale_height="300"
+                    app:scale_left="40"
+                    app:scale_textsize="50"
+                    app:scale_top="0"
+                    app:scale_width="900">
 
-                    <TextView
-                        android:id="@+id/tvTblWopLabel"
+                    <TableRow
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="1dp"
-                        android:background="#E7E1EF"
-                        android:gravity="center"
-                        android:text="평일"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        >
 
-                    <TextView
-                        android:id="@+id/tvTblWopTime"
+                        <TextView
+                            android:id="@+id/tvTblWopLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+
+                            android:background="@drawable/cell_shape_header"
+                            android:gravity="center"
+                            android:text="평일"
+                            android:textColor="#545454"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvTblWopTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+
+                            android:background="@drawable/cell_shape"
+                            android:textColor="#545454"
+                            android:gravity="center"
+                            android:text="12:00 ~ 22:00"
+                            android:textSize="15sp" />
+                    </TableRow>
+
+                    <TableRow
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="1dp"
-                        android:background="#E7E1EF"
-                        android:gravity="center"
-                        android:text="12:00 ~ 22:00"
-                        android:textSize="20sp" />
-                </TableRow>
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        >
 
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:paddingBottom="1dp">
+                        <TextView
+                            android:id="@+id/tvTblSopLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
 
-                    <TextView
-                        android:id="@+id/tvTblSopLabel"
+                            android:background="@drawable/cell_shape_header"
+                            android:textColor="#545454"
+                            android:gravity="center"
+                            android:text="토요일"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvTblSopTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+
+                            android:background="@drawable/cell_shape"
+                            android:textColor="#545454"
+                            android:gravity="center"
+                            android:text="12:00 ~ 22:00"
+                            android:textSize="15sp" />
+                    </TableRow>
+
+                    <TableRow
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="1dp"
-                        android:background="#E7E1EF"
-                        android:gravity="center"
-                        android:text="토요일"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
 
-                    <TextView
-                        android:id="@+id/tvTblSopTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="1dp"
-                        android:background="#E7E1EF"
-                        android:gravity="center"
-                        android:text="12:00 ~ 22:00"
-                        android:textSize="20sp" />
-                </TableRow>
+                        <TextView
+                            android:id="@+id/tvTblHopLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
 
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
+                            android:background="@drawable/cell_shape_header"
+                            android:textColor="#545454"
+                            android:gravity="center"
+                            android:text="공휴일"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tvTblHopLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="1dp"
-                        android:background="#E7E1EF"
-                        android:gravity="center"
-                        android:text="공휴일"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/tvTblHopTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
 
-                    <TextView
-                        android:id="@+id/tvTblHopTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="1dp"
-                        android:background="#E7E1EF"
-                        android:gravity="center"
-                        android:text="12:00 ~ 22:00"
-                        android:textSize="20sp" />
-                </TableRow>
-            </TableLayout>
+                            android:background="@drawable/cell_shape"
+                            android:textColor="#545454"
+                            android:gravity="center"
+                            android:text="12:00 ~ 22:00"
+                            android:textSize="15sp" />
+                    </TableRow>
+                </TableLayout>
+            </com.ssomai.android.scalablelayout.ScalableLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="25dp" />
+            android:layout_height="10dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_marginLeft="40px"
-            android:layout_marginBottom="5px"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvOpFreeLabel"
+            <com.ssomai.android.scalablelayout.ScalableLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="무료 개방시간"
-                android:textColor="@android:color/black"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-            <!--
+                app:scale_base_height="100"
+                app:scale_base_width="1080">
+
+                <TextView
+                    android:id="@+id/tvOpFreeLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/nanum_gothic_bold"
+                    android:text="무료 개방시간"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    app:scale_height="100"
+                    app:scale_left="0"
+                    app:scale_textsize="70"
+                    app:scale_top="0"
+                    app:scale_width="900" />
+                <!--
             <TextView
                 android:id="@+id/tvOpFreeModLabel"
                 android:layout_width="match_parent"
@@ -174,105 +215,125 @@
                 android:textColor="@android:color/black"
                 android:textSize="15sp" />
 -->
+            </com.ssomai.android.scalablelayout.ScalableLayout>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/detailOpFreeLL"
             android:layout_width="360dp"
-            android:layout_height="150dp"
+            android:layout_height="110dp"
             android:layout_margin="10px"
+            android:layout_marginLeft="40px"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:stretchColumns="*">
+            <com.ssomai.android.scalablelayout.ScalableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:scale_base_height="300"
+                app:scale_base_width="1080">
 
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:paddingBottom="1dp">
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:stretchColumns="*"
+                    app:scale_height="300"
+                    app:scale_left="40"
+                    app:scale_textsize="50"
+                    app:scale_top="0"
+                    app:scale_width="900">
 
-                    <TextView
-                        android:id="@+id/tvTblWopFreeLabel"
+                    <TableRow
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="1dp"
-                        android:background="#E7E1EF"
-                        android:gravity="center"
-                        android:text="평일"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        >
 
-                    <TextView
-                        android:id="@+id/tvTblWopFreeTime"
+                        <TextView
+                            android:id="@+id/tvTblWopFreeLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+
+                            android:background="@drawable/cell_shape_header"
+                            android:textColor="#545454"
+                            android:gravity="center"
+                            android:text="평일"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvTblWopFreeTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+
+                            android:background="@drawable/cell_shape"
+                            android:textColor="#545454"
+                            android:gravity="center"
+                            android:text="12:00 ~ 22:00"
+                            android:textSize="15sp" />
+                    </TableRow>
+
+                    <TableRow
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="1dp"
-                        android:background="#E7E1EF"
-                        android:gravity="center"
-                        android:text="12:00 ~ 22:00"
-                        android:textSize="20sp" />
-                </TableRow>
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        >
 
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:paddingBottom="1dp">
+                        <TextView
+                            android:id="@+id/tvTblSopFreeLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
 
-                    <TextView
-                        android:id="@+id/tvTblSopFreeLabel"
+                            android:background="@drawable/cell_shape_header"
+                            android:textColor="#545454"
+                            android:gravity="center"
+                            android:text="토요일"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvTblSopFreeTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+
+                            android:background="@drawable/cell_shape"
+                            android:textColor="#545454"
+                            android:gravity="center"
+                            android:text="12:00 ~ 22:00"
+                            android:textSize="15sp" />
+                    </TableRow>
+
+                    <TableRow
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="1dp"
-                        android:background="#E7E1EF"
-                        android:gravity="center"
-                        android:text="토요일"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
 
-                    <TextView
-                        android:id="@+id/tvTblSopFreeTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="1dp"
-                        android:background="#E7E1EF"
-                        android:gravity="center"
-                        android:text="12:00 ~ 22:00"
-                        android:textSize="20sp" />
-                </TableRow>
+                        <TextView
+                            android:id="@+id/tvTblHopFreeLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
 
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
+                            android:background="@drawable/cell_shape_header"
+                            android:textColor="#545454"
+                            android:gravity="center"
+                            android:text="공휴일"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tvTblHopFreeLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="1dp"
-                        android:background="#E7E1EF"
-                        android:gravity="center"
-                        android:text="공휴일"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/tvTblHopFreeTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
 
-                    <TextView
-                        android:id="@+id/tvTblHopFreeTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="1dp"
-                        android:background="#E7E1EF"
-                        android:gravity="center"
-                        android:text="12:00 ~ 22:00"
-                        android:textSize="20sp" />
-                </TableRow>
+                            android:background="@drawable/cell_shape"
+                            android:textColor="#545454"
+                            android:gravity="center"
+                            android:text="12:00 ~ 22:00"
+                            android:textSize="15sp" />
+                    </TableRow>
 
-            </TableLayout>
+                </TableLayout>
+            </com.ssomai.android.scalablelayout.ScalableLayout>
         </LinearLayout>
 
     </LinearLayout>

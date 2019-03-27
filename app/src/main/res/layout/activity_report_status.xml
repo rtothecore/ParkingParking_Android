@@ -48,39 +48,45 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:paddingBottom="1dp">
+                >
 
                 <TextView
                     android:id="@+id/tvReportListLabel1"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="1dp"
-                    android:background="#E7E1EF"
+                    android:layout_height="50dp"
+
+                    android:background="@drawable/cell_shape_header"
+                    android:fontFamily="@font/nanum_gothic"
                     android:gravity="center"
                     android:text="주차장명"
-                    android:textSize="20sp"
+                    android:textColor="#545454"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvReportListLabel2"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="1dp"
-                    android:background="#E7E1EF"
+
+                    android:background="@drawable/cell_shape_header"
+                    android:textColor="#545454"
                     android:gravity="center"
+                    android:fontFamily="@font/nanum_gothic"
                     android:text="제보일"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvReportListLabel3"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="1dp"
-                    android:background="#E7E1EF"
+
+                    android:background="@drawable/cell_shape_header"
+                    android:textColor="#545454"
                     android:gravity="center"
+                    android:fontFamily="@font/nanum_gothic"
                     android:text="상태"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
             </TableRow>
 

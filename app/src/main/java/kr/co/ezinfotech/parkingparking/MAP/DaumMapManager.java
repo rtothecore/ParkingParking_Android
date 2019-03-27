@@ -54,6 +54,9 @@ public class DaumMapManager extends Activity {
     private int currentZoomLevel = 0;
     private boolean turnOnCluster = false;
 
+    public DaumMapManager() {
+    }
+
     public DaumMapManager(Context ctxVal) {
         ctx = ctxVal;
 
@@ -482,6 +485,17 @@ public class DaumMapManager extends Activity {
         // showAll();
     }
 
+    public void runMapProcessWithFavoritesAtFirst(String[] favoritesVal) {
+        turnOnCluster = false;
+        mMapView.removeAllCircles();
+        mMapView.removeAllPOIItems();   // 맵 초기화
+        mMapView.setPOIItemEventListener(piel);
+
+        mMapView.setCalloutBalloonAdapter(new DaumMapManager.CustomCalloutBalloonAdapter());
+        createCustomMarkerWithFavoritesAtFirst(mMapView, favoritesVal);
+        preCurrentMode = 3;
+    }
+
     private void createCustomMarker(MapView mapView) {
         // 1. PZDataManager에서 SQLite에 접속하여 모든 주차장정보를 얻음.
         PZDataManager pzdm = new PZDataManager(null);
@@ -495,7 +509,77 @@ public class DaumMapManager extends Activity {
             mCustomMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(pzData.get(i).loc.getLatitude(), pzData.get(i).loc.getLongitude()));
             mCustomMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
 
-            mCustomMarker.setCustomImageResourceId(R.drawable.mk_blank);
+            String feeVal = pzData.get(i).add_term.fee;
+            if("0".equals(feeVal)) {
+                // feeVal = "무료";
+                mCustomMarker.setCustomImageResourceId(R.drawable.mk_free);
+            } else if("null".equals(feeVal)) {
+                // feeVal = "미등록";
+                mCustomMarker.setCustomImageResourceId(R.drawable.mk_null);
+            } else {
+                switch(feeVal) {
+                    case "100" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_100);
+                        break;
+                    case "200" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_200);
+                        break;
+                    case "300" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_300);
+                        break;
+                    case "400" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_400);
+                        break;
+                    case "500" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_500);
+                        break;
+                    case "600" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_600);
+                        break;
+                    case "700" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_700);
+                        break;
+                    case "800" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_800);
+                        break;
+                    case "900" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_900);
+                        break;
+                    case "1000" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1000);
+                        break;
+                    case "1100" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1100);
+                        break;
+                    case "1200" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1200);
+                        break;
+                    case "1300" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1300);
+                        break;
+                    case "1400" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1400);
+                        break;
+                    case "1500" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1500);
+                        break;
+                    case "1600" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1600);
+                        break;
+                    case "1700" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1700);
+                        break;
+                    case "1800" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1800);
+                        break;
+                    case "1900" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1900);
+                        break;
+                    case "2000" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_2000);
+                        break;
+                }
+            }
 
             mCustomMarker.setCustomImageAutoscale(false);
             mCustomMarker.setCustomImageAnchor(0.5f, 0.7f);
@@ -505,6 +589,7 @@ public class DaumMapManager extends Activity {
         }
 
         // 3. 텍스트 뿌리기
+        /*
         for(int i = 0; i < pzData.size(); i++) {
             mCustomMarker = new MapPOIItem();
             mCustomMarker.setItemName(pzData.get(i).name);
@@ -535,6 +620,7 @@ public class DaumMapManager extends Activity {
 
             mapView.addPOIItem(mCustomMarker);
         }
+        */
 
         mapView.selectPOIItem(mCustomMarker, true);
         // mapView.setMapCenterPoint(DEFAULT_MARKER_POINT, false);
@@ -553,7 +639,78 @@ public class DaumMapManager extends Activity {
             mCustomMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(pzData.get(i).loc.getLatitude(), pzData.get(i).loc.getLongitude()));
             mCustomMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
 
-            mCustomMarker.setCustomImageResourceId(R.drawable.mk_blank);
+            String feeVal = pzData.get(i).add_term.fee;
+            if("0".equals(feeVal)) {
+                // feeVal = "무료";
+                mCustomMarker.setCustomImageResourceId(R.drawable.mk_free);
+            } else if("null".equals(feeVal)) {
+                // feeVal = "미등록";
+                mCustomMarker.setCustomImageResourceId(R.drawable.mk_null);
+            } else {
+                switch(feeVal) {
+                    case "100" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_100);
+                        break;
+                    case "200" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_200);
+                        break;
+                    case "300" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_300);
+                        break;
+                    case "400" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_400);
+                        break;
+                    case "500" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_500);
+                        break;
+                    case "600" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_600);
+                        break;
+                    case "700" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_700);
+                        break;
+                    case "800" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_800);
+                        break;
+                    case "900" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_900);
+                        break;
+                    case "1000" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1000);
+                        break;
+                    case "1100" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1100);
+                        break;
+                    case "1200" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1200);
+                        break;
+                    case "1300" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1300);
+                        break;
+                    case "1400" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1400);
+                        break;
+                    case "1500" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1500);
+                        break;
+                    case "1600" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1600);
+                        break;
+                    case "1700" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1700);
+                        break;
+                    case "1800" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1800);
+                        break;
+                    case "1900" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1900);
+                        break;
+                    case "2000" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_2000);
+                        break;
+                }
+            }
+            // mCustomMarker.setCustomImageResourceId(R.drawable.mk_blank);
 
             mCustomMarker.setCustomImageAutoscale(false);
             mCustomMarker.setCustomImageAnchor(0.5f, 0.7f);
@@ -563,6 +720,7 @@ public class DaumMapManager extends Activity {
         }
 
         // 3. 텍스트 뿌리기
+        /*
         for(int i = 0; i < pzData.size(); i++) {
             mCustomMarker = new MapPOIItem();
             mCustomMarker.setItemName(pzData.get(i).name);
@@ -593,6 +751,7 @@ public class DaumMapManager extends Activity {
 
             mapView.addPOIItem(mCustomMarker);
         }
+        */
 
         mapView.selectPOIItem(mCustomMarker, true);
     }
@@ -610,7 +769,78 @@ public class DaumMapManager extends Activity {
             mCustomMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(pzData.get(i).loc.getLatitude(), pzData.get(i).loc.getLongitude()));
             mCustomMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
 
-            mCustomMarker.setCustomImageResourceId(R.drawable.mk_blank);
+            String feeVal = pzData.get(i).add_term.fee;
+            if("0".equals(feeVal)) {
+                // feeVal = "무료";
+                mCustomMarker.setCustomImageResourceId(R.drawable.mk_free);
+            } else if("null".equals(feeVal)) {
+                // feeVal = "미등록";
+                mCustomMarker.setCustomImageResourceId(R.drawable.mk_null);
+            } else {
+                switch(feeVal) {
+                    case "100" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_100);
+                        break;
+                    case "200" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_200);
+                        break;
+                    case "300" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_300);
+                        break;
+                    case "400" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_400);
+                        break;
+                    case "500" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_500);
+                        break;
+                    case "600" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_600);
+                        break;
+                    case "700" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_700);
+                        break;
+                    case "800" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_800);
+                        break;
+                    case "900" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_900);
+                        break;
+                    case "1000" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1000);
+                        break;
+                    case "1100" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1100);
+                        break;
+                    case "1200" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1200);
+                        break;
+                    case "1300" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1300);
+                        break;
+                    case "1400" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1400);
+                        break;
+                    case "1500" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1500);
+                        break;
+                    case "1600" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1600);
+                        break;
+                    case "1700" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1700);
+                        break;
+                    case "1800" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1800);
+                        break;
+                    case "1900" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1900);
+                        break;
+                    case "2000" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_2000);
+                        break;
+                }
+            }
+            // mCustomMarker.setCustomImageResourceId(R.drawable.mk_blank);
 
             mCustomMarker.setCustomImageAutoscale(false);
             mCustomMarker.setCustomImageAnchor(0.5f, 0.7f);
@@ -620,6 +850,7 @@ public class DaumMapManager extends Activity {
         }
 
         // 3. 텍스트 뿌리기
+        /*
         for(int i = 0; i < pzData.size(); i++) {
             mCustomMarker = new MapPOIItem();
             mCustomMarker.setItemName(pzData.get(i).name);
@@ -650,6 +881,7 @@ public class DaumMapManager extends Activity {
 
             mapView.addPOIItem(mCustomMarker);
         }
+        */
 
         mapView.selectPOIItem(mCustomMarker, true);
     }
@@ -667,7 +899,78 @@ public class DaumMapManager extends Activity {
             mCustomMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(pzData.get(i).loc.getLatitude(), pzData.get(i).loc.getLongitude()));
             mCustomMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
 
-            mCustomMarker.setCustomImageResourceId(R.drawable.mk_blank);
+            String feeVal = pzData.get(i).add_term.fee;
+            if("0".equals(feeVal)) {
+                // feeVal = "무료";
+                mCustomMarker.setCustomImageResourceId(R.drawable.mk_free);
+            } else if("null".equals(feeVal)) {
+                // feeVal = "미등록";
+                mCustomMarker.setCustomImageResourceId(R.drawable.mk_null);
+            } else {
+                switch(feeVal) {
+                    case "100" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_100);
+                        break;
+                    case "200" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_200);
+                        break;
+                    case "300" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_300);
+                        break;
+                    case "400" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_400);
+                        break;
+                    case "500" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_500);
+                        break;
+                    case "600" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_600);
+                        break;
+                    case "700" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_700);
+                        break;
+                    case "800" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_800);
+                        break;
+                    case "900" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_900);
+                        break;
+                    case "1000" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1000);
+                        break;
+                    case "1100" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1100);
+                        break;
+                    case "1200" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1200);
+                        break;
+                    case "1300" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1300);
+                        break;
+                    case "1400" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1400);
+                        break;
+                    case "1500" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1500);
+                        break;
+                    case "1600" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1600);
+                        break;
+                    case "1700" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1700);
+                        break;
+                    case "1800" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1800);
+                        break;
+                    case "1900" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1900);
+                        break;
+                    case "2000" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_2000);
+                        break;
+                }
+            }
+            // mCustomMarker.setCustomImageResourceId(R.drawable.mk_blank);
 
             mCustomMarker.setCustomImageAutoscale(false);
             mCustomMarker.setCustomImageAnchor(0.5f, 0.7f);
@@ -676,7 +979,15 @@ public class DaumMapManager extends Activity {
             mapView.addPOIItem(mCustomMarker);
         }
 
-        // 3. 텍스트 뿌리기
+        mapView.selectPOIItem(mCustomMarker, true);
+    }
+
+    private void createCustomMarkerWithFavoritesAtFirst(MapView mapView, String[] favoritesVal) {
+        // 1. PZDataManager에서 SQLite에 접속하여 모든 주차장정보를 얻음.
+        PZDataManager pzdm = new PZDataManager(null);
+        pzData = pzdm.getPZDataWithNos(favoritesVal);
+
+        // 2. 말풍선 뿌리기
         for(int i = 0; i < pzData.size(); i++) {
             mCustomMarker = new MapPOIItem();
             mCustomMarker.setItemName(pzData.get(i).name);
@@ -684,31 +995,129 @@ public class DaumMapManager extends Activity {
             mCustomMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(pzData.get(i).loc.getLatitude(), pzData.get(i).loc.getLongitude()));
             mCustomMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
 
-            // https://devtalk.kakao.com/t/android-mapview-custom-view/46225/3
-            LayoutInflater inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View inflatedFrame = inflater.inflate(R.layout.view_map_bb_b, null);
-
             String feeVal = pzData.get(i).add_term.fee;
             if("0".equals(feeVal)) {
-                feeVal = "무료";
+                // feeVal = "무료";
+                mCustomMarker.setCustomImageResourceId(R.drawable.mk_free);
             } else if("null".equals(feeVal)) {
-                feeVal = "미등록";
+                // feeVal = "미등록";
+                mCustomMarker.setCustomImageResourceId(R.drawable.mk_null);
+            } else {
+                switch(feeVal) {
+                    case "100" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_100);
+                        break;
+                    case "200" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_200);
+                        break;
+                    case "300" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_300);
+                        break;
+                    case "400" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_400);
+                        break;
+                    case "500" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_500);
+                        break;
+                    case "600" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_600);
+                        break;
+                    case "700" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_700);
+                        break;
+                    case "800" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_800);
+                        break;
+                    case "900" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_900);
+                        break;
+                    case "1000" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1000);
+                        break;
+                    case "1100" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1100);
+                        break;
+                    case "1200" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1200);
+                        break;
+                    case "1300" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1300);
+                        break;
+                    case "1400" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1400);
+                        break;
+                    case "1500" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1500);
+                        break;
+                    case "1600" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1600);
+                        break;
+                    case "1700" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1700);
+                        break;
+                    case "1800" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1800);
+                        break;
+                    case "1900" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_1900);
+                        break;
+                    case "2000" :
+                        mCustomMarker.setCustomImageResourceId(R.drawable.mk_2000);
+                        break;
+                }
             }
-
-            ((TextView)inflatedFrame.findViewById(R.id.view_m_b_tv)).setText(feeVal);
-            ((TextView)inflatedFrame.findViewById(R.id.view_m_b_tv)).setTextSize(14);
-
-            Bitmap bitmap = UtilManager.createBitmapFromView(inflatedFrame.findViewById(R.id.view_m_b));
-            mCustomMarker.setCustomImageBitmap(bitmap);
+            // mCustomMarker.setCustomImageResourceId(R.drawable.mk_blank);
 
             mCustomMarker.setCustomImageAutoscale(false);
-            mCustomMarker.setCustomImageAnchor(0.5f, 1.0f);
+            mCustomMarker.setCustomImageAnchor(0.5f, 0.7f);
             mCustomMarker.setShowCalloutBalloonOnTouch(false);
 
             mapView.addPOIItem(mCustomMarker);
         }
 
-        mapView.selectPOIItem(mCustomMarker, true);
+        // 3. mapPointBounds 구하기(좌하단 지점과 우상단 지점)
+        Double dbLeftBottomLat = 0.0;
+        Double dbLeftBottomLng = 0.0;
+        Double dbRightTopLat = 0.0;
+        Double dbRightTopLng = 0.0;
+
+        for(int j = 0; j < pzData.size(); j++) {
+            if (0 == j) {
+                dbLeftBottomLat = pzData.get(j).loc.getLatitude();
+                dbLeftBottomLng = pzData.get(j).loc.getLongitude();
+            }
+
+            if (dbLeftBottomLat > pzData.get(j).loc.getLatitude()) {
+                dbLeftBottomLat = pzData.get(j).loc.getLatitude();
+            }
+
+            if (dbLeftBottomLng > pzData.get(j).loc.getLongitude()) {
+                dbLeftBottomLng = pzData.get(j).loc.getLongitude();
+            }
+        }
+        MapPoint mpLeftBottom = MapPoint.mapPointWithGeoCoord(dbLeftBottomLat, dbLeftBottomLng);
+
+        for(int k = 0; k < pzData.size(); k++) {
+            if (0 == k) {
+                dbRightTopLat = pzData.get(k).loc.getLatitude();
+                dbRightTopLng = pzData.get(k).loc.getLongitude();
+            }
+
+            if (dbRightTopLat < pzData.get(k).loc.getLatitude()) {
+                dbRightTopLat = pzData.get(k).loc.getLatitude();
+            }
+
+            if (dbRightTopLng < pzData.get(k).loc.getLongitude()) {
+                dbRightTopLng = pzData.get(k).loc.getLongitude();
+            }
+        }
+        MapPoint mpRightTop = MapPoint.mapPointWithGeoCoord(dbRightTopLat, dbRightTopLng);
+
+        MapPointBounds bounds = new MapPointBounds(mpLeftBottom, mpRightTop);
+        int padding = 40;
+        mapView.moveCamera(CameraUpdateFactory.newMapPointBounds(bounds, padding));
+
+        // mapView.selectPOIItem(mCustomMarker, true);
     }
 
     private void showAll() {

@@ -6,13 +6,49 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Splash Page"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.ssomai.android.scalablelayout.ScalableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:scale_base_height="1920"
+            app:scale_base_width="1080">
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="276dp"
+                android:layout_height="72dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="293dp"
+                android:src="@drawable/ezparkinglogo_b"
+                app:scale_height="153"
+                app:scale_left="264"
+                app:scale_top="792"
+                app:scale_width="552" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="148dp"
+                android:layout_height="39dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="36dp"
+                android:src="@drawable/companylogo"
+                app:scale_height="63"
+                app:scale_left="394"
+                app:scale_top="1775"
+                app:scale_width="292" />
+        </com.ssomai.android.scalablelayout.ScalableLayout>
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

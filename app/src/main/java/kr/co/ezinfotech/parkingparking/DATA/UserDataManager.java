@@ -42,6 +42,7 @@ public class UserDataManager extends Activity {
     Handler mHandler2 = null;
     Handler mHandler3 = null;
     Handler mHandler4 = null;
+    Handler mHandler5 = null;
     String name = null;
     String email = null;
     String password = null;
@@ -100,6 +101,132 @@ public class UserDataManager extends Activity {
         leaveReason = leaveReasonVal;
         deleteUserDataThreadProcess();
     }
+
+    public void updatePhoneNo(Context ctxVal, String emailVal, String phoneNoVal) {
+        parentCtx = ctxVal;
+        email = emailVal;
+        phone_no = phoneNoVal;
+        updatePhoneNoThreadProcess();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// START updatePhoneNo
+    private void updatePhoneNoThreadProcess() {
+        mHandler5 = new Handler(Looper.getMainLooper()) {   // http://ecogeo.tistory.com/329
+            @Override public void handleMessage(Message msg) {
+                if(200 == msg.arg1) {   // Update 성공
+                    Log.i("updatePhoneNoThread", "Update 성공");
+                    // showUpdateuUserPhoneNoSuccessDlg();
+                } else {
+                    Log.i("updatePhoneNoThread", "Update 실패");
+                }
+            }
+        };
+
+        ///////////////////////////////// Thread of network START //////////////////////////////
+        // http://nocomet.tistory.com/10
+        new Thread() {
+            public void run() {
+                int responseCode = callUpdatePhoneNoREST();
+
+                Message message = Message.obtain();
+                message.arg1 = responseCode;
+                mHandler5.sendMessage(message);
+            }
+        }.start();
+        ///////////////////////////////// Thread of network END //////////////////////////////
+    }
+
+    private int callUpdatePhoneNoREST() {
+        int responseCode = 0;
+        StringBuilder urlBuilder = new StringBuilder(UtilManager.getPPServerIp() + "/updateUserWithPhoneNo/" + email); /*URL*/
+
+        URL url = null;
+        try {
+            url = new URL(urlBuilder.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        HttpURLConnection conn = null;
+        try {
+            conn = (HttpURLConnection) url.openConnection();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            conn.setRequestMethod("PUT");
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        }
+        conn.setRequestProperty("Content-type", "application/json");
+
+        // https://m.blog.naver.com/beodeulpiri/220730560270
+        // build jsonObject
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.accumulate("phone_no", phone_no);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // convert JSONObject to JSON to String
+        String json = jsonObject.toString();
+
+        // Set some headers to inform server about the type of the content
+        conn.setRequestProperty("Accept", "application/json");
+
+        // OutputStream으로 POST 데이터를 넘겨주겠다는 옵션.
+        conn.setDoOutput(true);
+
+        // InputStream으로 서버로 부터 응답을 받겠다는 옵션.
+        conn.setDoInput(true);
+
+        try {
+            OutputStream os = conn.getOutputStream();
+            os.write(json.getBytes("UTF-8"));
+            os.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            responseCode = conn.getResponseCode();
+            System.out.println("Response code: " + conn.getResponseCode());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        BufferedReader rd = null;
+        try {
+            if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+                rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            } else {
+                rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        StringBuilder sb = new StringBuilder();
+        String line = null;
+        try {
+            while ((line = rd.readLine()) != null) {
+                sb.append(line);
+            }
+            rd.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        conn.disconnect();
+
+        try {
+            Log.e("CarTypeREST-0", sb.toString());
+        } catch (Throwable t) {
+            Log.e("CarTypeREST-1", "Could not parse malformed JSON");
+            t.printStackTrace();
+        }
+
+        return responseCode;
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// END
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// START updateReportData
     private void deleteUserDataThreadProcess() {
@@ -461,6 +588,20 @@ public class UserDataManager extends Activity {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// END
 
     // http://webnautes.tistory.com/1094
+    private void showUpdateuUserPhoneNoSuccessDlg() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(parentCtx);
+        builder.setMessage("휴대폰번호를 수정했습니다.");
+        builder.setPositiveButton("확인",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // ((CarTypeChangeActivity)CarTypeChangeActivity.mContext).callParentSetCarType(carType);
+                        // ((Activity)parentCtx).finish();
+                    }
+                });
+        builder.show();
+    }
+
+    // http://webnautes.tistory.com/1094
     private void showDeleteuUserSuccessDlg() {
         AlertDialog.Builder builder = new AlertDialog.Builder(parentCtx);
         builder.setMessage("회원탈퇴를 실행했습니다.");
@@ -534,7 +675,7 @@ public class UserDataManager extends Activity {
     private void setDataToUI() {
         TextView tvPrivateInfoName = ((Activity)parentCtx).findViewById(R.id.tvPrivateInfoName);
         tvPrivateInfoName.setText(uData.name);
-
+/*
         TextView tvPiCarNo = ((Activity)parentCtx).findViewById(R.id.tvPiCarNo);
         tvPiCarNo.setText(uData.car_no);
 
@@ -556,6 +697,7 @@ public class UserDataManager extends Activity {
                 tvPiCarType.setText("장애");
                 break;
         }
+*/
     }
 
     private int getUserDataWithEmail() {

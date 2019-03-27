@@ -26,6 +26,8 @@ public class DetailCustomPagerAdapter extends PagerAdapter {
     private Context mContext;
     private PZData pzData = new PZData();
 
+    private String[] tabTitles = new String[]{"상세", "요금", "운영"};
+
     public DetailCustomPagerAdapter(Context context, PZData pzDataVal) {
         mContext = context;
         pzData = pzDataVal;
@@ -198,10 +200,11 @@ public class DetailCustomPagerAdapter extends PagerAdapter {
     public CharSequence getPageTitle(int position) {
         /*
         BasicModelObject customPagerEnum = BasicModelObject.values()[position];
-
         return mContext.getString(customPagerEnum.getTitleResId());
         */
-        return null;
+
+        // return null;
+        return tabTitles[position];
     }
 
 }

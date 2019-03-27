@@ -20,7 +20,9 @@
         -->
         <item
             android:id="@+id/drawer_private_info"
-            android:icon="@drawable/icons8_compass_24"
+            android:icon="@drawable/drawer_private_info_icon"
+            android:fontFamily="@font/nanum_gothic"
+            android:actionMenuTextColor="@color/ezGray"
             android:title="개인정보" />
         <!--
         <item
@@ -33,21 +35,27 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/drawer_service_center"
-            android:icon="@drawable/icons8_compass_24"
+            android:icon="@drawable/drawer_service_center_icon"
+            android:fontFamily="@font/nanum_gothic"
+            android:actionMenuTextColor="@color/ezGray"
             android:title="고객센터" />
     </group>
 
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/drawer_preferences"
-            android:icon="@drawable/icons8_compass_24"
+            android:icon="@drawable/drawer_preference_icon"
+            android:fontFamily="@font/nanum_gothic"
+            android:actionMenuTextColor="@color/ezGray"
             android:title="환경설정" />
     </group>
 
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/drawer_favorites"
-            android:icon="@drawable/icons8_compass_24"
+            android:icon="@drawable/drawer_favorites_icon"
+            android:fontFamily="@font/nanum_gothic"
+            android:actionMenuTextColor="@color/ezGray"
             android:title="즐겨찾기" />
     </group>
         <!--
@@ -60,7 +68,9 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/drawer_report_status"
-            android:icon="@drawable/icons8_compass_24"
+            android:icon="@drawable/drawer_report_status_icon"
+            android:fontFamily="@font/nanum_gothic"
+            android:actionMenuTextColor="@color/ezGray"
             android:title="제보현황" />
     </group>
 

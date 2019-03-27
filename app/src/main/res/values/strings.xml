@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ParkingParking</string>
+    <string name="app_name">이지파킹</string>
     <string name="rationale_title">Permission required</string>
     <string name="rationale_message">we need permission for find your <b>location</b></string>
     <string name="share">공유</string>
