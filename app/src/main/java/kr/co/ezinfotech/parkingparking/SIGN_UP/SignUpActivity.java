@@ -54,6 +54,22 @@ public class SignUpActivity extends AppCompatActivity {
         setEditTextChange();
     }
 
+    /*
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
+    */
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
+        getApplicationContext().startActivity(intent);
+        finish();
+    }
+
     private boolean checkEmailForm() {
         EditText etSignupEmail = findViewById(R.id.etSignupEmail);
         if(etSignupEmail.getText().toString().trim().equals("") || !(UtilManager.isValidEmail(etSignupEmail.getText().toString()))) {
@@ -207,7 +223,8 @@ public class SignUpActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                super.onBackPressed();
+                // super.onBackPressed();
+                onBackPressed();
                 return true;
             default:
                 Toast.makeText(getApplicationContext(), "나머지 버튼 터치됨", Toast.LENGTH_LONG).show();

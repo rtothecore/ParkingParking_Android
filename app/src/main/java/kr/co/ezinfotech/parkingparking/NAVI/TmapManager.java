@@ -5,6 +5,8 @@ import android.util.Log;
 
 import com.skt.Tmap.TMapTapi;
 
+import java.util.ArrayList;
+
 public class TmapManager {
 
     private static final TmapManager ourInstance = new TmapManager();
@@ -50,5 +52,13 @@ public class TmapManager {
         } else {
             Log.d("TMAP","Tmap 키가 인증되지 않았습니다");
         }
+    }
+
+    public static boolean isTmapInstalled() {
+        return tMapTapi.isTmapApplicationInstalled();
+    }
+
+    public static ArrayList getTmapDownUrl() {
+        return tMapTapi.getTMapDownUrl();
     }
 }

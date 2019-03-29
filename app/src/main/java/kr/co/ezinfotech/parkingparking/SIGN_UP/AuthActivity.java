@@ -1,8 +1,10 @@
 package kr.co.ezinfotech.parkingparking.SIGN_UP;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +23,8 @@ import java.util.TimerTask;
 
 import kr.co.ezinfotech.parkingparking.DATA.SmsAuthData;
 import kr.co.ezinfotech.parkingparking.DATA.SmsAuthDataManager;
+import kr.co.ezinfotech.parkingparking.LoginActivity;
+import kr.co.ezinfotech.parkingparking.MapActivity;
 import kr.co.ezinfotech.parkingparking.R;
 
 public class AuthActivity extends AppCompatActivity {
@@ -45,12 +49,29 @@ public class AuthActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                super.onBackPressed();
+                // super.onBackPressed();
+                onBackPressed();
                 return true;
             default:
                 Toast.makeText(getApplicationContext(), "나머지 버튼 터치됨", Toast.LENGTH_LONG).show();
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    /*
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
+    */
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
+        getApplicationContext().startActivity(intent);
+        finish();
     }
 
     public void sendAuthCode(View v) {
@@ -77,11 +98,13 @@ public class AuthActivity extends AppCompatActivity {
             }
         };
 
+        /*
         final Handler handler2 = new Handler(){
             public void handleMessage(Message msg){
                 setBtnAuthOk();
             }
         };
+        */
 
         final EditText etAuthWaitTime = (EditText)findViewById(R.id.etAuthWaitTime);
 
@@ -90,7 +113,8 @@ public class AuthActivity extends AppCompatActivity {
 
         Calendar calAfter3Min = Calendar.getInstance();
         calAfter3Min.setTime(date);
-        calAfter3Min.add(Calendar.MINUTE, 3);
+        // calAfter3Min.add(Calendar.MINUTE, 3);
+        calAfter3Min.add(Calendar.MINUTE, 1);
         after3min = calAfter3Min.getTimeInMillis();
 
         //
@@ -106,8 +130,10 @@ public class AuthActivity extends AppCompatActivity {
             @Override
             public void run() {
                 // 다음버튼 관련 설정
+                /*
                 Message msg2 = handler2.obtainMessage();
                 handler2.sendMessage(msg2);
+                */
 
                 // 남은시간 = 현재시간 - after3min
                 long now = System.currentTimeMillis();
@@ -170,8 +196,30 @@ public class AuthActivity extends AppCompatActivity {
     public void authOk(View v) {
         final EditText etPhoneNo = findViewById(R.id.etPhoneNo);
         final EditText etAuthNo = findViewById(R.id.etAuthNo);
+        final EditText etAuthWaitTime = findViewById(R.id.etAuthWaitTime);
 
-        // 1. 인증번호가 올바른지 체크
+        // 1. 휴대폰번호를 입력했는지 체크
+        if(11 > etPhoneNo.getText().toString().length()) {
+            etPhoneNo.requestFocus();
+            etPhoneNo.setError("휴대폰번호를 입력해주세요.");
+            return;
+        }
+
+        // 2. 인증번호를 입력했는지 체크
+        if(4 > etAuthNo.getText().toString().length()) {
+            etAuthNo.requestFocus();
+            etAuthNo.setError("인증번호를 입력해주세요.");
+            return;
+        }
+
+        // 3. 입력시간이 다 되었는지 체크
+        if("00:00".equals(etAuthWaitTime.getText().toString())) {
+            etAuthNo.requestFocus();
+            etAuthNo.setError("재발송 버튼을 눌러주세요.");
+            return;
+        }
+
+        // 4. 인증번호가 올바른지 체크
         Handler mHandler = new Handler() {
             @Override public void handleMessage(Message msg) {
                 if(888 == msg.arg1) {

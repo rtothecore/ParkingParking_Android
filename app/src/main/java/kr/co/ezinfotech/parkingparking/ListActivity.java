@@ -28,6 +28,7 @@ import kr.co.ezinfotech.parkingparking.LIST_TAB.DistanceOrderListAdapter;
 import kr.co.ezinfotech.parkingparking.LIST_TAB.FeeOrderListAdapter;
 import kr.co.ezinfotech.parkingparking.LIST_TAB.ListItemData;
 import kr.co.ezinfotech.parkingparking.LIST_TAB.ListTabPagerAdapter;
+import kr.co.ezinfotech.parkingparking.LIST_TAB.NoDataListAdapter;
 
 public class ListActivity extends AppCompatActivity {
 
@@ -57,8 +58,8 @@ public class ListActivity extends AppCompatActivity {
 
         // Initializing the TabLayout
         tabLayout = (TabLayout) findViewById(R.id.list_tab);
-        tabLayout.addTab(tabLayout.newTab().setText("거리순"));
-        tabLayout.addTab(tabLayout.newTab().setText("요금순"));
+        // tabLayout.addTab(tabLayout.newTab().setText("거리순"));
+        // tabLayout.addTab(tabLayout.newTab().setText("요금순"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         // Initializing ViewPager - http://android-java-development.blogspot.com/2012/05/system.html
@@ -73,6 +74,10 @@ public class ListActivity extends AppCompatActivity {
         pages.add(listview2);
         ListTabPagerAdapter pagerAdapter = new ListTabPagerAdapter(this, pages);
         viewPager.setAdapter(pagerAdapter);
+
+        // https://m.blog.naver.com/PostView.nhn?blogId=pistolcaffe&logNo=220629248791&proxyReferer=https%3A%2F%2Fwww.google.com%2F
+        // https://stackoverflow.com/questions/38049076/tablayout-tabs-text-not-displaying
+        tabLayout.setupWithViewPager(viewPager);
 
         // Set Listview
         setLV_listOrderByDistance(listview1);
@@ -154,22 +159,27 @@ public class ListActivity extends AppCompatActivity {
             oData.get(j).strDistance += "km";
         }
 
-        DistanceOrderListAdapter oAdapter = new DistanceOrderListAdapter(oData);
-        listViewVal.setAdapter(oAdapter);
+        if (0 == oData.size()) {    // 리스트 데이터가 0인 경우
+            NoDataListAdapter nAdapter = new NoDataListAdapter();
+            listViewVal.setAdapter(nAdapter);
+        } else {
+            DistanceOrderListAdapter oAdapter = new DistanceOrderListAdapter(oData);
+            listViewVal.setAdapter(oAdapter);
 
-        listViewVal.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // MapActivity로 되돌아가기
-                Intent intent = new Intent();
-                intent.putExtra("lat", Double.toString(oData.get(position).loc.getLatitude()));
-                intent.putExtra("lng", Double.toString(oData.get(position).loc.getLongitude()));
-                setResult(RESULT_OK, intent);
-                finish();
-                // Toast.makeText(getApplicationContext(), pzData.get(position).addr_road + " 버튼 터치됨", Toast.LENGTH_LONG).show();
-                Toast.makeText(getApplicationContext(), oData.get(position).strAddress + " 버튼 터치됨", Toast.LENGTH_LONG).show();
-            }
-        });
+            listViewVal.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    // MapActivity로 되돌아가기
+                    Intent intent = new Intent();
+                    intent.putExtra("lat", Double.toString(oData.get(position).loc.getLatitude()));
+                    intent.putExtra("lng", Double.toString(oData.get(position).loc.getLongitude()));
+                    setResult(RESULT_OK, intent);
+                    finish();
+                    // Toast.makeText(getApplicationContext(), pzData.get(position).addr_road + " 버튼 터치됨", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), oData.get(position).strAddress + " 버튼 터치됨", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
     }
 
     // 오름차순 - http://happyryu.tistory.com/267, http://codeman77.tistory.com/4
@@ -229,22 +239,27 @@ public class ListActivity extends AppCompatActivity {
             oData.get(j).strFee += "원";
         }
 
-        FeeOrderListAdapter oAdapter = new FeeOrderListAdapter(oData);
-        listViewVal.setAdapter(oAdapter);
+        if (0 == oData.size()) {    // 리스트 데이터가 0인 경우
+            NoDataListAdapter nAdapter = new NoDataListAdapter();
+            listViewVal.setAdapter(nAdapter);
+        } else {
+            FeeOrderListAdapter oAdapter = new FeeOrderListAdapter(oData);
+            listViewVal.setAdapter(oAdapter);
 
-        listViewVal.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // MapActivity로 되돌아가기
-                Intent intent = new Intent();
-                intent.putExtra("lat", Double.toString(oData.get(position).loc.getLatitude()));
-                intent.putExtra("lng", Double.toString(oData.get(position).loc.getLongitude()));
-                setResult(RESULT_OK, intent);
-                finish();
-                // Toast.makeText(getApplicationContext(), pzData.get(position).addr_road + " 버튼 터치됨", Toast.LENGTH_LONG).show();
-                Toast.makeText(getApplicationContext(), oData.get(position).strAddress + " 버튼 터치됨", Toast.LENGTH_LONG).show();
-            }
-        });
+            listViewVal.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    // MapActivity로 되돌아가기
+                    Intent intent = new Intent();
+                    intent.putExtra("lat", Double.toString(oData.get(position).loc.getLatitude()));
+                    intent.putExtra("lng", Double.toString(oData.get(position).loc.getLongitude()));
+                    setResult(RESULT_OK, intent);
+                    finish();
+                    // Toast.makeText(getApplicationContext(), pzData.get(position).addr_road + " 버튼 터치됨", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), oData.get(position).strAddress + " 버튼 터치됨", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
     }
 
     // 오름차순 - http://happyryu.tistory.com/267, http://codeman77.tistory.com/4

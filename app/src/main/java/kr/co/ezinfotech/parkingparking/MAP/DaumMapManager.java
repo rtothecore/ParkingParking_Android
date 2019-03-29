@@ -1,12 +1,14 @@
 package kr.co.ezinfotech.parkingparking.MAP;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -47,6 +49,7 @@ public class DaumMapManager extends Activity {
     public ArrayList<PZData> pzData = new ArrayList<>();
     private int selectedPZIndex = 0;
     public Location centerPoint = new Location("centerPoint");
+    public Location myLocPoint = new Location("myLocPoint");
     private boolean isFirst = true;
     private int preCurrentMode = 4;
     private int currentMode = 0;    // 0:전체, 1:유료, 2:무료, 3:즐겨찾기
@@ -100,8 +103,12 @@ public class DaumMapManager extends Activity {
             // Toast.makeText(ctx, "onMapViewInitialized", Toast.LENGTH_SHORT).show();
 
             // 현재위치 트랙킹 및 줌인
-            // mMapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
-            // mMapView.setMapCenterPointAndZoomLevel(mMapView.getMapCenterPoint(), 2, false);
+            mMapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving);
+            mMapView.setMapCenterPointAndZoomLevel(mMapView.getMapCenterPoint(), 2, false);
+
+            // 현재 나의 GPS 좌표 저장
+            myLocPoint.setLatitude(mapView.getMapCenterPoint().getMapPointGeoCoord().latitude);
+            myLocPoint.setLongitude(mapView.getMapCenterPoint().getMapPointGeoCoord().longitude);
 
             centerPoint.setLatitude(mapView.getMapCenterPoint().getMapPointGeoCoord().latitude);
             centerPoint.setLongitude(mapView.getMapCenterPoint().getMapPointGeoCoord().longitude);
@@ -227,7 +234,11 @@ public class DaumMapManager extends Activity {
                         public void onClick(View v) {
                             if(!(pzData.get(mapPOIItem.getTag()).tel).equals("null")) {
                                 String tel = "tel:" + pzData.get(mapPOIItem.getTag()).tel;
-                                ctx.startActivity(new Intent("android.intent.action.DIAL", Uri.parse(tel)));
+                                try {
+                                    ctx.startActivity(new Intent("android.intent.action.DIAL", Uri.parse(tel)));
+                                } catch (ActivityNotFoundException e) {
+                                    Toast.makeText(ctx, "기기에 전화기능이 없습니다", Toast.LENGTH_SHORT).show();
+                                }
                             } else {
                                 Toast.makeText(ctx, "등록된 전화번호가 없습니다", Toast.LENGTH_SHORT).show();
                             }
@@ -238,7 +249,15 @@ public class DaumMapManager extends Activity {
                 ((Activity)ctx).findViewById(R.id.buttonNavi).setOnClickListener(
                     new Button.OnClickListener() {
                         public void onClick(View v) {
-                            TmapManager.showRoute(pzData.get(mapPOIItem.getTag()).name, (float)pzData.get(mapPOIItem.getTag()).loc.getLatitude(), (float)pzData.get(mapPOIItem.getTag()).loc.getLongitude());
+                            if (TmapManager.isTmapInstalled()) {
+                                TmapManager.showRoute(pzData.get(mapPOIItem.getTag()).name, (float)pzData.get(mapPOIItem.getTag()).loc.getLatitude(), (float)pzData.get(mapPOIItem.getTag()).loc.getLongitude());
+                            } else {
+                                Toast.makeText(ctx, "네비기능을 이용하시기 위해서는 T맵을 설치해야 합니다", Toast.LENGTH_LONG).show();
+                                ArrayList tmapDownUrl = TmapManager.getTmapDownUrl();
+                                Uri uri = Uri.parse(tmapDownUrl.get(0).toString());
+                                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                                ctx.startActivity(intent);
+                            }
                         }
                     }
                 );
@@ -331,20 +350,27 @@ public class DaumMapManager extends Activity {
     public void runMapProcess(boolean forFirstLoading) {
         if(forFirstLoading) {
         } else {
-            turnOnCluster = false;
-            mMapView.removeAllCircles();    // 클러스터링 초기화
-            mMapView.removeAllPOIItems();   // 맵 초기화
-            mMapView.setPOIItemEventListener(piel);
+                // 클러스터링 모드이고 줌레벨이 4이상이면 현재기기위치로 이동한다
+                if(turnOnCluster && (4 < currentZoomLevel ) ) {
+                    // mMapView.setZoomLevel(3, true);
+                    mMapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving);
+                    mMapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(myLocPoint.getLatitude(), myLocPoint.getLongitude()), 2, false);
+                }
 
-            mMapView.setCalloutBalloonAdapter(new DaumMapManager.CustomCalloutBalloonAdapter());
-            createCustomMarker(mMapView);
-            if (isFirst) {
-                // showAll();
-                isFirst = false;
-                preCurrentMode = 4;
-            } else {
-                preCurrentMode = 0;
-            }
+                turnOnCluster = false;
+                mMapView.removeAllCircles();    // 클러스터링 초기화
+                mMapView.removeAllPOIItems();   // 맵 초기화
+                mMapView.setPOIItemEventListener(piel);
+
+                mMapView.setCalloutBalloonAdapter(new DaumMapManager.CustomCalloutBalloonAdapter());
+                createCustomMarker(mMapView);
+                if (isFirst) {
+                    // showAll();
+                    isFirst = false;
+                    preCurrentMode = 4;
+                } else {
+                    preCurrentMode = 0;
+                }
         }
     }
 
@@ -363,15 +389,25 @@ public class DaumMapManager extends Activity {
         if(4 >= currentZoomLevel) {
             clusterRange = 1000;
         } else if(4 < currentZoomLevel && 5 >= currentZoomLevel) {
-            clusterRange = 6000;
+            clusterRange = 3000;
         } else if(5 < currentZoomLevel && 6 >= currentZoomLevel) {
-            clusterRange = 12000;
+            clusterRange = 6000;
         } else if(6 < currentZoomLevel && 7 >= currentZoomLevel) {
-            clusterRange = 18000;
+            clusterRange = 10000;
         } else if(7 < currentZoomLevel && 8 >= currentZoomLevel) {
-            clusterRange = 24000;
-        } else if(8 < currentZoomLevel) {
-            clusterRange = 30000;
+            clusterRange = 15000;
+        } else if(8 < currentZoomLevel && 9 >= currentZoomLevel) {
+            clusterRange = 21000;
+        } else if(9 < currentZoomLevel && 10 >= currentZoomLevel) {
+            clusterRange = 28000;
+        } else if(10 < currentZoomLevel && 11 >= currentZoomLevel) {
+            clusterRange = 36000;
+        } else if(11 < currentZoomLevel && 12 >= currentZoomLevel) {
+            clusterRange = 45000;
+        } else if(12 < currentZoomLevel && 13 >= currentZoomLevel) {
+            clusterRange = 55000;
+        } else if(13 < currentZoomLevel && 14 >= currentZoomLevel) {
+            clusterRange = 66000;
         }
 
         for(int i = 0; i < pzData.size(); i++) {
@@ -462,6 +498,13 @@ public class DaumMapManager extends Activity {
     }
 
     public void runMapProcessWithFee(int fee) {
+        // 클러스터링 모드이고 줌레벨이 4이상이면 현재기기위치로 이동한다
+        if(turnOnCluster && (4 < currentZoomLevel ) ) {
+            // mMapView.setZoomLevel(3, true);
+            mMapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving);
+            mMapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(myLocPoint.getLatitude(), myLocPoint.getLongitude()), 2, false);
+        }
+
         turnOnCluster = false;
         mMapView.removeAllCircles();
         mMapView.removeAllPOIItems();   // 맵 초기화
@@ -474,6 +517,13 @@ public class DaumMapManager extends Activity {
     }
 
     public void runMapProcessWithFavorites(String[] favoritesVal) {
+        // 클러스터링 모드이고 줌레벨이 4이상이면 현재기기위치로 이동한다
+        if(turnOnCluster && (4 < currentZoomLevel ) ) {
+            // mMapView.setZoomLevel(3, true);
+            mMapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving);
+            mMapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(myLocPoint.getLatitude(), myLocPoint.getLongitude()), 2, false);
+        }
+
         turnOnCluster = false;
         mMapView.removeAllCircles();
         mMapView.removeAllPOIItems();   // 맵 초기화
@@ -587,40 +637,6 @@ public class DaumMapManager extends Activity {
 
             mapView.addPOIItem(mCustomMarker);
         }
-
-        // 3. 텍스트 뿌리기
-        /*
-        for(int i = 0; i < pzData.size(); i++) {
-            mCustomMarker = new MapPOIItem();
-            mCustomMarker.setItemName(pzData.get(i).name);
-            mCustomMarker.setTag(i);
-            mCustomMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(pzData.get(i).loc.getLatitude(), pzData.get(i).loc.getLongitude()));
-            mCustomMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
-
-            // https://devtalk.kakao.com/t/android-mapview-custom-view/46225/3
-            LayoutInflater inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View inflatedFrame = inflater.inflate(R.layout.view_map_bb_b, null);
-
-            String feeVal = pzData.get(i).add_term.fee;
-            if("0".equals(feeVal)) {
-                feeVal = "무료";
-            } else if("null".equals(feeVal)) {
-                feeVal = "미등록";
-            }
-
-            ((TextView)inflatedFrame.findViewById(R.id.view_m_b_tv)).setText(feeVal);
-            ((TextView)inflatedFrame.findViewById(R.id.view_m_b_tv)).setTextSize(14);
-
-            Bitmap bitmap = UtilManager.createBitmapFromView(inflatedFrame.findViewById(R.id.view_m_b));
-            mCustomMarker.setCustomImageBitmap(bitmap);
-
-            mCustomMarker.setCustomImageAutoscale(false);
-            mCustomMarker.setCustomImageAnchor(0.5f, 1.0f);
-            mCustomMarker.setShowCalloutBalloonOnTouch(false);
-
-            mapView.addPOIItem(mCustomMarker);
-        }
-        */
 
         mapView.selectPOIItem(mCustomMarker, true);
         // mapView.setMapCenterPoint(DEFAULT_MARKER_POINT, false);

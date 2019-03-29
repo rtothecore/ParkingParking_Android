@@ -135,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@color/ezRed"
-                    android:enabled="false"
+                    android:enabled="true"
                     android:fontFamily="@font/nanum_gothic"
                     android:onClick="authOk"
                     android:text="다음"

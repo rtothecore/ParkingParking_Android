@@ -1,5 +1,6 @@
 package kr.co.ezinfotech.parkingparking.DETAIL_TAB;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.skt.Tmap.TMapTapi;
+
+import java.util.ArrayList;
 
 import kr.co.ezinfotech.parkingparking.DATA.PZData;
 import kr.co.ezinfotech.parkingparking.NAVI.TmapManager;
@@ -116,7 +119,16 @@ public class DetailCustomPagerAdapter extends PagerAdapter {
                     String url ="daummaps://roadView?p=" + pzData.loc.getLatitude() + "," + pzData.loc.getLongitude();
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
-                    mContext.startActivity(intent);
+                    try {
+                        mContext.startActivity(intent);
+                    } catch (ActivityNotFoundException e) {
+                        Toast.makeText(mContext, "로드뷰기능을 이용하시기 위해서는 카카오맵을 설치해야 합니다", Toast.LENGTH_LONG).show();
+                        // String url2 = "daummaps://storeview?id=659";
+                        String url2 = "market://details?id=net.daum.android.map";
+                        Intent intent2 = new Intent(Intent.ACTION_VIEW, Uri.parse(url2));
+                        intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
+                        mContext.startActivity(intent2);
+                    }
                 }
             });
 
@@ -126,7 +138,15 @@ public class DetailCustomPagerAdapter extends PagerAdapter {
                 @Override
                 public void onClick(View v) {
                     // Toast.makeText(mContext, "naviLL-OnClickListener:" + pzData.loc.getLatitude() + ", " + pzData.loc.getLongitude(), Toast.LENGTH_SHORT).show();
-                    TmapManager.showRoute(pzData.name, (float)pzData.loc.getLatitude(), (float)pzData.loc.getLongitude());
+                    if (TmapManager.isTmapInstalled()) {
+                        TmapManager.showRoute(pzData.name, (float)pzData.loc.getLatitude(), (float)pzData.loc.getLongitude());
+                    } else {
+                        Toast.makeText(mContext, "네비기능을 이용하시기 위해서는 T맵을 설치해야 합니다", Toast.LENGTH_LONG).show();
+                        ArrayList tmapDownUrl = TmapManager.getTmapDownUrl();
+                        Uri uri = Uri.parse(tmapDownUrl.get(0).toString());
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        mContext.startActivity(intent);
+                    }
                 }
             });
         } else if(1 == position) {

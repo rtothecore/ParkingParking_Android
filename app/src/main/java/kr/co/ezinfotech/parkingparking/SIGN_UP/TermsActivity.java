@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import kr.co.ezinfotech.parkingparking.LoginActivity;
 import kr.co.ezinfotech.parkingparking.MapActivity;
 import kr.co.ezinfotech.parkingparking.R;
 
@@ -37,7 +38,8 @@ public class TermsActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 // Toast.makeText(getApplicationContext(), "이전 버튼 터치됨", Toast.LENGTH_LONG).show();
-                super.onBackPressed();
+                // super.onBackPressed();
+                onBackPressed();
                 return true;
             default:
                 // If we got here, the user's action was not recognized.
@@ -45,6 +47,22 @@ public class TermsActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "나머지 버튼 터치됨", Toast.LENGTH_LONG).show();
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    /*
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
+    */
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
+        getApplicationContext().startActivity(intent);
+        finish();
     }
 
     public void btnServiceTermDetail(View v) {

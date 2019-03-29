@@ -1,13 +1,10 @@
 package kr.co.ezinfotech.parkingparking;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Handler;
 import android.os.Message;
@@ -27,7 +24,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -145,40 +141,28 @@ public class MapActivity extends AppCompatActivity
         switch (id) {
             case R.id.fab1 :
                 // Toast.makeText(this, "무료", Toast.LENGTH_SHORT).show();
-                /*
-                fab1.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.ezRed)));
-                fab2.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
-                fab3.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
-                */
                 fab1.setImageResource(R.drawable.fab_free_p);
                 fab2.setImageResource(R.drawable.fab_fee_n);
                 fab3.setImageResource(R.drawable.fab_all_n);
+
                 dmm.setMode(2);
                 dmm.runMapProcessWithFee(2);
                 break;
             case R.id.fab2 :
                 // Toast.makeText(this, "유료", Toast.LENGTH_SHORT).show();
-                /*
-                fab1.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
-                fab2.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.ezRed)));
-                fab3.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
-                */
                 fab1.setImageResource(R.drawable.fab_free_n);
                 fab2.setImageResource(R.drawable.fab_fee_p);
                 fab3.setImageResource(R.drawable.fab_all_n);
+
                 dmm.setMode(1);
                 dmm.runMapProcessWithFee(1);
                 break;
             case R.id.fab3 :
                 // Toast.makeText(this, "전체", Toast.LENGTH_SHORT).show();
-                /*
-                fab1.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
-                fab2.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
-                fab3.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.ezRed)));
-                */
                 fab1.setImageResource(R.drawable.fab_free_n);
                 fab2.setImageResource(R.drawable.fab_fee_n);
                 fab3.setImageResource(R.drawable.fab_all_p);
+
                 dmm.setMode(0);
                 dmm.runMapProcess(false);
                 break;
@@ -511,6 +495,7 @@ public class MapActivity extends AppCompatActivity
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
             getApplicationContext().startActivity(intent);
+            finish();
         }
     }
 

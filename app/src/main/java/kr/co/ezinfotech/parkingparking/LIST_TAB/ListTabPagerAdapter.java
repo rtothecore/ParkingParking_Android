@@ -12,6 +12,8 @@ public class ListTabPagerAdapter extends PagerAdapter {
     private Context mContext;
     private Vector<View> pages;
 
+    private String[] tabTitles = new String[]{"거리순", "요금순"};
+
     public ListTabPagerAdapter(Context context, Vector<View> pages) {
         this.mContext = context;
         this.pages = pages;
@@ -37,5 +39,10 @@ public class ListTabPagerAdapter extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((View) object);
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return tabTitles[position];
     }
 }

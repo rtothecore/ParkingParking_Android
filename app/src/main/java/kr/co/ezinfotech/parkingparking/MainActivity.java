@@ -91,17 +91,19 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                Toast.makeText(MainActivity.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+                // Toast.makeText(MainActivity.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "권한 거부됨\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
             }
         };
 
         TedPermission.with(ctx)
                 .setPermissionListener(permissionlistener)
-                .setRationaleTitle("Rational Title")
-                .setRationaleTitle(R.string.rationale_title)
-                .setRationaleMessage(R.string.rationale_message)
-                .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
-                .setGotoSettingButtonText("bla bla")
+                // .setRationaleTitle("Rational Title")
+                // .setRationaleTitle(R.string.rationale_title)
+                // .setRationaleMessage(R.string.rationale_message)
+                // .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                .setDeniedMessage("권한 허용을 하지 않으면 서비스를 이용할 수 없습니다.\n\n[설정] > [권한]에서 권한을 허용해주세요.")
+                // .setGotoSettingButtonText("bla bla")
                 .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
                 .check();
     }
