@@ -113,8 +113,7 @@ public class AuthActivity extends AppCompatActivity {
 
         Calendar calAfter3Min = Calendar.getInstance();
         calAfter3Min.setTime(date);
-        // calAfter3Min.add(Calendar.MINUTE, 3);
-        calAfter3Min.add(Calendar.MINUTE, 1);
+        calAfter3Min.add(Calendar.MINUTE, 3);
         after3min = calAfter3Min.getTimeInMillis();
 
         //

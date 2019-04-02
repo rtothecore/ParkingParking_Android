@@ -286,6 +286,23 @@
                 app:elevation="0dp"
                 app:backgroundTint="#00FFFFFF" />
 
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fab3"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="top|right"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="7dp"
+                android:layout_marginRight="7dp"
+                android:src="@drawable/fab_mine"
+                app:maxImageSize="56dp"
+                app:borderWidth="0dp"
+                app:elevation="0dp"
+                app:backgroundTint="#00FFFFFF" />
+
         </RelativeLayout>
 
         <android.support.design.widget.NavigationView

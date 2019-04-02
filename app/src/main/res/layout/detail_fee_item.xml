@@ -89,6 +89,35 @@
                         android:layout_weight="1">
 
                         <TextView
+                            android:id="@+id/tvTblFreeLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+
+                            android:background="@drawable/cell_shape_header"
+                            android:gravity="center"
+                            android:text="무료"
+                            android:textColor="#545454"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvTblFreeTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+
+                            android:background="@drawable/cell_shape"
+                            android:gravity="center"
+                            android:text="최초30분"
+                            android:textColor="#545454"
+                            android:textSize="15sp" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
                             android:id="@+id/tvTblBaseFeeLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"

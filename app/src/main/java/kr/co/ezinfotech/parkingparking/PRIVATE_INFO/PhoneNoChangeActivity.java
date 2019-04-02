@@ -80,11 +80,13 @@ public class PhoneNoChangeActivity extends AppCompatActivity {
             }
         };
 
+        /*
         final Handler handler2 = new Handler(){
             public void handleMessage(Message msg){
                 setBtnAuthOk();
             }
         };
+        */
 
         final EditText etAuthWaitTime = (EditText)findViewById(R.id.etPncAuthWaitTime);
 
@@ -109,8 +111,10 @@ public class PhoneNoChangeActivity extends AppCompatActivity {
             @Override
             public void run() {
                 // 다음버튼 관련 설정
+                /*
                 Message msg2 = handler2.obtainMessage();
                 handler2.sendMessage(msg2);
+                */
 
                 // 남은시간 = 현재시간 - after3min
                 long now = System.currentTimeMillis();
@@ -173,8 +177,30 @@ public class PhoneNoChangeActivity extends AppCompatActivity {
     public void authOk(View v) {
         final EditText etPhoneNo = findViewById(R.id.etPncPhoneNo);
         final EditText etAuthNo = findViewById(R.id.etPncAuthNo);
+        final EditText etAuthWaitTime = findViewById(R.id.etPncAuthWaitTime);
 
-        // 1. 인증번호가 올바른지 체크
+        // 1. 휴대폰번호를 입력했는지 체크
+        if(11 > etPhoneNo.getText().toString().length()) {
+            etPhoneNo.requestFocus();
+            etPhoneNo.setError("휴대폰번호를 입력해주세요.");
+            return;
+        }
+
+        // 2. 인증번호를 입력했는지 체크
+        if(4 > etAuthNo.getText().toString().length()) {
+            etAuthNo.requestFocus();
+            etAuthNo.setError("인증번호를 입력해주세요.");
+            return;
+        }
+
+        // 3. 입력시간이 다 되었는지 체크
+        if("00:00".equals(etAuthWaitTime.getText().toString())) {
+            etAuthNo.requestFocus();
+            etAuthNo.setError("재발송 버튼을 눌러주세요.");
+            return;
+        }
+
+        // 4. 인증번호가 올바른지 체크
         Handler mHandler = new Handler() {
             @Override public void handleMessage(Message msg) {
                 if(888 == msg.arg1) {

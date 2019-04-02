@@ -12,10 +12,12 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import kr.co.ezinfotech.parkingparking.R;
@@ -54,7 +56,14 @@ public class PlaceDataManager extends Activity {
         Log.i("getSearchedPlace()-0", "Get Place data");
 
         // StringBuilder urlBuilder = new StringBuilder("http://192.168.0.73:8083/searchWithKeyword/코엑스"); /*URL*/
-        StringBuilder urlBuilder = new StringBuilder(UtilManager.getPPServerIp() + "/searchWithKeyword/" + searchKeyword); /*URL*/
+        // StringBuilder urlBuilder = new StringBuilder(UtilManager.getPPServerIp() + "/searchWithKeyword/" + searchKeyword); /*URL*/
+        StringBuilder urlBuilder = null;
+        try {
+            // https://www.androidpub.com/484030
+            urlBuilder = new StringBuilder(UtilManager.getPPServerIp() + "/searchWithKeyword/" + URLEncoder.encode(searchKeyword, "UTF-8")); /*URL*/
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         Log.i("getSearchedPlace()-1", urlBuilder.toString());
 

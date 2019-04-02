@@ -140,16 +140,16 @@ public class DaumMapManager extends Activity {
                     if(preCurrentMode != currentMode) {
                         switch (currentMode) {
                             case 0 :
-                                runMapProcess(false);
+                                runMapProcess(false, false);
                                 break;
                             case 1:
-                                runMapProcessWithFee(1);
+                                runMapProcessWithFee(1, false);
                                 break;
                             case 2:
-                                runMapProcessWithFee(2);
+                                runMapProcessWithFee(2, false);
                                 break;
                             case 3:
-                                runMapProcessWithFavorites(favorites);
+                                runMapProcessWithFavorites(favorites, false);
                                 break;
                             default :
                                 break;
@@ -220,10 +220,18 @@ public class DaumMapManager extends Activity {
                 tvParkingName.setText(pzData.get(mapPOIItem.getTag()).name);
 
                 TextView tvParkingFeeContent = (TextView)((Activity)ctx).findViewById(R.id.textViewParkingFeeContent);
-                tvParkingFeeContent.setText(pzData.get(mapPOIItem.getTag()).add_term.fee + "원/" + pzData.get(mapPOIItem.getTag()).add_term.time + "분");
+                if("무료".equals(pzData.get(mapPOIItem.getTag()).fee_info)) {
+                    tvParkingFeeContent.setText("무료");
+                } else {
+                    tvParkingFeeContent.setText(pzData.get(mapPOIItem.getTag()).add_term.fee + "원/" + pzData.get(mapPOIItem.getTag()).add_term.time + "분");
+                }
 
                 TextView tvOpTimeContent = (TextView)((Activity)ctx).findViewById(R.id.textViewParkingOpTimeContent);
-                tvOpTimeContent.setText(pzData.get(mapPOIItem.getTag()).w_op.start_time + " ~ " + pzData.get(mapPOIItem.getTag()).w_op.end_time);
+                if("무료".equals(pzData.get(mapPOIItem.getTag()).fee_info)) {
+                    tvOpTimeContent.setText(pzData.get(mapPOIItem.getTag()).w_op.end_time + " ~ 익일" + pzData.get(mapPOIItem.getTag()).w_op.start_time);
+                } else {
+                    tvOpTimeContent.setText(pzData.get(mapPOIItem.getTag()).w_op.start_time + " ~ " + pzData.get(mapPOIItem.getTag()).w_op.end_time);
+                }
 
                 ll.setVisibility(View.VISIBLE);
                 selectedPZIndex = mapPOIItem.getTag();
@@ -347,11 +355,11 @@ public class DaumMapManager extends Activity {
 
     // http://apis.map.daum.net/android/guide/
     // http://ariarihan.tistory.com/368
-    public void runMapProcess(boolean forFirstLoading) {
+    public void runMapProcess(boolean forFirstLoading, boolean fromFAB) {
         if(forFirstLoading) {
         } else {
                 // 클러스터링 모드이고 줌레벨이 4이상이면 현재기기위치로 이동한다
-                if(turnOnCluster && (4 < currentZoomLevel ) ) {
+                if(fromFAB && turnOnCluster && (4 < currentZoomLevel ) ) {
                     // mMapView.setZoomLevel(3, true);
                     mMapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving);
                     mMapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(myLocPoint.getLatitude(), myLocPoint.getLongitude()), 2, false);
@@ -497,9 +505,9 @@ public class DaumMapManager extends Activity {
         showAll();
     }
 
-    public void runMapProcessWithFee(int fee) {
+    public void runMapProcessWithFee(int fee, boolean fromFAB) {
         // 클러스터링 모드이고 줌레벨이 4이상이면 현재기기위치로 이동한다
-        if(turnOnCluster && (4 < currentZoomLevel ) ) {
+        if(fromFAB && turnOnCluster && (4 < currentZoomLevel ) ) {
             // mMapView.setZoomLevel(3, true);
             mMapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving);
             mMapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(myLocPoint.getLatitude(), myLocPoint.getLongitude()), 2, false);
@@ -516,9 +524,9 @@ public class DaumMapManager extends Activity {
         // showAll();
     }
 
-    public void runMapProcessWithFavorites(String[] favoritesVal) {
+    public void runMapProcessWithFavorites(String[] favoritesVal, boolean fromFAB) {
         // 클러스터링 모드이고 줌레벨이 4이상이면 현재기기위치로 이동한다
-        if(turnOnCluster && (4 < currentZoomLevel ) ) {
+        if(fromFAB && turnOnCluster && (4 < currentZoomLevel ) ) {
             // mMapView.setZoomLevel(3, true);
             mMapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving);
             mMapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(myLocPoint.getLatitude(), myLocPoint.getLongitude()), 2, false);
@@ -559,7 +567,8 @@ public class DaumMapManager extends Activity {
             mCustomMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(pzData.get(i).loc.getLatitude(), pzData.get(i).loc.getLongitude()));
             mCustomMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
 
-            String feeVal = pzData.get(i).add_term.fee;
+            // String feeVal = pzData.get(i).add_term.fee;
+            String feeVal = pzData.get(i).park_base.fee;
             if("0".equals(feeVal)) {
                 // feeVal = "무료";
                 mCustomMarker.setCustomImageResourceId(R.drawable.mk_free);
@@ -655,7 +664,8 @@ public class DaumMapManager extends Activity {
             mCustomMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(pzData.get(i).loc.getLatitude(), pzData.get(i).loc.getLongitude()));
             mCustomMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
 
-            String feeVal = pzData.get(i).add_term.fee;
+            // String feeVal = pzData.get(i).add_term.fee;
+            String feeVal = pzData.get(i).park_base.fee;
             if("0".equals(feeVal)) {
                 // feeVal = "무료";
                 mCustomMarker.setCustomImageResourceId(R.drawable.mk_free);
@@ -785,7 +795,8 @@ public class DaumMapManager extends Activity {
             mCustomMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(pzData.get(i).loc.getLatitude(), pzData.get(i).loc.getLongitude()));
             mCustomMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
 
-            String feeVal = pzData.get(i).add_term.fee;
+            // String feeVal = pzData.get(i).add_term.fee;
+            String feeVal = pzData.get(i).park_base.fee;
             if("0".equals(feeVal)) {
                 // feeVal = "무료";
                 mCustomMarker.setCustomImageResourceId(R.drawable.mk_free);
@@ -915,7 +926,8 @@ public class DaumMapManager extends Activity {
             mCustomMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(pzData.get(i).loc.getLatitude(), pzData.get(i).loc.getLongitude()));
             mCustomMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
 
-            String feeVal = pzData.get(i).add_term.fee;
+            // String feeVal = pzData.get(i).add_term.fee;
+            String feeVal = pzData.get(i).park_base.fee;
             if("0".equals(feeVal)) {
                 // feeVal = "무료";
                 mCustomMarker.setCustomImageResourceId(R.drawable.mk_free);
@@ -1011,7 +1023,8 @@ public class DaumMapManager extends Activity {
             mCustomMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(pzData.get(i).loc.getLatitude(), pzData.get(i).loc.getLongitude()));
             mCustomMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
 
-            String feeVal = pzData.get(i).add_term.fee;
+            // String feeVal = pzData.get(i).add_term.fee;
+            String feeVal = pzData.get(i).park_base.fee;
             if("0".equals(feeVal)) {
                 // feeVal = "무료";
                 mCustomMarker.setCustomImageResourceId(R.drawable.mk_free);
@@ -1150,6 +1163,12 @@ public class DaumMapManager extends Activity {
         // mMapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(lat, lng), true);
         mMapView.setCurrentLocationTrackingMode(null);
         mMapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(lat,lng), 1, true);
+    }
+
+    // 맵이 기기 위치로 돌아옴
+    public void setMapCenterWithMyLoc() {
+        mMapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving);
+        mMapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(myLocPoint.getLatitude(), myLocPoint.getLongitude()), 2, false);
     }
 
     private MapPoint getBottomLeftMapPoint() {

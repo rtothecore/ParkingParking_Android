@@ -333,7 +333,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1">
-
+<!--
                         <TextView
                             android:id="@+id/tvTableSmall"
                             android:layout_width="match_parent"
@@ -365,6 +365,16 @@
                             android:text="대형"
                             android:textColor="#545454"
                             android:textSize="15sp" />
+-->
+                        <TextView
+                            android:id="@+id/tvTableNormal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/cell_shape_header"
+                            android:gravity="center"
+                            android:text="일반"
+                            android:textColor="#545454"
+                            android:textSize="15sp" />
 
                         <TextView
                             android:id="@+id/tvTableElec"
@@ -393,7 +403,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1">
-
+<!--
                         <TextView
                             android:id="@+id/tvTableSmallCont"
                             android:layout_width="wrap_content"
@@ -424,6 +434,17 @@
                             android:background="@drawable/cell_shape"
                             android:gravity="center"
                             android:text="10"
+                            android:textColor="#545454"
+                            android:textSize="15sp" />
+-->
+                        <TextView
+                            android:id="@+id/tvTableNormalCont"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+
+                            android:background="@drawable/cell_shape"
+                            android:gravity="center"
+                            android:text="25"
                             android:textColor="#545454"
                             android:textSize="15sp" />
 

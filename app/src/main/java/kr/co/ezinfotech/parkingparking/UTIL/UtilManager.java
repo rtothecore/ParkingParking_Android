@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -132,5 +133,10 @@ public class UtilManager {
         String getTime = sdf.format(date);
 
         return getTime;
+    }
+
+    public static String moneyFormatToWon(String inputMoney) {
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        return decimalFormat.format(Double.parseDouble(inputMoney));
     }
 }

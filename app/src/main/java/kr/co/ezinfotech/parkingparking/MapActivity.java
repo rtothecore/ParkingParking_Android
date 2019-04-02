@@ -43,7 +43,7 @@ public class MapActivity extends AppCompatActivity
     DaumMapManager dmm = null;
 
     // FAB
-    private FloatingActionButton fab1, fab2, fab3;
+    private FloatingActionButton fab1, fab2, fab3, fab4;
 
     // 액티비티 요청코드
     public static final int REQUEST_CODE_SEARCH = 101;
@@ -83,6 +83,7 @@ public class MapActivity extends AppCompatActivity
         fab1 = (FloatingActionButton) findViewById(R.id.fab1);
         fab2 = (FloatingActionButton) findViewById(R.id.fab2);
         fab3 = (FloatingActionButton) findViewById(R.id.fab3);
+        fab4 = (FloatingActionButton) findViewById(R.id.fab4);
 
         /*
         fab1.setImageBitmap(textAsBitmap("무료", 50, Color.BLACK));
@@ -92,17 +93,19 @@ public class MapActivity extends AppCompatActivity
         fab1.setImageResource(R.drawable.fab_free_n);
         fab2.setImageResource(R.drawable.fab_fee_n);
         fab3.setImageResource(R.drawable.fab_all_p);
+        fab4.setImageResource(R.drawable.fab_mine);
 
         // fab3.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.ezRed)));
 
         fab1.setOnClickListener(this);
         fab2.setOnClickListener(this);
         fab3.setOnClickListener(this);
+        fab4.setOnClickListener(this);
 
         // Daum Map API
         dmm = new DaumMapManager(this);
         dmm.setMode(0);
-        dmm.runMapProcess(true);
+        dmm.runMapProcess(true, false);
 
         // Initialize radio buttons of search filter
         // InitializeRadioButtons();
@@ -146,7 +149,7 @@ public class MapActivity extends AppCompatActivity
                 fab3.setImageResource(R.drawable.fab_all_n);
 
                 dmm.setMode(2);
-                dmm.runMapProcessWithFee(2);
+                dmm.runMapProcessWithFee(2, true);
                 break;
             case R.id.fab2 :
                 // Toast.makeText(this, "유료", Toast.LENGTH_SHORT).show();
@@ -155,7 +158,7 @@ public class MapActivity extends AppCompatActivity
                 fab3.setImageResource(R.drawable.fab_all_n);
 
                 dmm.setMode(1);
-                dmm.runMapProcessWithFee(1);
+                dmm.runMapProcessWithFee(1, true);
                 break;
             case R.id.fab3 :
                 // Toast.makeText(this, "전체", Toast.LENGTH_SHORT).show();
@@ -164,7 +167,11 @@ public class MapActivity extends AppCompatActivity
                 fab3.setImageResource(R.drawable.fab_all_p);
 
                 dmm.setMode(0);
-                dmm.runMapProcess(false);
+                dmm.runMapProcess(false, true);
+                break;
+            case R.id.fab4 :
+                // Toast.makeText(this, "내위치", Toast.LENGTH_SHORT).show();
+                dmm.setMapCenterWithMyLoc();
                 break;
             default:
                 break;
