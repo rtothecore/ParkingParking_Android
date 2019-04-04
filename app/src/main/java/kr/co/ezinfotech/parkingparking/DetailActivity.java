@@ -117,6 +117,19 @@ public class DetailActivity extends AppCompatActivity {
         // 즐겨찾기 버튼 셋팅
         FavoritesDataManager fdm = new FavoritesDataManager();
         fdm.CheckExistFavoriteInDBAndSet2(this, (AppCompatButton)findViewById(R.id.buttonDetailFavorites), pzData.no);
+
+        // 즐겨찾기 버튼 클릭 리스너
+        AppCompatButton acbDF = findViewById(R.id.buttonDetailFavorites);
+        acbDF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!LoginManager.isLogin()) {
+                    Toast.makeText(getApplicationContext(), "로그인이 필요한 서비스 입니다.", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "즐겨찾기 터치됨", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override
@@ -142,6 +155,8 @@ public class DetailActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "예측 터치됨", Toast.LENGTH_SHORT).show();
     }
 */
+
+/*
     public void btnDetailFavorites(View v) {
         if(!LoginManager.isLogin()) {
             Toast.makeText(getApplicationContext(), "로그인이 필요한 서비스 입니다.", Toast.LENGTH_LONG).show();
@@ -149,4 +164,5 @@ public class DetailActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "즐겨찾기 터치됨", Toast.LENGTH_SHORT).show();
         }
     }
+*/
 }

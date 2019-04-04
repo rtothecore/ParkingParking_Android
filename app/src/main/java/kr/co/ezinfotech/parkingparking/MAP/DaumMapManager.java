@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -132,9 +133,11 @@ public class DaumMapManager extends Activity {
         @Override
         public void onMapViewZoomLevelChanged(MapView mapView, int zoomLevel) {
             if(zoomLevel != currentZoomLevel) {
-                if(turnOnCluster && (4 < zoomLevel)) {
+                if(turnOnCluster && (4 <= zoomLevel)) {
                     // Toast.makeText(ctx, "onMapViewZoomLevelChanged-" + zoomLevel, Toast.LENGTH_SHORT).show();
-                    runMapCluster();
+                    Log.i("turnOnCluster", String.valueOf(turnOnCluster));
+                    Log.i("zoomLevel", String.valueOf(zoomLevel));
+                    runMapCluster(zoomLevel);
                 } else {
                     // mMapView.removeAllCircles();
                     if(preCurrentMode != currentMode) {
@@ -155,8 +158,9 @@ public class DaumMapManager extends Activity {
                                 break;
                         }
                     }
-                    if(4 < zoomLevel) {
-                        runMapCluster();
+                    if(4 <= zoomLevel) {
+                        Log.i("zoomLevel2", String.valueOf(zoomLevel));
+                        runMapCluster(zoomLevel);
                     }
                 }
             }
@@ -223,14 +227,22 @@ public class DaumMapManager extends Activity {
                 if("무료".equals(pzData.get(mapPOIItem.getTag()).fee_info)) {
                     tvParkingFeeContent.setText("무료");
                 } else {
-                    tvParkingFeeContent.setText(pzData.get(mapPOIItem.getTag()).add_term.fee + "원/" + pzData.get(mapPOIItem.getTag()).add_term.time + "분");
+                    if(pzData.get(mapPOIItem.getTag()).park_base.fee.equals("null") || pzData.get(mapPOIItem.getTag()).park_base.time.equals("null")) {
+                        tvParkingFeeContent.setText("미등록");
+                    } else {
+                        tvParkingFeeContent.setText(pzData.get(mapPOIItem.getTag()).park_base.fee + "원/" + pzData.get(mapPOIItem.getTag()).park_base.time + "분");
+                    }
                 }
 
                 TextView tvOpTimeContent = (TextView)((Activity)ctx).findViewById(R.id.textViewParkingOpTimeContent);
                 if("무료".equals(pzData.get(mapPOIItem.getTag()).fee_info)) {
                     tvOpTimeContent.setText(pzData.get(mapPOIItem.getTag()).w_op.end_time + " ~ 익일" + pzData.get(mapPOIItem.getTag()).w_op.start_time);
                 } else {
-                    tvOpTimeContent.setText(pzData.get(mapPOIItem.getTag()).w_op.start_time + " ~ " + pzData.get(mapPOIItem.getTag()).w_op.end_time);
+                    if(pzData.get(mapPOIItem.getTag()).w_op.start_time.equals("null") || pzData.get(mapPOIItem.getTag()).w_op.end_time.equals("null")) {
+                        tvOpTimeContent.setText("미등록");
+                    } else {
+                        tvOpTimeContent.setText(pzData.get(mapPOIItem.getTag()).w_op.start_time + " ~ " + pzData.get(mapPOIItem.getTag()).w_op.end_time);
+                    }
                 }
 
                 ll.setVisibility(View.VISIBLE);
@@ -382,7 +394,7 @@ public class DaumMapManager extends Activity {
         }
     }
 
-    private void runMapCluster() {
+    private void runMapCluster(int currentZoomLevel2) {
         turnOnCluster = true;
         mMapView.removeAllPOIItems();
         mMapView.removeAllCircles();
@@ -394,39 +406,68 @@ public class DaumMapManager extends Activity {
         Arrays.fill(isClustered, Boolean.FALSE);
 
         // currentZoomLevel에 따라 clusterRange값 조절
+        Log.i("ZoomLevel", String.valueOf(currentZoomLevel2));
+        /*
         if(4 >= currentZoomLevel) {
-            clusterRange = 1000;
+            clusterRange = 2000;    // 3Km
         } else if(4 < currentZoomLevel && 5 >= currentZoomLevel) {
-            clusterRange = 3000;
-        } else if(5 < currentZoomLevel && 6 >= currentZoomLevel) {
-            clusterRange = 6000;
-        } else if(6 < currentZoomLevel && 7 >= currentZoomLevel) {
-            clusterRange = 10000;
-        } else if(7 < currentZoomLevel && 8 >= currentZoomLevel) {
-            clusterRange = 15000;
-        } else if(8 < currentZoomLevel && 9 >= currentZoomLevel) {
-            clusterRange = 21000;
-        } else if(9 < currentZoomLevel && 10 >= currentZoomLevel) {
-            clusterRange = 28000;
-        } else if(10 < currentZoomLevel && 11 >= currentZoomLevel) {
-            clusterRange = 36000;
-        } else if(11 < currentZoomLevel && 12 >= currentZoomLevel) {
-            clusterRange = 45000;
-        } else if(12 < currentZoomLevel && 13 >= currentZoomLevel) {
-            clusterRange = 55000;
-        } else if(13 < currentZoomLevel && 14 >= currentZoomLevel) {
-            clusterRange = 66000;
+            clusterRange = 5000;    // 8Km
+        } else if(5 < currentZoomLevel) {
+            clusterRange = 15000;    // 12Km
         }
+        */
+        if(currentZoomLevel2 == 4) {
+            clusterRange = 2000;    // 12Km
+        } else if(currentZoomLevel2 == 5) {
+            clusterRange = 5000;    // 12Km
+        } else {
+            clusterRange = 15000;
+        }
+
+        // 클러스터링된 위치정보 중 가장 멀리있는 좌표
+        Location maxClusterLoc = new Location("maxClusterLoc");
 
         for(int i = 0; i < pzData.size(); i++) {
             ClusteredData cd = new ClusteredData();
+            float maxDistance = 0;
+
+            // 클러스터링 중심점 계산
+            Location clusterSeedLoc = new Location("clusterSeedLoc");
+            if (0 == i) {
+                clusterSeedLoc.setLatitude(pzData.get(i).loc.getLatitude());
+                clusterSeedLoc.setLongitude(pzData.get(i).loc.getLongitude());
+            } else {
+                float maxDistanceForSeed = 0;
+                Location maxClusterLocForSeed = new Location("maxClusterLocForSeed");
+                boolean isFinded = false;
+                for (int m = 0; m < pzData.size(); m++) {
+                    if(!isClustered[m]) {   // 이미 클러스터링된 위치정보는 제외하고 클러스터링
+                        // 클러스터링할 위치정보
+                        Location targetLoc = new Location("targetLoc");
+                        targetLoc.setLatitude(pzData.get(m).loc.getLatitude());
+                        targetLoc.setLongitude(pzData.get(m).loc.getLongitude());
+
+                        float distance = maxClusterLoc.distanceTo(targetLoc);
+                        if(clusterRange <= distance) {
+                            clusterSeedLoc = targetLoc;
+                            isFinded = true;
+                            break;
+                        } else {
+                            if (maxDistanceForSeed < distance) {   // 클러스터링된 위치정보 중 가장 멀리있는 좌표를 업데이트
+                                maxDistanceForSeed = distance;
+                                maxClusterLocForSeed = targetLoc;
+                            }
+                        }
+
+                        if(m == (pzData.size() - 1) && !isFinded) { // 좌표데이터를 모두 다 탐색했고 아직 시드 좌표를 못 찾았다면 지금까지 찾은 가장 먼 좌표를 시드 좌표로 설정
+                            clusterSeedLoc = maxClusterLocForSeed;
+                        }
+                    }
+                }
+            }
+
             for(int j = 0; j < pzData.size(); j++) {
                 if(!isClustered[j]) {   // 이미 클러스터링된 위치정보는 제외하고 클러스터링
-                    // 클러스터링 중심점
-                    Location clusterSeedLoc = new Location("clusterSeedLoc");
-                    clusterSeedLoc.setLatitude(pzData.get(i).loc.getLatitude());
-                    clusterSeedLoc.setLongitude(pzData.get(i).loc.getLongitude());
-
                     // 클러스터링할 위치정보
                     Location targetLoc = new Location("targetLoc");
                     targetLoc.setLatitude(pzData.get(j).loc.getLatitude());
@@ -436,6 +477,10 @@ public class DaumMapManager extends Activity {
                     if(clusterRange >= distance) {
                         cd.clusterData.add(targetLoc);
                         isClustered[j] = true;
+                        if (maxDistance < distance) {   // 클러스터링된 위치정보 중 가장 멀리있는 좌표를 업데이트
+                            maxDistance = distance;
+                            maxClusterLoc = targetLoc;
+                        }
                     }
                 }
             }
@@ -445,22 +490,40 @@ public class DaumMapManager extends Activity {
         }
 
         // 가중치 계산
-        int weightForCircle = ((currentZoomLevel - 4) * 1000);
+        // int weightForCircle = ((currentZoomLevel - 4) * 1000);
+        int weightForCircle = ((currentZoomLevel2 - 4) * 500);
 
         // 오버레이 이미지 그리기
         for(int k = 0; k < clusteredData.size(); k++) {
             int circleRadius = 0;
-
-            if(1 == clusteredData.get(k).clusterData.size()) {
-                circleRadius = 300 + weightForCircle;  // 0.3Km
-            } else if(1 < clusteredData.get(k).clusterData.size() && 10 >= clusteredData.get(k).clusterData.size()) {
-                circleRadius = 600 + weightForCircle;  // 0.6Km
-            } else if(10 < clusteredData.get(k).clusterData.size() && 20 >= clusteredData.get(k).clusterData.size()) {
-                circleRadius = 900 + weightForCircle;  // 0.9Km
-            } else if(20 < clusteredData.get(k).clusterData.size() && 30 >= clusteredData.get(k).clusterData.size()) {
-                circleRadius = 1200 + weightForCircle;  // 1.2Km
-            } else if(30 < clusteredData.get(k).clusterData.size()) {
-                circleRadius = 1500 + weightForCircle;  // 1.5Km
+/*
+            if(1 <= clusteredData.get(k).clusterData.size() && 10 >= clusteredData.get(k).clusterData.size()) {
+                circleRadius = 100 + weightForCircle;  // 0.3Km
+            } else if(10 < clusteredData.get(k).clusterData.size() && 50 >= clusteredData.get(k).clusterData.size()) {
+                circleRadius = 300 + weightForCircle;  // 0.6Km
+            } else if(50 < clusteredData.get(k).clusterData.size() && 100 >= clusteredData.get(k).clusterData.size()) {
+                circleRadius = 500 + weightForCircle;  // 0.9Km
+            } else if(100 < clusteredData.get(k).clusterData.size() && 150 >= clusteredData.get(k).clusterData.size()) {
+                circleRadius = 700 + weightForCircle;  // 1.2Km
+            } else if(150 < clusteredData.get(k).clusterData.size()) {
+                circleRadius = 900 + weightForCircle;  // 1.5Km
+            }
+*/
+/*
+            if(4 >= currentZoomLevel) {
+                circleRadius = 2000;    // 3Km
+            } else if(4 < currentZoomLevel && 5 >= currentZoomLevel) {
+                circleRadius = 5000;    // 8Km
+            } else if(5 < currentZoomLevel) {
+                circleRadius = 15000;    // 12Km
+            }
+*/
+            if(currentZoomLevel2 == 4) {
+                circleRadius = 2000 / 2;    // 12Km
+            } else if(currentZoomLevel2 == 5) {
+                circleRadius = 3500;    // 12Km
+            } else {
+                circleRadius = 10000;
             }
 
             MapCircle circle = new MapCircle(
@@ -469,6 +532,7 @@ public class DaumMapManager extends Activity {
                     // Color.argb(128, 255, 0, 0), // strokeColor
                     Color.argb(0, 0, 0, 0), // strokeColor
                     Color.argb(128, 237, 31, 36) // fillColor
+                    // Color.argb(128, 255, 218, 87) // fillColor
             );
             mMapView.addCircle(circle);
 
@@ -485,6 +549,7 @@ public class DaumMapManager extends Activity {
             ((TextView)inflatedFrame.findViewById(R.id.view_m_b_tv)).setText(Integer.toString(clusteredData.get(k).clusterData.size()));
             ((TextView)inflatedFrame.findViewById(R.id.view_m_b_tv)).setTextSize(20);
             ((TextView)inflatedFrame.findViewById(R.id.view_m_b_tv)).setTextColor(Color.WHITE);
+            // ((TextView)inflatedFrame.findViewById(R.id.view_m_b_tv)).setTextColor(Color.BLACK);
 
             Bitmap bitmap = UtilManager.createBitmapFromView(inflatedFrame.findViewById(R.id.view_m_b));
             mCustomMarker.setCustomImageBitmap(bitmap);
