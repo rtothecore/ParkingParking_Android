@@ -296,7 +296,11 @@ public class MapActivity extends AppCompatActivity
             if(resultCode == RESULT_OK) {
                 String lat = data.getStringExtra("lat");
                 String lng = data.getStringExtra("lng");
+                String name = data.getStringExtra("name");
                 // Toast.makeText(getApplicationContext(), "lat:" + lat + ", lng:" + lng, Toast.LENGTH_LONG).show();
+                if (requestCode == REQUEST_CODE_SEARCH) {   // 검색일때만 기본마커를 찍는다.
+                    dmm.setDefaultMarkerLoc(true, Double.valueOf(lat), Double.valueOf(lng), name);
+                }
                 dmm.setMapCenter(Double.valueOf(lat), Double.valueOf(lng));     // 검색한 장소의 GPS로 이동
             }
         }
@@ -499,6 +503,7 @@ public class MapActivity extends AppCompatActivity
                     })
                     .create().show();
         } else {    // 로그아웃 된 상태
+            dmm.destroy();  // 다음맵 초기화
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
             getApplicationContext().startActivity(intent);

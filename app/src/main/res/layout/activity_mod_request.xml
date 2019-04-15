@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReportActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/mod_request_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorWhite"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/mod_request_toolbar"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/mod_request_toolbar">
+
+        <com.ssomai.android.scalablelayout.ScalableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:scale_base_height="1950"
+            app:scale_base_width="1080">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:orientation="vertical"
+            app:scale_height="25"
+            app:scale_left="87"
+            app:scale_textsize="40"
+            app:scale_top="0"
+            app:scale_width="900"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="340dp"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            app:scale_height="150"
+            app:scale_left="87"
+            app:scale_textsize="40"
+            app:scale_top="200"
+            app:scale_width="900">
+
+            <TextView
+                android:id="@+id/tvModRequestParkingNameLabel"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/nanum_gothic"
+                android:text="주차장명"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/etModRequestParkingName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text=""
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="340dp"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            app:scale_height="150"
+            app:scale_left="87"
+            app:scale_textsize="40"
+            app:scale_top="300"
+            app:scale_width="900">
+
+            <TextView
+                android:id="@+id/tvModRequestPhoneLabel"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/nanum_gothic"
+                android:text="전화번호"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/etModRequestPhoneNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="phone"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="340dp"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            app:scale_height="150"
+            app:scale_left="87"
+            app:scale_textsize="40"
+            app:scale_top="400"
+            app:scale_width="900">
+
+            <TextView
+                android:id="@+id/tvModRequestFeeInfoLabel"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/nanum_gothic"
+                android:text="요금정보"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/etModRequestFeeInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="340dp"
+            android:layout_height="150dp"
+            android:orientation="horizontal"
+            app:scale_height="300"
+            app:scale_left="87"
+            app:scale_textsize="40"
+            app:scale_top="600"
+            app:scale_width="900">
+
+            <RelativeLayout
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvModRequestPhotoParkingEntrance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/nanum_gothic"
+                    android:text="주차장 입구"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/ivModRequestPhotoParkingEntrance"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_below="@+id/tvModRequestPhotoParkingEntrance"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:onClick="onClickPhotoParkingEntrance"
+                    app:srcCompat="@drawable/report_blank_icon" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvModRequestPhotoParkingTariff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/nanum_gothic"
+                    android:text="요금표"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/ivModRequestPhotoParkingTariff"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_below="@+id/tvModRequestPhotoParkingTariff"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:onClick="onClickPhotoParkingTariff"
+                    app:srcCompat="@drawable/report_blank_icon" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvModRequestPhotoParkingBills"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/nanum_gothic"
+                    android:text="영수증"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/ivModRequestPhotoParkingBills"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_below="@+id/tvModRequestPhotoParkingBills"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:onClick="onClickPhotoParkingBills"
+                    app:srcCompat="@drawable/report_blank_icon" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="340dp"
+            android:layout_height="150dp"
+            android:gravity="center_horizontal|center"
+            android:orientation="horizontal"
+            app:scale_height="300"
+            app:scale_left="87"
+            app:scale_textsize="40"
+            app:scale_top="1000"
+            app:scale_width="900">
+
+            <TextView
+                android:id="@+id/tvModRequestEtcInfoLabel"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/nanum_gothic"
+                android:text="기타정보"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/etModRequestEtcInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_weight="1"
+                android:background="@color/com_kakao_cancel_button_background"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:scale_height="200"
+                app:scale_left="87"
+                app:scale_textsize="40"
+                app:scale_top="1750"
+                app:scale_width="900">
+
+                <Button
+                    android:id="@+id/btnModRequest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/ezRed"
+                    android:fontFamily="@font/nanum_gothic"
+                    android:onClick="onClickBtnModRequest"
+                    android:text="정보입력 완료"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </com.ssomai.android.scalablelayout.ScalableLayout>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

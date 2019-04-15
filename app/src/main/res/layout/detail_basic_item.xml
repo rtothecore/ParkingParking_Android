@@ -333,39 +333,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1">
-<!--
-                        <TextView
-                            android:id="@+id/tvTableSmall"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/cell_shape_header"
-                            android:gravity="center"
-                            android:text="소형"
-                            android:textColor="#545454"
-                            android:textSize="15sp" />
 
-                        <TextView
-                            android:id="@+id/tvTableMiddle"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-
-                            android:background="@drawable/cell_shape_header"
-                            android:gravity="center"
-                            android:text="중형"
-                            android:textColor="#545454"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:id="@+id/tvTableBig"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-
-                            android:background="@drawable/cell_shape_header"
-                            android:gravity="center"
-                            android:text="대형"
-                            android:textColor="#545454"
-                            android:textSize="15sp" />
--->
                         <TextView
                             android:id="@+id/tvTableNormal"
                             android:layout_width="match_parent"
@@ -403,40 +371,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1">
-<!--
-                        <TextView
-                            android:id="@+id/tvTableSmallCont"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
 
-                            android:background="@drawable/cell_shape"
-                            android:gravity="center"
-                            android:text="25"
-                            android:textColor="#545454"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:id="@+id/tvTableMiddleCont"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-
-                            android:background="@drawable/cell_shape"
-                            android:gravity="center"
-                            android:text="20"
-                            android:textColor="#545454"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:id="@+id/tvTableBigCont"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-
-                            android:background="@drawable/cell_shape"
-                            android:gravity="center"
-                            android:text="10"
-                            android:textColor="#545454"
-                            android:textSize="15sp" />
--->
                         <TextView
                             android:id="@+id/tvTableNormalCont"
                             android:layout_width="wrap_content"
@@ -472,6 +407,36 @@
                     </TableRow>
 
                 </TableLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/detailModRequest"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="20dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingTop="5dp">
+
+            <LinearLayout
+                android:id="@+id/detailModRequestLL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40px"
+                android:layout_marginBottom="20px"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvModRequestLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/nanum_gothic_bold"
+                    android:text="수정요청"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+
             </LinearLayout>
         </LinearLayout>
 

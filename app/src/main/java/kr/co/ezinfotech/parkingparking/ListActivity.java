@@ -29,6 +29,7 @@ import kr.co.ezinfotech.parkingparking.LIST_TAB.FeeOrderListAdapter;
 import kr.co.ezinfotech.parkingparking.LIST_TAB.ListItemData;
 import kr.co.ezinfotech.parkingparking.LIST_TAB.ListTabPagerAdapter;
 import kr.co.ezinfotech.parkingparking.LIST_TAB.NoDataListAdapter;
+import kr.co.ezinfotech.parkingparking.UTIL.UtilManager;
 
 public class ListActivity extends AppCompatActivity {
 
@@ -236,7 +237,11 @@ public class ListActivity extends AppCompatActivity {
 
         // Set textview after sort
         for(int j = 0; j < oData.size(); j++) {
-            oData.get(j).strFee += "원";
+            if(oData.get(j).strFee.equals("-1")) {
+                oData.get(j).strFee = "미등록";
+            } else {
+                oData.get(j).strFee = UtilManager.moneyFormatToWon(oData.get(j).strFee) + "원";
+            }
         }
 
         if (0 == oData.size()) {    // 리스트 데이터가 0인 경우

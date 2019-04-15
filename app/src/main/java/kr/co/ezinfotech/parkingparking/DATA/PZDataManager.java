@@ -148,6 +148,12 @@ public class PZDataManager extends Activity {
             t.printStackTrace();
         }
 
+        // Collection에 데이터가 1도 없는 경우
+        if(0 == result.length()) {
+            Log.e("getPZData-5", "No data in parkingzonedatas collection");
+            return 667;
+        }
+
         switch (mode) {
             case 0 :
                 parseNInsertPZ();

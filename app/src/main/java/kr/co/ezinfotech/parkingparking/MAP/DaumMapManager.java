@@ -58,6 +58,11 @@ public class DaumMapManager extends Activity {
     private int currentZoomLevel = 0;
     private boolean turnOnCluster = false;
 
+    private Location searchedPoint = new Location("searchedPoint");
+    private boolean showSearchedMarker = false;
+    private MapPOIItem defaultMarker = new MapPOIItem();
+    private String defaultMarkerName = null;
+
     public DaumMapManager() {
     }
 
@@ -132,6 +137,9 @@ public class DaumMapManager extends Activity {
 
         @Override
         public void onMapViewZoomLevelChanged(MapView mapView, int zoomLevel) {
+            centerPoint.setLatitude(mapView.getMapCenterPoint().getMapPointGeoCoord().latitude);
+            centerPoint.setLongitude(mapView.getMapCenterPoint().getMapPointGeoCoord().longitude);
+
             if(zoomLevel != currentZoomLevel) {
                 if(turnOnCluster && (4 <= zoomLevel)) {
                     // Toast.makeText(ctx, "onMapViewZoomLevelChanged-" + zoomLevel, Toast.LENGTH_SHORT).show();
@@ -165,6 +173,10 @@ public class DaumMapManager extends Activity {
                 }
             }
             currentZoomLevel = zoomLevel;
+
+            if (showSearchedMarker) {
+                setDefaultMarker();    // 맵의 중심에 마커 찍기
+            }
         }
 
         @Override
@@ -205,6 +217,12 @@ public class DaumMapManager extends Activity {
     MapView.POIItemEventListener piel = new MapView.POIItemEventListener() {
         @Override
         public void onPOIItemSelected(MapView mapView, final MapPOIItem mapPOIItem) {
+
+            // 기본 마커일 경우 리턴
+            if(7777 == mapPOIItem.getTag()) {
+                return;
+            }
+
             // Toast.makeText(ctx, "Clicked " + mapPOIItem.getItemName() + " onPOIItemSelected", Toast.LENGTH_SHORT).show();
             LinearLayout ll = (LinearLayout) ((Activity)ctx).findViewById(R.id.parkingBottomLL);
 
@@ -227,7 +245,9 @@ public class DaumMapManager extends Activity {
                 if("무료".equals(pzData.get(mapPOIItem.getTag()).fee_info)) {
                     tvParkingFeeContent.setText("무료");
                 } else {
-                    if(pzData.get(mapPOIItem.getTag()).park_base.fee.equals("null") || pzData.get(mapPOIItem.getTag()).park_base.time.equals("null")) {
+                    if(pzData.get(mapPOIItem.getTag()).park_base.fee.equals("null")
+                            || pzData.get(mapPOIItem.getTag()).park_base.time.equals("null")
+                            || pzData.get(mapPOIItem.getTag()).park_base.fee.equals("-1")) {
                         tvParkingFeeContent.setText("미등록");
                     } else {
                         tvParkingFeeContent.setText(pzData.get(mapPOIItem.getTag()).park_base.fee + "원/" + pzData.get(mapPOIItem.getTag()).park_base.time + "분");
@@ -371,7 +391,7 @@ public class DaumMapManager extends Activity {
         if(forFirstLoading) {
         } else {
                 // 클러스터링 모드이고 줌레벨이 4이상이면 현재기기위치로 이동한다
-                if(fromFAB && turnOnCluster && (4 < currentZoomLevel ) ) {
+                if(fromFAB && turnOnCluster && (4 <= currentZoomLevel ) ) {
                     // mMapView.setZoomLevel(3, true);
                     mMapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving);
                     mMapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(myLocPoint.getLatitude(), myLocPoint.getLongitude()), 2, false);
@@ -380,6 +400,9 @@ public class DaumMapManager extends Activity {
                 turnOnCluster = false;
                 mMapView.removeAllCircles();    // 클러스터링 초기화
                 mMapView.removeAllPOIItems();   // 맵 초기화
+                if (showSearchedMarker) {
+                    setDefaultMarker();    // 맵의 중심에 마커 찍기
+                }
                 mMapView.setPOIItemEventListener(piel);
 
                 mMapView.setCalloutBalloonAdapter(new DaumMapManager.CustomCalloutBalloonAdapter());
@@ -397,6 +420,9 @@ public class DaumMapManager extends Activity {
     private void runMapCluster(int currentZoomLevel2) {
         turnOnCluster = true;
         mMapView.removeAllPOIItems();
+        if (showSearchedMarker) {
+            setDefaultMarker();    // 맵의 중심에 마커 찍기
+        }
         mMapView.removeAllCircles();
         mMapView.setPOIItemEventListener(null);
 
@@ -572,7 +598,7 @@ public class DaumMapManager extends Activity {
 
     public void runMapProcessWithFee(int fee, boolean fromFAB) {
         // 클러스터링 모드이고 줌레벨이 4이상이면 현재기기위치로 이동한다
-        if(fromFAB && turnOnCluster && (4 < currentZoomLevel ) ) {
+        if(fromFAB && turnOnCluster && (4 <= currentZoomLevel ) ) {
             // mMapView.setZoomLevel(3, true);
             mMapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving);
             mMapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(myLocPoint.getLatitude(), myLocPoint.getLongitude()), 2, false);
@@ -581,6 +607,9 @@ public class DaumMapManager extends Activity {
         turnOnCluster = false;
         mMapView.removeAllCircles();
         mMapView.removeAllPOIItems();   // 맵 초기화
+        if (showSearchedMarker) {
+            setDefaultMarker();    // 맵의 중심에 마커 찍기
+        }
         mMapView.setPOIItemEventListener(piel);
 
         mMapView.setCalloutBalloonAdapter(new DaumMapManager.CustomCalloutBalloonAdapter());
@@ -591,7 +620,7 @@ public class DaumMapManager extends Activity {
 
     public void runMapProcessWithFavorites(String[] favoritesVal, boolean fromFAB) {
         // 클러스터링 모드이고 줌레벨이 4이상이면 현재기기위치로 이동한다
-        if(fromFAB && turnOnCluster && (4 < currentZoomLevel ) ) {
+        if(fromFAB && turnOnCluster && (4 <= currentZoomLevel ) ) {
             // mMapView.setZoomLevel(3, true);
             mMapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving);
             mMapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(myLocPoint.getLatitude(), myLocPoint.getLongitude()), 2, false);
@@ -600,6 +629,9 @@ public class DaumMapManager extends Activity {
         turnOnCluster = false;
         mMapView.removeAllCircles();
         mMapView.removeAllPOIItems();   // 맵 초기화
+        if (showSearchedMarker) {
+            setDefaultMarker();    // 맵의 중심에 마커 찍기
+        }
         mMapView.setPOIItemEventListener(piel);
 
         mMapView.setCalloutBalloonAdapter(new DaumMapManager.CustomCalloutBalloonAdapter());
@@ -612,6 +644,9 @@ public class DaumMapManager extends Activity {
         turnOnCluster = false;
         mMapView.removeAllCircles();
         mMapView.removeAllPOIItems();   // 맵 초기화
+        if (showSearchedMarker) {
+            setDefaultMarker();    // 맵의 중심에 마커 찍기
+        }
         mMapView.setPOIItemEventListener(piel);
 
         mMapView.setCalloutBalloonAdapter(new DaumMapManager.CustomCalloutBalloonAdapter());
@@ -623,6 +658,11 @@ public class DaumMapManager extends Activity {
         // 1. PZDataManager에서 SQLite에 접속하여 모든 주차장정보를 얻음.
         PZDataManager pzdm = new PZDataManager(null);
         pzData = pzdm.getAllPZData();
+
+        if(0 == pzData.size()) {
+            Toast.makeText(ctx, "내부DB에 데이터가 없습니다", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         // 2. 말풍선 뿌리기
         for(int i = 0; i < pzData.size(); i++) {
@@ -637,7 +677,7 @@ public class DaumMapManager extends Activity {
             if("0".equals(feeVal)) {
                 // feeVal = "무료";
                 mCustomMarker.setCustomImageResourceId(R.drawable.mk_free);
-            } else if("null".equals(feeVal)) {
+            } else if("-1".equals(feeVal)) {
                 // feeVal = "미등록";
                 mCustomMarker.setCustomImageResourceId(R.drawable.mk_null);
             } else {
@@ -734,7 +774,7 @@ public class DaumMapManager extends Activity {
             if("0".equals(feeVal)) {
                 // feeVal = "무료";
                 mCustomMarker.setCustomImageResourceId(R.drawable.mk_free);
-            } else if("null".equals(feeVal)) {
+            } else if("-1".equals(feeVal)) {
                 // feeVal = "미등록";
                 mCustomMarker.setCustomImageResourceId(R.drawable.mk_null);
             } else {
@@ -809,40 +849,6 @@ public class DaumMapManager extends Activity {
 
             mapView.addPOIItem(mCustomMarker);
         }
-
-        // 3. 텍스트 뿌리기
-        /*
-        for(int i = 0; i < pzData.size(); i++) {
-            mCustomMarker = new MapPOIItem();
-            mCustomMarker.setItemName(pzData.get(i).name);
-            mCustomMarker.setTag(i);
-            mCustomMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(pzData.get(i).loc.getLatitude(), pzData.get(i).loc.getLongitude()));
-            mCustomMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
-
-            // https://devtalk.kakao.com/t/android-mapview-custom-view/46225/3
-            LayoutInflater inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View inflatedFrame = inflater.inflate(R.layout.view_map_bb_b, null);
-
-            String feeVal = pzData.get(i).add_term.fee;
-            if("0".equals(feeVal)) {
-                feeVal = "무료";
-            } else if("null".equals(feeVal)) {
-                feeVal = "미등록";
-            }
-
-            ((TextView)inflatedFrame.findViewById(R.id.view_m_b_tv)).setText(feeVal);
-            ((TextView)inflatedFrame.findViewById(R.id.view_m_b_tv)).setTextSize(14);
-
-            Bitmap bitmap = UtilManager.createBitmapFromView(inflatedFrame.findViewById(R.id.view_m_b));
-            mCustomMarker.setCustomImageBitmap(bitmap);
-
-            mCustomMarker.setCustomImageAutoscale(false);
-            mCustomMarker.setCustomImageAnchor(0.5f, 1.0f);
-            mCustomMarker.setShowCalloutBalloonOnTouch(false);
-
-            mapView.addPOIItem(mCustomMarker);
-        }
-        */
 
         mapView.selectPOIItem(mCustomMarker, true);
     }
@@ -865,7 +871,7 @@ public class DaumMapManager extends Activity {
             if("0".equals(feeVal)) {
                 // feeVal = "무료";
                 mCustomMarker.setCustomImageResourceId(R.drawable.mk_free);
-            } else if("null".equals(feeVal)) {
+            } else if("-1".equals(feeVal)) {
                 // feeVal = "미등록";
                 mCustomMarker.setCustomImageResourceId(R.drawable.mk_null);
             } else {
@@ -941,40 +947,6 @@ public class DaumMapManager extends Activity {
             mapView.addPOIItem(mCustomMarker);
         }
 
-        // 3. 텍스트 뿌리기
-        /*
-        for(int i = 0; i < pzData.size(); i++) {
-            mCustomMarker = new MapPOIItem();
-            mCustomMarker.setItemName(pzData.get(i).name);
-            mCustomMarker.setTag(i);
-            mCustomMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(pzData.get(i).loc.getLatitude(), pzData.get(i).loc.getLongitude()));
-            mCustomMarker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
-
-            // https://devtalk.kakao.com/t/android-mapview-custom-view/46225/3
-            LayoutInflater inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View inflatedFrame = inflater.inflate(R.layout.view_map_bb_b, null);
-
-            String feeVal = pzData.get(i).add_term.fee;
-            if("0".equals(feeVal)) {
-                feeVal = "무료";
-            } else if("null".equals(feeVal)) {
-                feeVal = "미등록";
-            }
-
-            ((TextView)inflatedFrame.findViewById(R.id.view_m_b_tv)).setText(feeVal);
-            ((TextView)inflatedFrame.findViewById(R.id.view_m_b_tv)).setTextSize(14);
-
-            Bitmap bitmap = UtilManager.createBitmapFromView(inflatedFrame.findViewById(R.id.view_m_b));
-            mCustomMarker.setCustomImageBitmap(bitmap);
-
-            mCustomMarker.setCustomImageAutoscale(false);
-            mCustomMarker.setCustomImageAnchor(0.5f, 1.0f);
-            mCustomMarker.setShowCalloutBalloonOnTouch(false);
-
-            mapView.addPOIItem(mCustomMarker);
-        }
-        */
-
         mapView.selectPOIItem(mCustomMarker, true);
     }
 
@@ -996,7 +968,7 @@ public class DaumMapManager extends Activity {
             if("0".equals(feeVal)) {
                 // feeVal = "무료";
                 mCustomMarker.setCustomImageResourceId(R.drawable.mk_free);
-            } else if("null".equals(feeVal)) {
+            } else if("-1".equals(feeVal)) {
                 // feeVal = "미등록";
                 mCustomMarker.setCustomImageResourceId(R.drawable.mk_null);
             } else {
@@ -1093,7 +1065,7 @@ public class DaumMapManager extends Activity {
             if("0".equals(feeVal)) {
                 // feeVal = "무료";
                 mCustomMarker.setCustomImageResourceId(R.drawable.mk_free);
-            } else if("null".equals(feeVal)) {
+            } else if("-1".equals(feeVal)) {
                 // feeVal = "미등록";
                 mCustomMarker.setCustomImageResourceId(R.drawable.mk_null);
             } else {
@@ -1228,6 +1200,34 @@ public class DaumMapManager extends Activity {
         // mMapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(lat, lng), true);
         mMapView.setCurrentLocationTrackingMode(null);
         mMapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(lat,lng), 1, true);
+    }
+
+    // 기본 마커 GPS 설정
+    public void setDefaultMarkerLoc(boolean showDefaultMarker, double lat, double lng, String markerName) {
+        searchedPoint.setLatitude(lat);
+        searchedPoint.setLongitude(lng);
+        showSearchedMarker = showDefaultMarker;
+        defaultMarkerName = markerName;
+    }
+
+    // 기본 마커 찍기
+    public void setDefaultMarker() {
+        mMapView.removePOIItem(defaultMarker);  // 이전에 그린 기본마커를 맵에서 제거한다.
+
+        defaultMarker.setItemName(defaultMarkerName);
+        defaultMarker.setTag(7777);
+        defaultMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(searchedPoint.getLatitude(),searchedPoint.getLongitude()));
+        defaultMarker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
+        defaultMarker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
+
+        mMapView.addPOIItem(defaultMarker);
+    }
+
+    // 모든 마커 삭제
+    public void destroy() {
+        mMapView.removePOIItem(defaultMarker);  // 이전에 그린 기본마커를 맵에서 제거한다.
+        mMapView.removeAllCircles();    // 클러스터링 초기화
+        mMapView.removeAllPOIItems();   // 맵 초기화
     }
 
     // 맵이 기기 위치로 돌아옴

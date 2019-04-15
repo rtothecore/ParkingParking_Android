@@ -65,6 +65,14 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             })
                             .show();
+                } else if (667 == msg.arg1) {
+                    Log.i("onCreate", "No data in parkingzonedatas collection");
+                    Toast.makeText(MainActivity.this, "DB에 데이터가 없습니다", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
+                    getApplicationContext().startActivity(intent);
+                    finish();   // Destroy MainActivity
                 }
             }
         };

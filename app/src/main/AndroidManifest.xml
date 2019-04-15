@@ -82,6 +82,7 @@
         <activity android:name=".ServiceCenterActivity" />
         <activity android:name=".NoticeActivity" />
         <activity android:name=".POPUP.NoticeDetailActivity" android:theme="@android:style/Theme.Dialog"></activity>
+        <activity android:name=".ModRequestActivity" />
     </application>
 
 </manifest>

@@ -19,9 +19,12 @@ import com.skt.Tmap.TMapTapi;
 import java.util.ArrayList;
 
 import kr.co.ezinfotech.parkingparking.DATA.PZData;
+import kr.co.ezinfotech.parkingparking.LoginActivity;
+import kr.co.ezinfotech.parkingparking.ModRequestActivity;
 import kr.co.ezinfotech.parkingparking.NAVI.TmapManager;
 import kr.co.ezinfotech.parkingparking.POPUP.DetailTransferActivity;
 import kr.co.ezinfotech.parkingparking.R;
+import kr.co.ezinfotech.parkingparking.UTIL.LoginManager;
 import kr.co.ezinfotech.parkingparking.UTIL.UtilManager;
 
 public class DetailCustomPagerAdapter extends PagerAdapter {
@@ -173,6 +176,26 @@ public class DetailCustomPagerAdapter extends PagerAdapter {
                     }
                 }
             });
+
+            // 수정요청
+            LinearLayout detailModRequestLL = (LinearLayout)layout.findViewById(R.id.detailModRequestLL);
+            detailModRequestLL.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(!LoginManager.isLogin()) {
+                        Toast.makeText(mContext, "로그인이 필요한 서비스 입니다.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent intent = new Intent(mContext, ModRequestActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // ADDED
+                        intent.putExtra("parking_id", pzData.no);
+                        intent.putExtra("parking_name", pzData.name);
+                        intent.putExtra("parking_lat", pzData.loc.getLatitude());
+                        intent.putExtra("parking_lng", pzData.loc.getLongitude());
+                        intent.putExtra("parking_tel", pzData.tel);
+                        mContext.startActivity(intent);
+                    }
+                }
+            });
         } else if(1 == position) {
             FeeModelObject feeModelObject = FeeModelObject.values()[0];
             LayoutInflater inflater = LayoutInflater.from(mContext);
@@ -187,19 +210,24 @@ public class DetailCustomPagerAdapter extends PagerAdapter {
                 ((TextView)layout.findViewById(R.id.tvMonthPKBaseContent)).setText("해당없음");
                 ((TextView)layout.findViewById(R.id.tvTblSaleCont)).setText("해당없음");
             } else {
-                if(pzData.park_base.time.equals("null") || pzData.park_base.fee.equals("null")) {
+                if(pzData.park_base.time.equals("null")
+                        || pzData.park_base.fee.equals("null")
+                        || pzData.park_base.fee.equals("-1")) {
                     ((TextView)layout.findViewById(R.id.tvTblFreeTime)).setText("미등록");
                     ((TextView)layout.findViewById(R.id.tvTblBaseTimeFee)).setText("미등록");
                 } else {
                     ((TextView)layout.findViewById(R.id.tvTblBaseTimeFee)).setText(pzData.park_base.time + "분 " + UtilManager.moneyFormatToWon(pzData.park_base.fee) + "원");
                 }
-                if(pzData.add_term.time.equals("null") || pzData.add_term.fee.equals("null")) {
+                if(pzData.add_term.time.equals("null")
+                        || pzData.add_term.fee.equals("null")
+                        || pzData.add_term.fee.equals("-1")) {
                     ((TextView) layout.findViewById(R.id.tvTblAddTimeFee)).setText("미등록");
                 } else {
                     ((TextView) layout.findViewById(R.id.tvTblAddTimeFee)).setText(pzData.add_term.time + "분당 " + UtilManager.moneyFormatToWon(pzData.add_term.fee) + "원");
                 }
 
-                if(pzData.one_day_park.fee.equals("null")) {
+                if(pzData.one_day_park.fee.equals("null")
+                    || pzData.one_day_park.fee.equals("-1")) {
                     ((TextView)layout.findViewById(R.id.tvDayPKBaseContent)).setText("미등록");
                 } else {
                     ((TextView)layout.findViewById(R.id.tvDayPKBaseContent)).setText(UtilManager.moneyFormatToWon(pzData.one_day_park.fee) + "원");

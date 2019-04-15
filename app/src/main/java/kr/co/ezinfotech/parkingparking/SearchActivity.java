@@ -72,6 +72,7 @@ public class SearchActivity extends AppCompatActivity {
                             Intent intent = new Intent();
                             intent.putExtra("lat", pdm.placeData.documents.get(position).y);
                             intent.putExtra("lng", pdm.placeData.documents.get(position).x);
+                            intent.putExtra("name", pdm.placeData.documents.get(position).place_name);
                             setResult(RESULT_OK, intent);
                             finish();
                         }
@@ -182,6 +183,7 @@ public class SearchActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.putExtra("lat", SHData.get(position).y);
                 intent.putExtra("lng", SHData.get(position).x);
+                intent.putExtra("name", SHData.get(position).place_name);
                 setResult(RESULT_OK, intent);
                 finish();
             }
